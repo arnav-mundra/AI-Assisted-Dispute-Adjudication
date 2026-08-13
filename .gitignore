@@ -1,0 +1,32 @@
+# Environments
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Data (large / generated — keep raw reference datasets out of git)
+data/raw/*
+!data/raw/.gitkeep
+data/synthetic/*
+!data/synthetic/.gitkeep
+*.db
+*.sqlite3
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vector store indices
+*.faiss
+chroma_db/
+
+# Editor
+.vscode/
+.idea/

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "D2C Dispute Case",
+  "type": "object",
+  "required": ["case_id", "dispute_type", "order", "customer_evidence", "agent_evidence", "delivery_evidence", "sla_version"],
+  "properties": {
+    "case_id": {"type": "string", "pattern": "^[A-Z]{2,5}-[0-9]{4,}$"},
+    "dispute_type": {"type": "string", "enum": ["DAMAGED_GOODS", "COD_MISMATCH"]},
+    "order": {
+      "type": "object",
+      "required": ["order_id", "order_value_inr"],
+      "properties": {
+        "order_id": {"type": "string"},
+        "order_value_inr": {"type": "number", "minimum": 0},
+        "order_total_cod_inr": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "customer_evidence": {
+      "type": "object",
+      "required": ["messages"],
+      "properties": {
+        "messages": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": true
+    },
+    "agent_evidence": {
+      "type": "object",
+      "required": ["messages"],
+      "properties": {
+        "messages": {"type": "array", "items": {"type": "object"}}
+      },
+      "additionalProperties": true
+    },
+    "delivery_evidence": {
+      "type": "object",
+      "properties": {
+        "pickup_timestamp_ist": {"type": ["string", "null"]},
+        "pod_timestamp_ist": {"type": ["string", "null"]},
+        "pod": {"type": "object"},
+        "reconciliation": {"type": "object"}
+      },
+      "additionalProperties": true
+    },
+    "sla_version": {"type": "string"}
+  },
+  "additionalProperties": false
+}
