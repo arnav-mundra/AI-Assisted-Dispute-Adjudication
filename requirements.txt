@@ -1,41 +1,19 @@
-# --- Core / API ---
-fastapi==0.115.0
-uvicorn[standard]==0.30.6
-pydantic==2.9.2
-python-dotenv==1.0.1
-
 # --- LLM clients ---
 # `openai` is the transport GroqProvider uses against Groq's own base URL
-# (see src/llm/groq_provider.py) — required even though OpenAI is not a provider.
+# (see src/llm/groq_provider.py) — required even though OpenAI is not a
+# provider itself. `anthropic` stays installed (even while disabled in
+# src/llm/provider.py's DISABLED_PROVIDERS) so re-enabling it later is a
+# one-line code change, not a redeploy with new dependencies.
 openai>=3.13.0
 anthropic>=1.5.0
+python-dotenv==1.0.1
 
-# --- Evidence extraction / NLP ---
-spacy==3.7.5
-nltk==3.9.1
-
-# --- Clause matching / RAG ---
-sentence-transformers==3.1.1
-faiss-cpu==1.8.0.post1
-chromadb==0.5.11
-
-# --- Data & storage ---
-pandas==2.2.3
-numpy==1.26.4
-sqlalchemy==2.0.35
-
-# --- Evaluation ---
-scikit-learn==1.5.2
-rouge-score==0.1.2
-bert-score==0.3.13
-
-# --- Dataset labeling / demo ---
+# --- App / UI ---
 streamlit==1.39.0
 
-# --- Dataset validation ---
-jsonschema==4.23.0
+# --- Evaluation view (app/ui/evaluation_page.py) ---
+pandas==2.2.3
 
-# --- Notebooks / dev ---
-jupyter==1.1.1
-python-multipart==0.0.12
+# --- Tests (not imported by the running app; kept so CI/local `pytest` works) ---
+jsonschema==4.23.0
 pytest==8.3.3
