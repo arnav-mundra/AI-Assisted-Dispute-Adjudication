@@ -1,0 +1,530 @@
+[
+    {
+        "case_id": "DG-001",
+        "dispute_type": "DAMAGED_GOODS",
+        "order": {
+            "order_id": "ORD-2026-40118",
+            "order_value_inr": 2499.00,
+            "order_total_cod_inr": null,
+            "payment_mode": "PREPAID",
+            "product_category": "HOME_DECOR",
+            "product_name": "Ceramic table lamp, 1 unit",
+            "city": "Pune"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-001",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-01T19:05:00+05:30",
+                "text": "Hi, I received my order ORD-2026-40118 this morning. The box was badly crushed on one side and when I opened it the ceramic base of the lamp is cracked right across the bottom rim. I did not notice the box condition at the door because I was on a call and the agent left it with the guard."
+            },
+            {
+                "evidence_id": "CUSTOMER-002",
+                "type": "PHOTO",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-01T19:07:00+05:30",
+                "text": "Customer-uploaded photo attached to the chat.",
+                "photo_description": "Ceramic table lamp standing on a floor tile; a crack runs across the bottom rim of the base. The brown outer carton is visible behind the lamp with a crushed corner and a torn flap."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-001",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-02T09:40:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'Shipment was handed to the building security guard at gate. I did not check the parcel condition. Nothing was mentioned to me at the time of handover.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-001",
+                "type": "POD",
+                "timestamp_ist": "2026-08-01T11:20:00+05:30",
+                "otp_confirmed": true,
+                "gps": "18.5204,73.8567",
+                "image_quality": "clear",
+                "photo_description": "Brown carton photographed on the floor near a doorway. The top-right corner of the box is visibly crushed inward and one side flap is torn open."
+            },
+            {
+                "evidence_id": "DELIVERY-001",
+                "type": "DELIVERY_LOG",
+                "timestamp_ist": "2026-08-01T11:20:00+05:30",
+                "pickup_timestamp_ist": "2026-07-30T17:45:00+05:30",
+                "note": "Route PNQ-14. One reattempt on 2026-07-31 (consignee unavailable). Parcel handled through two hub transfers."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "DG-002",
+        "dispute_type": "DAMAGED_GOODS",
+        "order": {
+            "order_id": "ORD-2026-40233",
+            "order_value_inr": 1899.00,
+            "order_total_cod_inr": null,
+            "payment_mode": "PREPAID",
+            "product_category": "KITCHENWARE",
+            "product_name": "Stainless steel french press, 1 unit",
+            "city": "Hyderabad"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-003",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-06T09:30:00+05:30",
+                "text": "I want to raise a complaint for order ORD-2026-40233. The glass carafe of the french press has a chip on the rim. I only got around to using it this morning, the parcel had been sitting on my kitchen counter since it arrived."
+            },
+            {
+                "evidence_id": "CUSTOMER-004",
+                "type": "PHOTO",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-06T09:34:00+05:30",
+                "text": "Customer-uploaded photo attached to the chat.",
+                "photo_description": "Close-up of a glass carafe rim with a small chip approximately 5 mm wide. No packaging visible in the frame."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-002",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-06T14:10:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'Delivered to the consignee directly at the door on 3rd August. OTP was shared by the customer. No issue was raised with me at handover.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-002",
+                "type": "POD",
+                "timestamp_ist": "2026-08-03T10:15:00+05:30",
+                "otp_confirmed": true,
+                "gps": "17.4401,78.3489",
+                "image_quality": "clear",
+                "photo_description": "Sealed brown carton held by the consignee at an apartment door. Box edges and seams are square and undamaged; shipping label and tape are intact."
+            },
+            {
+                "evidence_id": "DELIVERY-002",
+                "type": "DELIVERY_LOG",
+                "timestamp_ist": "2026-08-03T10:15:00+05:30",
+                "pickup_timestamp_ist": "2026-08-01T16:20:00+05:30",
+                "note": "Route HYD-07. Delivered on first attempt. No exception scanned on the route."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "DG-003",
+        "dispute_type": "DAMAGED_GOODS",
+        "order": {
+            "order_id": "ORD-2026-40390",
+            "order_value_inr": 3200.00,
+            "order_total_cod_inr": null,
+            "payment_mode": "PREPAID",
+            "product_category": "SMALL_APPLIANCES",
+            "product_name": "Cordless hand blender, 1 unit",
+            "city": "Bengaluru"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-005",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-06T09:15:00+05:30",
+                "text": "Raising an issue on ORD-2026-40390, delivered yesterday evening. The blender body has a hairline crack running from the power button down the right side of the housing, and the speed dial does not click into position 2 or 3 any more. The carton itself looked normal from outside, which is why I only noticed once I plugged it in. I did not record an unboxing video."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-003",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-06T13:20:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'I handed the parcel over to the customer at the flat door. The box was in good condition, I always check before handover. The customer took it inside without opening it in front of me.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-003",
+                "type": "POD",
+                "timestamp_ist": "2026-08-05T18:40:00+05:30",
+                "otp_confirmed": true,
+                "gps": "12.9352,77.6245",
+                "image_quality": "clear",
+                "photo_description": "Brown carton photographed on a doormat under corridor lighting. All visible edges and corners are square, tape seal unbroken, no dents, tears or staining."
+            },
+            {
+                "evidence_id": "DELIVERY-003",
+                "type": "DELIVERY_LOG",
+                "timestamp_ist": "2026-08-05T18:40:00+05:30",
+                "pickup_timestamp_ist": "2026-08-04T11:05:00+05:30",
+                "note": "Route BLR-22. Single hub transfer. No exception scanned on the route."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "DG-004",
+        "dispute_type": "DAMAGED_GOODS",
+        "order": {
+            "order_id": "ORD-2026-40512",
+            "order_value_inr": 7499.00,
+            "order_total_cod_inr": null,
+            "payment_mode": "PREPAID",
+            "product_category": "ELECTRONICS",
+            "product_name": "Over-ear wireless headphones, 1 unit",
+            "city": "Mumbai"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-006",
+                "type": "CHAT_MESSAGE",
+                "channel": "email",
+                "timestamp_ist": "2026-08-09T10:25:00+05:30",
+                "text": "Order ORD-2026-40512 was delivered yesterday afternoon. The left earcup hinge of the headphones is snapped — the cup swivels loose and will not hold position, and there is a hairline split in the plastic where the arm meets the cup. The shipping box and the retail box both looked fine. I don't have an unboxing video, I wasn't recording when I opened it. Please advise on a replacement."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-004",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-09T12:05:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'High-value parcel, I followed the OTP process. Box was sealed and in normal condition when I gave it to the customer. Customer signed and did not report anything.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-004",
+                "type": "POD",
+                "timestamp_ist": "2026-08-08T15:50:00+05:30",
+                "otp_confirmed": true,
+                "gps": "19.1075,72.8377",
+                "image_quality": "clear",
+                "photo_description": "Sealed shipping carton held at chest height by the consignee in a lobby. Corners intact, security tape unbroken, no crushing, tearing or staining visible on any face in frame."
+            },
+            {
+                "evidence_id": "DELIVERY-004",
+                "type": "DELIVERY_LOG",
+                "timestamp_ist": "2026-08-08T15:50:00+05:30",
+                "pickup_timestamp_ist": "2026-08-06T19:30:00+05:30",
+                "note": "Route BOM-31. Fragile handling tag applied at origin. No exception scanned on the route."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "DG-005",
+        "dispute_type": "DAMAGED_GOODS",
+        "order": {
+            "order_id": "ORD-2026-40677",
+            "order_value_inr": 4150.00,
+            "order_total_cod_inr": null,
+            "payment_mode": "PREPAID",
+            "product_category": "PERSONAL_CARE",
+            "product_name": "Glass-bottle fragrance gift set, 2 units",
+            "city": "Delhi"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-007",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-12T08:50:00+05:30",
+                "text": "My order ORD-2026-40677 arrived yesterday evening in a wet, sagging box. One of the two glass bottles is broken at the neck and the liquid has soaked the inner cardboard tray and the outer carton. The delivery person saw it too and told me to raise a complaint."
+            },
+            {
+                "evidence_id": "CUSTOMER-008",
+                "type": "PHOTO",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-12T08:55:00+05:30",
+                "text": "Customer-uploaded photo attached to the chat.",
+                "photo_description": "Opened carton with a dark wet stain across the base and one side wall. Inside, a glass bottle is broken at the neck with shards lying in the soaked cardboard tray; the second bottle appears intact."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-005",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-12T11:30:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'The parcel was damp at the bottom when I picked it up from the last-mile hub and I could smell perfume. I told the customer at the door that the box looked wet. I clicked the delivery photo quickly because it was raining hard.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-005",
+                "type": "POD",
+                "timestamp_ist": "2026-08-11T19:15:00+05:30",
+                "otp_confirmed": true,
+                "gps": "28.6139,77.2090",
+                "image_quality": "blurry",
+                "photo_description": "Low-light, motion-blurred image of a carton on a doorstep. Outline of the box is discernible and appears square, but surface detail, staining and edge condition cannot be assessed from the image.",
+                "reliability_note": "Image flagged as blurry and low-light by the partner's PoD quality check; not usable for assessing package condition."
+            },
+            {
+                "evidence_id": "DELIVERY-005",
+                "type": "DELIVERY_LOG",
+                "timestamp_ist": "2026-08-11T19:15:00+05:30",
+                "pickup_timestamp_ist": "2026-08-10T14:00:00+05:30",
+                "note": "Route DEL-09. Hub exception scanned at 2026-08-11T16:42 IST: 'wet consignments — monsoon water ingress in loading bay, batch flagged'. This shipment was part of the flagged batch."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "COD-001",
+        "dispute_type": "COD_MISMATCH",
+        "order": {
+            "order_id": "ORD-2026-41004",
+            "order_value_inr": 1500.00,
+            "order_total_cod_inr": 1500.00,
+            "payment_mode": "COD",
+            "product_category": "APPAREL",
+            "product_name": "Cotton kurta set, 1 unit",
+            "city": "Jaipur"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-009",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-13T20:10:00+05:30",
+                "text": "For order ORD-2026-41004 my invoice says 1500 rupees but the delivery agent took 1700 from me this afternoon. He said the extra was a handling charge. I paid in cash and did not get a receipt. Please refund the difference."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-006",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-14T09:15:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'I collected 1700 in cash from the customer and deposited the same at the hub in the evening. I do not remember the invoice amount for this parcel.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-006",
+                "type": "POD",
+                "timestamp_ist": "2026-08-13T15:35:00+05:30",
+                "otp_confirmed": true,
+                "gps": "26.9124,75.7873",
+                "image_quality": "clear",
+                "photo_description": "Sealed polybag handed over at a house gate; packaging intact."
+            },
+            {
+                "evidence_id": "RECON-001",
+                "type": "RECONCILIATION_LOG",
+                "timestamp_ist": "2026-08-13T21:40:00+05:30",
+                "status": "RECORDED",
+                "amount_collected_inr": 1700.00,
+                "note": "Daily cash remittance, route JAI-05, agent ID DA-4471. Entry matched to AWB for order ORD-2026-41004."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "COD-002",
+        "dispute_type": "COD_MISMATCH",
+        "order": {
+            "order_id": "ORD-2026-41128",
+            "order_value_inr": 2200.00,
+            "order_total_cod_inr": 2200.00,
+            "payment_mode": "COD",
+            "product_category": "FOOTWEAR",
+            "product_name": "Running shoes, 1 pair",
+            "city": "Chennai"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-010",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-14T11:20:00+05:30",
+                "text": "Order ORD-2026-41128 was delivered yesterday evening. I am not sure the amount taken was right — I handed over cash in a hurry and I think it was more than the invoice of 2200. Can you check what was collected against my order and refund me if there is a difference?"
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-007",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-14T15:05:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'The customer gave me 2000 and said he did not have the balance change. I accepted it and delivered the parcel because it was my last stop of the day.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-007",
+                "type": "POD",
+                "timestamp_ist": "2026-08-13T18:55:00+05:30",
+                "otp_confirmed": true,
+                "gps": "13.0827,80.2707",
+                "image_quality": "clear",
+                "photo_description": "Shoe carton in an outer courier bag photographed at an apartment door; packaging intact."
+            },
+            {
+                "evidence_id": "RECON-002",
+                "type": "RECONCILIATION_LOG",
+                "timestamp_ist": "2026-08-13T22:05:00+05:30",
+                "status": "RECORDED",
+                "amount_collected_inr": 2000.00,
+                "note": "Daily cash remittance, route MAA-12, agent ID DA-3902. Entry matched to AWB for order ORD-2026-41128."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "COD-003",
+        "dispute_type": "COD_MISMATCH",
+        "order": {
+            "order_id": "ORD-2026-41260",
+            "order_value_inr": 1800.00,
+            "order_total_cod_inr": 1800.00,
+            "payment_mode": "COD",
+            "product_category": "HOME_DECOR",
+            "product_name": "Cotton cushion covers, set of 4",
+            "city": "Ahmedabad"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-011",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-15T09:45:00+05:30",
+                "text": "I was overcharged on ORD-2026-41260. The invoice is 1800 but I gave the agent two 1000-rupee notes yesterday evening and he returned nothing, so 2000 was taken. I want the 200 rupees difference back."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-008",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-15T13:30:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'The customer handed me two 1000 notes. I did not have full change, so I returned 100 and told her I was short. I remitted 1900 for this order at the hub the same night.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-008",
+                "type": "POD",
+                "timestamp_ist": "2026-08-14T18:20:00+05:30",
+                "otp_confirmed": true,
+                "gps": "23.0225,72.5714",
+                "image_quality": "clear",
+                "photo_description": "Courier polybag handed over at a residential door; packaging intact."
+            },
+            {
+                "evidence_id": "RECON-003",
+                "type": "RECONCILIATION_LOG",
+                "timestamp_ist": "2026-08-14T21:55:00+05:30",
+                "status": "RECORDED",
+                "amount_collected_inr": 1900.00,
+                "note": "Daily cash remittance, route AMD-03, agent ID DA-5120. Entry matched to AWB for order ORD-2026-41260."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "COD-004",
+        "dispute_type": "COD_MISMATCH",
+        "order": {
+            "order_id": "ORD-2026-41377",
+            "order_value_inr": 2350.00,
+            "order_total_cod_inr": 2350.00,
+            "payment_mode": "COD",
+            "product_category": "KITCHENWARE",
+            "product_name": "Cast iron skillet, 1 unit",
+            "city": "Kolkata"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-012",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-16T10:30:00+05:30",
+                "text": "Order ORD-2026-41377 was delivered yesterday evening. My invoice total is 2350 but the agent collected 2500 in cash and said he would adjust it later. That is 150 rupees more than I owe. Please return the excess."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-010",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-16T14:15:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: agent was contacted on 16 August and has not responded to the helpdesk request for a statement on this consignment."
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-009",
+                "type": "POD",
+                "timestamp_ist": "2026-08-15T19:05:00+05:30",
+                "otp_confirmed": true,
+                "gps": "22.5726,88.3639",
+                "image_quality": "clear",
+                "photo_description": "Carton photographed at a flat entrance; packaging intact."
+            },
+            {
+                "evidence_id": "RECON-004",
+                "type": "RECONCILIATION_LOG",
+                "timestamp_ist": "2026-08-16T09:00:00+05:30",
+                "status": "UNAVAILABLE",
+                "amount_collected_inr": null,
+                "note": "No reconciliation entry exists for this AWB. Delivery partner reported a cash-reconciliation system outage on route CCU-08 for 2026-08-15; that day's remittances were not written to the log."
+            }
+        ],
+        "sla_version": "0.1"
+    },
+    {
+        "case_id": "COD-005",
+        "dispute_type": "COD_MISMATCH",
+        "order": {
+            "order_id": "ORD-2026-41490",
+            "order_value_inr": 3200.00,
+            "order_total_cod_inr": 3200.00,
+            "payment_mode": "COD",
+            "product_category": "ELECTRONICS",
+            "product_name": "Bluetooth speaker, 1 unit",
+            "city": "Lucknow"
+        },
+        "customer_evidence": [
+            {
+                "evidence_id": "CUSTOMER-013",
+                "type": "CHAT_MESSAGE",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-17T09:20:00+05:30",
+                "text": "Complaint for ORD-2026-41490 delivered yesterday evening. The invoice is 3200 but the agent took 3500 from me. I counted the notes before handing them over — three 1000 notes and one 500."
+            },
+            {
+                "evidence_id": "CUSTOMER-014",
+                "type": "PHOTO",
+                "channel": "support_chat",
+                "timestamp_ist": "2026-08-17T09:26:00+05:30",
+                "text": "Customer-uploaded photo attached to the chat.",
+                "photo_description": "Photograph of currency notes fanned out on a table — three 1000-rupee notes and one 500-rupee note. No person, parcel, receipt or timestamp is visible in the frame; the image carries no verifiable capture metadata."
+            }
+        ],
+        "agent_evidence": [
+            {
+                "evidence_id": "AGENT-009",
+                "type": "AGENT_STATEMENT",
+                "timestamp_ist": "2026-08-17T12:40:00+05:30",
+                "text": "Delivery agent statement recorded by the partner helpdesk: 'I collected exactly 3200 for this parcel — three 1000 notes and I returned 300 in change from the 3500 the customer gave me. I remitted 3200 at the hub the same night.'"
+            }
+        ],
+        "delivery_evidence": [
+            {
+                "evidence_id": "POD-010",
+                "type": "POD",
+                "timestamp_ist": "2026-08-16T18:35:00+05:30",
+                "otp_confirmed": true,
+                "gps": "26.8467,80.9462",
+                "image_quality": "clear",
+                "photo_description": "Sealed carton photographed at a house entrance; packaging intact."
+            },
+            {
+                "evidence_id": "RECON-005",
+                "type": "RECONCILIATION_LOG",
+                "timestamp_ist": "2026-08-16T22:10:00+05:30",
+                "status": "RECORDED",
+                "amount_collected_inr": 3200.00,
+                "note": "Daily cash remittance, route LKO-06, agent ID DA-2288. Entry matched to AWB for order ORD-2026-41490."
+            }
+        ],
+        "sla_version": "0.1"
+    }
+]

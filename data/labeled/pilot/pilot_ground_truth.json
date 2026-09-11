@@ -1,0 +1,247 @@
+[
+    {
+        "case_id": "DG-001",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-06"
+        ],
+        "decisive_evidence_ids": [
+            "POD-001",
+            "CUSTOMER-001",
+            "CUSTOMER-002"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "The claim was reported within 48 hours of the PoD timestamp. The PoD photo shows visible external package damage, and the customer's reported product damage is consistent with that package damage. The evidence therefore satisfies SLA-DG-06 for approval.",
+        "sub_decisions": {
+            "resolution_type": "REPLACEMENT_DEFAULT"
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-02T10:00:00+05:30",
+        "policy_version": "0.1"
+    },
+    {
+        "case_id": "DG-002",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-DG-01"
+        ],
+        "decisive_evidence_ids": [
+            "POD-002",
+            "CUSTOMER-003"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "The damaged-goods claim was reported more than 48 hours after the PoD timestamp. The PoD evidence shows the package was intact and therefore does not activate the 7-day exception under SLA-DG-02. The claim is therefore presumptively ineligible under SLA-DG-01.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-06T16:00:00+05:30",
+        "policy_version": "0.1"
+    },
+    {
+        "case_id": "DG-003",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-DG-05",
+            "SLA-DG-08"
+        ],
+        "decisive_evidence_ids": [
+            "POD-003",
+            "CUSTOMER-005",
+            "AGENT-003"
+        ],
+        "contradictory_evidence_ids": [
+            "POD-003",
+            "CUSTOMER-005",
+            "AGENT-003"
+        ],
+        "missing_evidence_ids": [],
+        "rationale": "The claim was reported within 48 hours of the PoD timestamp, so the reporting window is satisfied. However, the PoD photo and delivery-agent statement indicate that the package was intact at handover, while the customer reports detailed internal product damage but provides no unboxing evidence. The available evidence does not conclusively establish when or how the damage occurred. Under SLA-DG-05 the claim is subject to agent discretion, and SLA-DG-08 requires escalation where evidence is contradictory or insufficient to determine fault.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-06T17:30:00+05:30",
+        "policy_version": "0.1"
+    },
+    {
+        "case_id": "DG-004",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-DG-03",
+            "SLA-DG-05",
+            "SLA-DG-08"
+        ],
+        "decisive_evidence_ids": [
+            "POD-004",
+            "CUSTOMER-006",
+            "AGENT-004"
+        ],
+        "contradictory_evidence_ids": [
+            "POD-004",
+            "CUSTOMER-006",
+            "AGENT-004"
+        ],
+        "missing_evidence_ids": [],
+        "rationale": "The claim was reported within the applicable reporting window, but the order value is ₹7,499 and therefore SLA-DG-03 requires unboxing evidence. The customer explicitly states that no unboxing video was recorded. The PoD and delivery-agent evidence indicate that the outer package was intact at handover, while the customer reports internal product damage. The available evidence does not establish fault conclusively. Under SLA-DG-05 and SLA-DG-08, the case should therefore be escalated for manual review rather than automatically approved or rejected.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-09T15:00:00+05:30",
+        "policy_version": "0.1"
+    },
+    {
+        "case_id": "DG-005",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-03",
+            "SLA-DG-04",
+            "SLA-PRI-01"
+        ],
+        "decisive_evidence_ids": [
+            "POD-005",
+            "CUSTOMER-007",
+            "CUSTOMER-008",
+            "AGENT-005",
+            "DELIVERY-005"
+        ],
+        "contradictory_evidence_ids": [
+            "POD-005"
+        ],
+        "missing_evidence_ids": [],
+        "rationale": "The claim was reported within the applicable reporting window. The PoD image nominally shows an intact package, but it is explicitly flagged as blurry and unusable for assessing package condition, which under SLA-PRI-01 is a documented reason to discount that structured record. Once the PoD is discounted, the remaining evidence does not conflict: the customer's post-delivery photograph of the broken bottle and soaked carton satisfies SLA-DG-04(b), the delivery agent independently reports that the parcel was damp and smelled of the product when he collected it, and the route log records a water-ingress exception covering this shipment. The order value is below the SLA-DG-03 high-value threshold, so unboxing evidence is not required and the claim may be resolved on the customer narrative and the available evidence at the adjudicator's discretion. The claim is therefore approved.",
+        "sub_decisions": {
+            "resolution_type": "REPLACEMENT_DEFAULT"
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-09-11T00:57:45+05:30",
+        "policy_version": "0.1",
+        "revision_note": "Revised 2026-09-11 from ESCALATE (SLA-DG-08, SLA-PRI-01) during the pilot derivability audit. The original label discounted the PoD under SLA-PRI-01 and then treated the evidence as still conflicting, but after that discount nothing contradicts the customer's account: the agent statement and the route log both corroborate in-transit damage. ESCALATE was not derivable from the case evidence and the SLA. Original label_timestamp: 2026-08-12T12:30:00+05:30."
+    },
+    {
+        "case_id": "COD-001",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-01",
+            "SLA-COD-03",
+            "SLA-COD-04",
+            "SLA-COD-08"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-001",
+            "CUSTOMER-009",
+            "AGENT-006"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "The claim was reported within 24 hours of the PoD timestamp. The reconciliation log records ₹1,700 against an order total of ₹1,500, corroborating an overcharge. Under SLA-COD-04, the excess amount of ₹200 should be refunded to the customer.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 200.00
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-14T10:00:00+05:30",
+        "policy_version": "0.1"
+    },
+    {
+        "case_id": "COD-002",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-COD-01",
+            "SLA-COD-05"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-002",
+            "CUSTOMER-010",
+            "AGENT-007"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "The claim was reported within 24 hours of the PoD timestamp. The reconciliation log shows that ₹2,000 was collected against an order total of ₹2,200. This indicates an undercharge by the delivery agent rather than a customer overcharge. Under SLA-COD-05, no customer-facing action is required and the issue is handled internally.",
+        "sub_decisions": {
+            "resolution_type": "NO_CUSTOMER_ACTION",
+            "refund_amount_inr": 0.00
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-14T17:00:00+05:30",
+        "policy_version": "0.1"
+    },
+    {
+        "case_id": "COD-003",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-03",
+            "SLA-COD-04",
+            "SLA-PRI-01"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-003",
+            "AGENT-008"
+        ],
+        "contradictory_evidence_ids": [
+            "CUSTOMER-011"
+        ],
+        "missing_evidence_ids": [],
+        "rationale": "The customer reported a ₹200 overcharge, but the delivery-agent statement and reconciliation log establish that ₹1,900 was collected against an order total of ₹1,800. Under SLA-PRI-01, the structured reconciliation record takes priority over the conflicting customer narrative. Under SLA-COD-04, the supported excess amount of ₹100 should therefore be refunded.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 100.00
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-15T16:00:00+05:30",
+        "policy_version": "0.1"
+    },
+    {
+        "case_id": "COD-004",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-01",
+            "SLA-COD-06",
+            "SLA-COD-07"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-012",
+            "RECON-004"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "The claim was reported within 24 hours of the PoD timestamp. The reconciliation record is unavailable because of a delivery-partner system failure. Under SLA-COD-06, absence of the reconciliation record defaults the claim to a customer-favorable resolution. SLA-COD-06 takes precedence over SLA-COD-07 even though the disputed amount is within the ₹10 tolerance rule; in this case the disputed excess is ₹150 in any event. The customer-favorable resolution is therefore approval of the disputed excess refund.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 150.00
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-16T17:00:00+05:30",
+        "policy_version": "0.1"
+    },
+    {
+        "case_id": "COD-005",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-COD-03",
+            "SLA-COD-09",
+            "SLA-PRI-01",
+            "SLA-PRI-02"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-005",
+            "AGENT-009",
+            "CUSTOMER-014"
+        ],
+        "contradictory_evidence_ids": [
+            "CUSTOMER-013",
+            "CUSTOMER-014"
+        ],
+        "missing_evidence_ids": [],
+        "rationale": "The claim was reported within 24 hours of the PoD timestamp. The reconciliation log and delivery-agent statement both indicate that ₹3,200, matching the order total, was collected. The customer nevertheless claims that ₹3,500 was collected and provides a photograph that appears to support the claim. The structured evidence therefore conflicts with the customer's evidence, but the available evidence does not establish that the customer knowingly made a fraudulent claim. SLA-COD-09 requires stronger corroboration before a fraud finding and account-level review can be applied. Because the evidence remains disputed, the case should be escalated for manual review.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "LABELER-001",
+        "label_timestamp": "2026-08-17T16:00:00+05:30",
+        "policy_version": "0.1"
+    }
+]

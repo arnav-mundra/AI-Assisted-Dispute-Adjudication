@@ -1,0 +1,15 @@
+# Pin the demo's appearance so it renders identically regardless of the
+# viewer's OS dark-mode setting.
+
+[theme]
+base = "light"
+primaryColor = "#3730a3"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f6f7fb"
+textColor = "#0f172a"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true

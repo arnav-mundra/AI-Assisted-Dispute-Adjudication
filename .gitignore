@@ -1,0 +1,38 @@
+# Environments
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+
+# Data (large / generated — keep raw reference datasets out of git)
+data/raw/*
+!data/raw/.gitkeep
+# The pilot dataset is a research artifact, not a bulky reference corpus — keep it tracked.
+!data/raw/pilot/
+!data/raw/pilot/*.json
+data/synthetic/*
+!data/synthetic/.gitkeep
+*.db
+*.sqlite3
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vector store indices
+*.faiss
+chroma_db/
+
+# Editor
+.vscode/
+.idea/
+
+# Adjudication run outputs
+runs/

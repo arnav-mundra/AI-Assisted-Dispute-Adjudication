@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "D2C Dispute Case",
+  "description": "Canonical model-input representation of one dispute case. Ground truth is NOT part of this object; reference labels live in data/labeled/ and are joined by case_id after inference.",
+  "type": "object",
+  "required": ["case_id", "dispute_type", "order", "customer_evidence", "agent_evidence", "delivery_evidence", "sla_version"],
+  "properties": {
+    "case_id": {
+      "type": "string",
+      "pattern": "^[A-Z]{2,6}-[0-9]{3,}$",
+      "description": "Dataset cases use DG-/COD- prefixes; manually entered cases use MANUAL-<timestamp>."
+    },
+    "dispute_type": {"type": "string", "enum": ["DAMAGED_GOODS", "COD_MISMATCH"]},
+    "order": {
+      "type": "object",
+      "required": ["order_id", "order_value_inr"],
+      "properties": {
+        "order_id": {"type": "string"},
+        "order_value_inr": {"type": "number", "minimum": 0},
+        "order_total_cod_inr": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "customer_evidence": {
+      "description": "Customer-side chat/email/photo evidence.",
+      "$ref": "#/$defs/evidence_list"
+    },
+    "agent_evidence": {
+      "description": "Delivery-agent statements and evidence.",
+      "$ref": "#/$defs/evidence_list"
+    },
+    "delivery_evidence": {
+      "description": "Structured records: PoD, delivery/route logs, cash reconciliation logs.",
+      "$ref": "#/$defs/evidence_list"
+    },
+    "sla_version": {"type": "string"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "evidence_list": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidence_item"}
+    },
+    "evidence_item": {
+      "type": "object",
+      "required": ["evidence_id", "type", "timestamp_ist"],
+      "properties": {
+        "evidence_id": {"type": "string", "pattern": "^[A-Z]+-[0-9]{3,}$"},
+        "type": {
+          "type": "string",
+          "enum": [
+            "CHAT_MESSAGE",
+            "PHOTO",
+            "AGENT_STATEMENT",
+            "POD",
+            "DELIVERY_LOG",
+            "RECONCILIATION_LOG"
+          ]
+        },
+        "timestamp_ist": {
+          "type": "string",
+          "description": "ISO-8601 timestamp normalized to IST (UTC+05:30) per SLA-GEN-03.",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\+05:30$"
+        },
+        "text": {"type": "string"},
+        "photo_description": {"type": "string"},
+        "status": {"type": "string", "enum": ["RECORDED", "UNAVAILABLE"]},
+        "amount_collected_inr": {"type": ["number", "null"], "minimum": 0},
+        "image_quality": {"type": "string", "enum": ["clear", "blurry"]}
+      },
+      "additionalProperties": true
+    }
+  }
+}
