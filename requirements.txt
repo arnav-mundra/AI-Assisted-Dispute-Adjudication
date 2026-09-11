@@ -1,3 +1,8 @@
+# Every pin below is chosen so the whole tree installs from prebuilt wheels on
+# Python 3.11 through 3.14. Streamlit Community Cloud currently provisions
+# Python 3.14, where an older pin forces a source build and the deploy hangs or
+# fails (see docs/DEPLOYMENT.md).
+
 # --- LLM clients ---
 # `openai` is the transport GroqProvider uses against Groq's own base URL
 # (see src/llm/groq_provider.py) — required even though OpenAI is not a
@@ -6,14 +11,19 @@
 # one-line code change, not a redeploy with new dependencies.
 openai>=3.13.0
 anthropic>=1.5.0
-python-dotenv==1.0.1
+python-dotenv>=1.0.1
 
 # --- App / UI ---
-streamlit==1.39.0
+# >=1.41 is required: streamlit 1.39/1.40 pin `pillow<11`, and no Pillow below
+# 11.3.0 publishes a cp314 wheel, so pip tries to compile Pillow from source
+# and fails on the missing zlib/jpeg headers.
+streamlit>=1.41,<2
 
 # --- Evaluation view (app/ui/evaluation_page.py) ---
-pandas==2.2.3
+# >=2.3.3 is the first pandas release with cp314 wheels; 2.2.3 ships only an
+# sdist for 3.14 and stalls at "Preparing metadata (pyproject.toml)".
+pandas>=2.3.3,<3
 
 # --- Tests (not imported by the running app; kept so CI/local `pytest` works) ---
-jsonschema==4.23.0
-pytest==8.3.3
+jsonschema>=4.23.0
+pytest>=8.3.3

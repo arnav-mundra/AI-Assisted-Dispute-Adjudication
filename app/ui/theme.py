@@ -31,6 +31,10 @@ CSS = """
       font-size: .74rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 600;}
   section[data-testid="stSidebar"] div[data-baseweb="select"] > div {background:#1e293b;
       border-color:#334155; color:#e2e8f0;}
+  /* Streamlit >=1.4x nests the selected value deeper; force it legible on the
+     dark sidebar regardless of the internal markup. */
+  section[data-testid="stSidebar"] div[data-baseweb="select"] * {color:#e2e8f0 !important;}
+  section[data-testid="stSidebar"] div[data-baseweb="select"] svg {fill:#94a3b8 !important;}
 
   .brand {display:flex; align-items:center; gap:11px; padding: 4px 0 18px 0;
           border-bottom:1px solid #1e293b; margin-bottom:18px;}
