@@ -37,6 +37,10 @@ python -m src.evaluation.experiment --engine rules --dataset counterfactual
 python -m src.evaluation.experiment --engine llm --all-styles              # Phase 4 prompt grid
 python -m src.evaluation.counterfactuals                                    # rebuild stress set
 python -m src.validation.validate_pilot
+python -m src.evaluation.experiment --engine llm --prompt-style facts --repeats 3   # consistency
+python -m src.evaluation.analysis                                           # errors, guard, CIs -> results/error_analysis.md
+python -m src.validation.agreement export --dataset pilot                   # blind second-labeller CSV
+python -m src.validation.agreement compare --dataset pilot --second <filled.csv>   # Cohen's kappa
 python -m pytest
 ```
 

@@ -44,6 +44,7 @@ def run_experiment(
     delay: float = 0.0,
     progress: Optional[Callable[[int, int, str], None]] = None,
     save: bool = True,
+    repeat: int = 0,
 ) -> Dict[str, Any]:
     cases, labels = load_dataset(dataset)
     model = RULES_MODEL if engine == "rules" else (model or default_model())
@@ -74,10 +75,12 @@ def run_experiment(
         "retrieval": retrieval,
         "top_k": top_k,
         "dataset": dataset,
+        "repeat": repeat,
     }
     run = {
         "run_id": f"{created.strftime('%Y%m%d-%H%M%S')}_{dataset}_{engine}"
-                  + (f"_{model.split('/')[-1]}_{prompt_style}" if engine != "rules" else ""),
+                  + (f"_{model.split('/')[-1]}_{prompt_style}" if engine != "rules" else "")
+                  + (f"_r{repeat}" if repeat else ""),
         "label": run_label(config),
         "created_at": created.isoformat(timespec="seconds"),
         "config": config,
@@ -125,6 +128,7 @@ def main() -> None:
     parser.add_argument("--top-k", type=int, default=12)
     parser.add_argument("--dataset", choices=sorted(DATASETS), default="pilot")
     parser.add_argument("--delay", type=float, default=3.0, help="Seconds between LLM calls (throttling).")
+    parser.add_argument("--repeats", type=int, default=1, help="Run each style N times (consistency).")
     args = parser.parse_args()
 
     styles = sorted(PROMPT_STYLES) if args.all_styles and args.engine == "llm" else [args.prompt_style]
@@ -132,14 +136,19 @@ def main() -> None:
         def show(i: int, n: int, case_id: str) -> None:
             print(f"  [{i + 1}/{n}] {case_id}", flush=True)
 
-        print(f"\n=== {args.engine} · {args.model or ''} · {style} · {args.dataset} ===")
-        run = run_experiment(engine=args.engine, model=args.model, prompt_style=style,
-                             retrieval=args.retrieval, top_k=args.top_k, dataset=args.dataset,
-                             delay=args.delay, progress=show)
-        print(format_summary(run["metrics"]))
-        if run["failures"]:
-            print(f"failed cases: {[f['case_id'] for f in run['failures']]}")
-        print(f"saved: results/runs/{run['run_id']}.json")
+        model = RULES_MODEL if args.engine == "rules" else (args.model or default_model())
+        print(f"\n=== {args.engine} · {model} · {style} · {args.dataset} ===")
+        for repeat in range(args.repeats):
+            if args.repeats > 1:
+                print(f"--- repeat {repeat + 1}/{args.repeats} ---")
+            run = run_experiment(engine=args.engine, model=args.model, prompt_style=style,
+                                 retrieval=args.retrieval, top_k=args.top_k, dataset=args.dataset,
+                                 delay=args.delay, progress=show,
+                                 repeat=repeat + 1 if args.repeats > 1 else 0)
+            print(format_summary(run["metrics"]))
+            if run["failures"]:
+                print(f"failed cases: {[f['case_id'] for f in run['failures']]}")
+            print(f"saved: results/runs/{run['run_id']}.json")
 
 
 if __name__ == "__main__":

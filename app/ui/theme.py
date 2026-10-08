@@ -61,8 +61,10 @@ h1, h2, h3 {{ color: {INK}; letter-spacing: -0.01em; }}
 section[data-testid="stSidebar"] {{ background: {INK}; min-width: 300px; }}
 section[data-testid="stSidebar"] * {{ color: #E6EBF4; }}
 section[data-testid="stSidebar"] label p {{ color: #A9B4CB !important; font-size: .84rem; font-weight: 500; }}
-section[data-testid="stSidebar"] div[data-baseweb="select"] > div {{
-  background: #FFFFFF; border-color: #33456B; }}
+/* BaseWeb select (Streamlit < 1.5x) and react-aria ComboBox (newer) */
+section[data-testid="stSidebar"] div[data-baseweb="select"] > div,
+section[data-testid="stSidebar"] [data-testid="stSelectbox"] [role="group"] {{
+  background: #FFFFFF !important; border-color: #33456B; }}
 section[data-testid="stSidebar"] div[data-baseweb="select"] * {{ color: {INK} !important; }}
 section[data-testid="stSidebar"] div[data-baseweb="select"] svg {{ fill: {INK_SOFT} !important; }}
 section[data-testid="stSidebar"] [data-testid="stSelectbox"] input,
@@ -196,8 +198,12 @@ table.facts td.fs {{ color:{CITE}; font-size:.78rem; width: 26%; line-height:1.5
 
 .main [data-baseweb="input"], .main [data-baseweb="textarea"], .main [data-baseweb="base-input"],
 section.main [data-testid="stTextArea"] textarea, [data-testid="stMain"] [data-baseweb="input"],
-[data-testid="stMain"] [data-baseweb="textarea"], [data-testid="stMain"] [data-baseweb="select"] > div {{
+[data-testid="stMain"] [data-baseweb="textarea"], [data-testid="stMain"] [data-baseweb="select"] > div,
+[data-testid="stMain"] [data-testid="stSelectbox"] [role="group"] {{
   background:#FFFFFF !important; border-color:{RULE} !important; }}
+[data-testid="stMain"] [data-testid="stSelectbox"] input {{
+  color:{INK} !important; -webkit-text-fill-color:{INK} !important; }}
+[data-testid="stMain"] [data-testid="stSelectbox"] [role="group"] button {{ color:{INK_SOFT} !important; }}
 [data-testid="stMain"] [data-baseweb="input"] input, [data-testid="stMain"] textarea {{ background:#FFFFFF !important; }}
 div[data-testid="stMetricValue"] {{ font-size: 1.5rem; color:{INK}; }}
 div[data-testid="stMetricLabel"] p {{ color:{INK_SOFT}; }}

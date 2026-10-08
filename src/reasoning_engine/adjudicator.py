@@ -69,9 +69,20 @@ Rules:
    timestamp to the FIRST customer message. Compute that interval yourself; it is not given.
 4. Where a clause states a formula (for example a refund amount), apply the formula rather
    than the amount a party asserts.
-5. Choose ESCALATE only when you can name the specific factual question the record cannot
-   answer, or when a clause requires manual review. State that question in the rationale.
-   Do not escalate merely because a party is unreachable or evidence is self-serving.
+5. ESCALATE is a first-class outcome, not a fallback. Choose it when the SLA itself withholds
+   an automatic decision:
+   - a clause routes the case to agent discretion or manual review, and the record does not
+     settle the question that clause leaves open;
+   - a clause's presumption is rebutted on its own terms (for example, a presumption that
+     holds "unless the customer provides corroborating evidence", and such evidence exists),
+     leaving the parties' evidence in conflict;
+   - the evidence is contradictory or insufficient to determine fault.
+   Do not settle these cases by defaulting to REJECT: SLA-PRI-01 ranks structured over
+   unstructured evidence, but it does not override a clause that sends a case to discretion
+   or review. Name the open factual question in the rationale.
+   Do not escalate when a clause gives a clear outcome on the facts (for example, a missed
+   reporting window), merely because a party is unreachable, or because evidence is
+   self-serving.
 6. `primary_clause_id` is the single clause that determines the outcome - the one that, if
    struck from the SLA, would change your decision. `supporting_clause_ids` are the other
    clauses you actually relied on (eligibility windows, evidence sufficiency, priority
