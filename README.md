@@ -18,73 +18,102 @@ consistently as a human adjudicator, and where does it succeed/fail?
 python -m venv venv
 venv\Scripts\activate                 # Windows;  source venv/bin/activate elsewhere
 pip install -r requirements.txt
-copy .env.example .env                # then add at least one provider key
+copy .env.example .env                # add GROQ_API_KEY to use the LLM (optional)
 
-python -m src.config.validate_env     # which providers are configured
 python -m streamlit run app/main.py   # the application
 ```
 
-Command-line equivalents of the same pipeline:
+The application works **without any API key**: rulings then come from the deterministic
+SLA rules engine, and extraction, retrieval, the what-if explorer and evaluation all run
+offline. With `GROQ_API_KEY` set, the LLM decides and the rules engine cross-checks it.
+
+Command line:
 
 ```bash
-python -m src.evaluation.run_adjudication --case DG-001
-python -m src.evaluation.run_adjudication --all --out runs/pilot_run.json
+python -m src.evaluation.run_adjudication --case DG-001                    # one case, LLM
+python -m src.evaluation.run_adjudication --case DG-001 --engine rules     # one case, offline
+python -m src.evaluation.experiment --engine rules                          # score rules engine
+python -m src.evaluation.experiment --engine rules --dataset counterfactual
+python -m src.evaluation.experiment --engine llm --all-styles              # Phase 4 prompt grid
+python -m src.evaluation.counterfactuals                                    # rebuild stress set
 python -m src.validation.validate_pilot
 python -m pytest
 ```
+
+Scored runs are written to `results/runs/` and appear in the app's Evaluation view.
 
 ## Repo Structure
 
 ```
 ├── app/                          # Streamlit application
-│   ├── main.py                   #   entry point: sidebar, navigation, status
-│   └── ui/                       #   theme + adjudication and evaluation views
+│   ├── main.py                   #   entry point: sidebar settings + navigation
+│   └── ui/                       #   overview, adjudicate, new dispute, what-if,
+│                                 #   evaluation, SLA policy, theme
 ├── src/
-│   ├── config/                   # paths, environment smoke test
-│   ├── evidence_extraction/      # Phase 2 slot — case + evidence access
-│   ├── clause_matching/          # Phase 3 slot — SLA clause parsing + retrieval
-│   ├── reasoning_engine/         # Phase 4 slot — prompt, LLM call, validation
+│   ├── evidence_extraction/      # Phase 2 — case loading + fact extraction (extractor.py)
+│   ├── clause_matching/          # Phase 3 — SLA parsing + lexical/BM25/dense/hybrid retrieval
+│   ├── reasoning_engine/         # Phase 4 — LLM adjudicator, 3 prompt styles, rules engine
 │   ├── llm/                      # provider abstraction (Groq active; Anthropic off)
-│   ├── evaluation/               # Phase 6 slot — dataset runs, ground-truth comparison
-│   └── validation/               # dataset structural validator
+│   ├── evaluation/               # Phase 6 — metrics, experiments, datasets, counterfactuals
+│   ├── validation/               # dataset structural validator
+│   └── config/                   # paths, environment smoke test
 ├── data/
 │   ├── raw/pilot/                # pilot_cases.json — model input
 │   ├── labeled/pilot/            # pilot_ground_truth.json — frozen reference labels
-│   └── synthetic/                # generated cases (later phases)
-├── docs/
-│   ├── sla_policy.md             # the SLA the system adjudicates against
-│   ├── phase0/                   # schemas, evaluation protocol, reproducibility
-│   └── phase1/                   # scenario matrix, pilot schema, checklist
-├── scripts/                      # ad-hoc provider connection checks
-├── tests/
-└── runs/                         # adjudication run outputs (gitignored)
+│   └── synthetic/counterfactual/ # 16-case counterfactual stress set + its labels
+├── results/runs/                 # scored experiment runs (one JSON per run)
+├── docs/                         # SLA, phase docs, deployment
+└── tests/                        # 58 offline tests (no network calls)
 ```
 
 ## Pipeline
 
 ```
-pilot case ──► evidence preparation ──► SLA clause retrieval ──► LLM adjudication
-           ──► structured JSON ──► validation ──► UI result
+case evidence ─► evidence extraction ─► clause retrieval ─► reasoning engine ─► validation ─► ruling
+                 (source-linked facts)   (hybrid + fact      (LLM, 3 prompt      (grounding     + rules
+                                          triggers)           styles)             checks)        cross-check
 ```
 
-Each stage is a package boundary, so later phases replace one component without
-rewriting the application:
-
-| Stage | Today | Later |
+| Stage | Module | What it does |
 |---|---|---|
-| `src/evidence_extraction/` | loads pre-structured pilot cases | Phase 2: extraction from chat/email/log documents |
-| `src/clause_matching/` | lexical clause ranking + eligibility gates + cross-references | Phase 3: sentence-transformer embeddings + FAISS/Chroma |
-| `src/reasoning_engine/` + `src/llm/` | one model per run, validated JSON contract | Phase 4: 3 prompting styles × 3 models |
-| `src/evaluation/` | decision accuracy vs. frozen labels | Phase 6: F1, ROUGE/BERTScore, human comparison |
+| Evidence extraction | `src/evidence_extraction/extractor.py` | Reads chat/email, agent statements, PoD photo descriptions, delivery and cash logs into typed facts (reporting window, PoD state with negation handling, damage specificity, unboxing, hub exceptions, COD amounts). Every fact names the evidence IDs it came from. |
+| Clause retrieval | `src/clause_matching/clause_retrieval.py` | Lexical, BM25, optional dense embeddings, and a hybrid (reciprocal-rank fusion) that adds clauses whose trigger condition an extracted fact satisfies. Priority rules, eligibility gates and cross-references are always added. |
+| Reasoning engine | `src/reasoning_engine/adjudicator.py` | One LLM call per case, in one of three prompting styles: `zero_shot`, `facts` (adds the extracted facts) and `cot` (facts + recorded analysis steps). Output is a validated JSON ruling. |
+| Rules engine | `src/reasoning_engine/rules_engine.py` | The SLA as an explicit decision procedure over the extracted facts, with a step-by-step trace. Used as the offline fallback, a research baseline, and a cross-check on every LLM ruling. |
+| Evaluation | `src/evaluation/metrics.py`, `experiment.py` | Decision accuracy, macro-F1, escalation recall/precision, clause P/R/F1, primary-clause accuracy, resolution and refund accuracy, decisive-evidence recall, grounding-violation rate, Brier score, rules agreement; majority-class and random baselines. |
 
 Guarantees that hold today:
 
-- **No hard-coded outcomes.** No case ID maps to a decision anywhere; the model adjudicates.
+- **No hard-coded outcomes.** No case ID maps to a decision anywhere — not in the
+  extractor, the retriever, the rules engine or the prompts.
 - **No ground-truth leakage.** `build_case_view` raises if a label reaches a prompt, the
-  adjudication view never imports the labels, and tests assert both.
+  adjudication view never imports the labels, and labels are joined to predictions only
+  after a run completes. Tests assert all three.
 - **Grounded citations.** Clause and evidence IDs returned by the model are checked against
   the SLA and the case. Unverifiable citations trigger one repair round-trip and are then
   surfaced as validation notes, never silently accepted.
+- **Procedural clauses are not scored.** `SLA-PRI-02` ("every ruling must cite a clause")
+  is excluded from clause scoring on both sides, so COD-005's label no longer penalises a
+  model for following the instruction not to cite it. The frozen label file is unchanged.
+
+## Results (offline, reproducible without a key)
+
+| Configuration | Dataset | Decision acc. | Escalation recall | Clause F1 | Refund acc. |
+|---|---|---|---|---|---|
+| Rules engine | Pilot (10) | 100% | 100% | 82% | 100% |
+| Rules engine | Counterfactual (16) | 100% | 100% | 62% | 100% |
+| Majority class (always approve) | Pilot | 50% | 0% | — | — |
+
+Governing-clause recall on the pilot set: hybrid retrieval with fact triggers reaches
+100% at k=1–4 (≈12–14 clauses in context); lexical ranking alone needs k=12 (≈17 clauses)
+for 96%.
+
+**Read these numbers carefully.** The rules engine and the fact triggers were written with
+the 10 pilot cases visible, so pilot scores are in-sample. The counterfactual set was built
+to be a fairer test (one SLA-relevant fact changed per case, label written from the SLA
+text for that change), but its labels were written by the same team — have a second
+annotator review them before reporting. LLM numbers come from running
+`python -m src.evaluation.experiment --engine llm --all-styles` with a key.
 
 ## Providers
 
@@ -110,34 +139,20 @@ Optional `ADJUDICATION_MODEL` pins the default. Never commit `.env`.
 |---|---|---|
 | 0 | Setup, schemas, ground-truth protocol, reproducibility | Complete |
 | 1 | Pilot dataset: 10 cases + frozen reference labels | Complete (pilot) |
-| 2 | Evidence extraction module | Not started |
-| 3 | Clause matching via embeddings | Lexical placeholder in place |
-| 4 | Reasoning engine: 3 prompting styles × 3 models | Single-model slice working |
-| 5 | Pipeline integration (FastAPI) | Not started |
-| 6 | Evaluation vs. baselines + human comparison | Decision accuracy only |
-| 7 | Error analysis, bias/consistency testing | Not started |
-| 8 | Demo + report/poster finalization | Application working |
+| 2 | Evidence extraction module | Rule-based extractor complete; spaCy/NER variant optional |
+| 3 | Clause matching | Lexical, BM25, hybrid + fact triggers complete; dense embeddings optional (`requirements-ml.txt`) |
+| 4 | Reasoning engine: 3 prompting styles × models | 3 styles implemented; multi-model runs pending keys |
+| 5 | Pipeline integration | Integrated in the Streamlit app; FastAPI not started |
+| 6 | Evaluation vs. baselines + human comparison | Full metric suite, baselines, counterfactual set; human comparison pending |
+| 7 | Error analysis, bias/consistency testing | What-if explorer + counterfactual set in place |
+| 8 | Demo + report/poster finalization | Demo application complete |
 
 ## Tech Stack
 
 - **Reasoning models:** Groq-hosted open models (active), Claude (implemented, switched off)
-- **Clause matching:** lexical today; Sentence-Transformers + FAISS/Chroma in Phase 3
-- **Evaluation:** Pandas, scikit-learn, ROUGE/BERTScore
+- **Rules engine:** explicit SLA decision procedure (pure Python)
+- **Evidence extraction:** regex + lexicons with negation handling (pure Python)
+- **Clause matching:** lexical + BM25 + reciprocal-rank fusion + fact triggers; optional
+  Sentence-Transformers (`pip install -r requirements-ml.txt`)
+- **Evaluation:** custom metrics module, Pandas, Altair
 - **Application:** Streamlit
-
-## Status
-
-**Phase 0 — complete.** SLA v0.1, case/ground-truth schemas, evaluation protocol,
-reproducibility rules.
-
-**Phase 1 — pilot dataset complete.** 10 cases (5 damaged-goods, 5 COD-mismatch) generated
-from `docs/phase1/SCENARIO_MATRIX.md`, with independent labels in
-`data/labeled/pilot/pilot_ground_truth.json`. Structural consistency — schema conformance,
-evidence/clause reference integrity, no leakage — is enforced by
-`python -m src.validation.validate_pilot`. Remaining work (second-labeler review, scaling
-beyond the pilot) is tracked in `docs/phase1/PHASE1_CHECKLIST.md`.
-
-**Vertical slice — working.** The application runs the full pipeline end-to-end over the
-pilot cases and reports decision, primary and supporting clauses, evidence relied upon,
-rationale, resolution and confidence. The evaluation view scores a full pilot run against
-the frozen labels.

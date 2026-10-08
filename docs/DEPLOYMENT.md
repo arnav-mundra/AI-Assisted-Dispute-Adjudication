@@ -57,6 +57,10 @@ entry is removed.
 
 Never commit `.env`; it is gitignored.
 
+Without any key the app still runs fully: the sidebar's "Automatic" engine falls back to
+the offline rules engine, so a demo deployment never shows a broken page. Saved runs in
+`results/runs/` are committed, so the Evaluation view has data on a fresh deploy.
+
 ## Only one dependency file
 
 Community Cloud searches `uv.lock`, `Pipfile`, `environment.yml`,

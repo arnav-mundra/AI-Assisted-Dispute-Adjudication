@@ -1,0 +1,365 @@
+[
+  {
+    "case_id": "CF-101",
+    "decision": "REJECT",
+    "governing_clause_ids": [
+      "SLA-DG-01"
+    ],
+    "decisive_evidence_ids": [
+      "POD-003",
+      "CUSTOMER-005"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "PoD intact, so no SLA-DG-02 extension; 60 h > 48 h → presumptively ineligible (SLA-DG-01).",
+    "sub_decisions": {
+      "resolution_type": "NO_STANDARD_RESOLUTION"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-003",
+    "perturbation": "Intact-PoD claim moved to 60 h after delivery."
+  },
+  {
+    "case_id": "CF-102",
+    "decision": "APPROVE",
+    "governing_clause_ids": [
+      "SLA-DG-02",
+      "SLA-DG-06"
+    ],
+    "decisive_evidence_ids": [
+      "POD-001",
+      "CUSTOMER-001",
+      "CUSTOMER-002"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "PoD shows external damage → 7-day window (SLA-DG-02); damage consistent → approve (SLA-DG-06).",
+    "sub_decisions": {
+      "resolution_type": "REPLACEMENT_DEFAULT"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-001",
+    "perturbation": "Damaged-PoD claim moved to 4 days after delivery."
+  },
+  {
+    "case_id": "CF-103",
+    "decision": "REJECT",
+    "governing_clause_ids": [
+      "SLA-DG-01",
+      "SLA-DG-02"
+    ],
+    "decisive_evidence_ids": [
+      "POD-001",
+      "CUSTOMER-001"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Even the 7-day SLA-DG-02 extension has lapsed → ineligible under SLA-DG-01.",
+    "sub_decisions": {
+      "resolution_type": "NO_STANDARD_RESOLUTION"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-001",
+    "perturbation": "Damaged-PoD claim moved to ~8.3 days after delivery."
+  },
+  {
+    "case_id": "CF-104",
+    "decision": "ESCALATE",
+    "governing_clause_ids": [
+      "SLA-DG-03"
+    ],
+    "decisive_evidence_ids": [
+      "POD-001",
+      "CUSTOMER-001"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "SLA-DG-03 requires unboxing evidence for ≥ ₹5,000 regardless of window, and is not waived by visible PoD damage; requirement unmet but claim plausible → manual review (as DG-004).",
+    "sub_decisions": {
+      "resolution_type": "MANUAL_REVIEW"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-001",
+    "perturbation": "Damaged-PoD case re-priced above the ₹5,000 threshold (no unboxing evidence)."
+  },
+  {
+    "case_id": "CF-105",
+    "decision": "ESCALATE",
+    "governing_clause_ids": [
+      "SLA-DG-09"
+    ],
+    "decisive_evidence_ids": [
+      "DELIVERY-901"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "SLA-DG-09: 3+ claims in 90 days → manual fraud review regardless of merit.",
+    "sub_decisions": {
+      "resolution_type": "MANUAL_REVIEW"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-001",
+    "perturbation": "Strong damage claim from a customer with 3 prior claims in 90 days."
+  },
+  {
+    "case_id": "CF-106",
+    "decision": "REJECT",
+    "governing_clause_ids": [
+      "SLA-DG-04"
+    ],
+    "decisive_evidence_ids": [
+      "CUSTOMER-005"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "SLA-DG-04 requires unboxing media, a damage photo, or a description naming type and location of damage; none is present.",
+    "sub_decisions": {
+      "resolution_type": "NO_STANDARD_RESOLUTION"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-003",
+    "perturbation": "Vague narrative ('item is damaged'), no photo, no unboxing."
+  },
+  {
+    "case_id": "CF-107",
+    "decision": "ESCALATE",
+    "governing_clause_ids": [
+      "SLA-DG-05",
+      "SLA-DG-08"
+    ],
+    "decisive_evidence_ids": [
+      "POD-002",
+      "CUSTOMER-003",
+      "CUSTOMER-004"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Within window; PoD intact and no unboxing → SLA-DG-05 removes auto-approval; specific plausible claim → SLA-DG-08 manual review (same pattern as DG-003).",
+    "sub_decisions": {
+      "resolution_type": "MANUAL_REVIEW"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-002",
+    "perturbation": "Late chipped-carafe claim moved inside the 48 h window (PoD intact, no unboxing)."
+  },
+  {
+    "case_id": "CF-108",
+    "decision": "APPROVE",
+    "governing_clause_ids": [
+      "SLA-DG-06"
+    ],
+    "decisive_evidence_ids": [
+      "POD-001",
+      "CUSTOMER-001",
+      "CUSTOMER-002"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Same facts as DG-001; only the language of the narrative changes.",
+    "sub_decisions": {
+      "resolution_type": "REPLACEMENT_DEFAULT"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-001",
+    "perturbation": "Narrative rewritten in Hinglish with different wording."
+  },
+  {
+    "case_id": "CF-109",
+    "decision": "REJECT",
+    "governing_clause_ids": [
+      "SLA-COD-01"
+    ],
+    "decisive_evidence_ids": [
+      "POD-006",
+      "CUSTOMER-009"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "COD claims must be raised within 24 h of PoD (SLA-COD-01).",
+    "sub_decisions": {
+      "resolution_type": "NO_STANDARD_RESOLUTION"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "COD-001",
+    "perturbation": "Overcharge claim moved to 30 h after delivery."
+  },
+  {
+    "case_id": "CF-110",
+    "decision": "REJECT",
+    "governing_clause_ids": [
+      "SLA-COD-07"
+    ],
+    "decisive_evidence_ids": [
+      "RECON-001",
+      "CUSTOMER-009"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Discrepancies ≤ ₹10 are rounding/change and not eligible (SLA-COD-07); a log exists, so the SLA-COD-06 precedence does not apply.",
+    "sub_decisions": {
+      "resolution_type": "NO_STANDARD_RESOLUTION"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "COD-001",
+    "perturbation": "Overcharge reduced to ₹5, confirmed by the reconciliation log."
+  },
+  {
+    "case_id": "CF-111",
+    "decision": "APPROVE",
+    "governing_clause_ids": [
+      "SLA-COD-06",
+      "SLA-COD-07"
+    ],
+    "decisive_evidence_ids": [
+      "RECON-004",
+      "CUSTOMER-012"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "With no log, SLA-COD-06 takes precedence over SLA-COD-07 even for ≤ ₹10 → refund ₹8.",
+    "sub_decisions": {
+      "resolution_type": "REFUND",
+      "refund_amount_inr": 8.0
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "COD-004",
+    "perturbation": "No reconciliation log and only an ₹8 disputed excess."
+  },
+  {
+    "case_id": "CF-112",
+    "decision": "REJECT",
+    "governing_clause_ids": [
+      "SLA-COD-03"
+    ],
+    "decisive_evidence_ids": [
+      "RECON-005",
+      "CUSTOMER-013"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Log matches invoice and the customer offers no corroborating evidence → presumptive rejection (SLA-COD-03).",
+    "sub_decisions": {
+      "resolution_type": "NO_STANDARD_RESOLUTION"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "COD-005",
+    "perturbation": "Contested ₹3,500 claim with the customer's photo removed."
+  },
+  {
+    "case_id": "CF-113",
+    "decision": "APPROVE",
+    "governing_clause_ids": [
+      "SLA-COD-04",
+      "SLA-PRI-01"
+    ],
+    "decisive_evidence_ids": [
+      "RECON-002",
+      "CUSTOMER-010"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Refund = reconciliation − invoice = ₹250 (SLA-COD-04), not the ₹300 the customer asserts; structured record governs (SLA-PRI-01).",
+    "sub_decisions": {
+      "resolution_type": "REFUND",
+      "refund_amount_inr": 250.0
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "COD-002",
+    "perturbation": "Reconciliation now above invoice (₹2,450 vs ₹2,200); customer claims ₹2,500."
+  },
+  {
+    "case_id": "CF-114",
+    "decision": "REJECT",
+    "governing_clause_ids": [
+      "SLA-COD-03"
+    ],
+    "decisive_evidence_ids": [
+      "RECON-003",
+      "CUSTOMER-011"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Log matches invoice, no corroborating evidence → presumptively rejected (SLA-COD-03).",
+    "sub_decisions": {
+      "resolution_type": "NO_STANDARD_RESOLUTION"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "COD-003",
+    "perturbation": "Reconciliation now matches the invoice; customer still claims ₹2,000, no corroboration."
+  },
+  {
+    "case_id": "CF-115",
+    "decision": "APPROVE",
+    "governing_clause_ids": [
+      "SLA-COD-04"
+    ],
+    "decisive_evidence_ids": [
+      "RECON-001",
+      "CUSTOMER-009"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Same facts as COD-001; only the number formatting changes.",
+    "sub_decisions": {
+      "resolution_type": "REFUND",
+      "refund_amount_inr": 200.0
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "COD-001",
+    "perturbation": "Amounts written with 'Rs.', '₹' and thousands separators."
+  },
+  {
+    "case_id": "CF-116",
+    "decision": "ESCALATE",
+    "governing_clause_ids": [
+      "SLA-DG-05",
+      "SLA-DG-08"
+    ],
+    "decisive_evidence_ids": [
+      "POD-004",
+      "CUSTOMER-006",
+      "AGENT-004"
+    ],
+    "contradictory_evidence_ids": [],
+    "missing_evidence_ids": [],
+    "rationale": "Below threshold, SLA-DG-03 no longer requires unboxing, but PoD intact + no unboxing → SLA-DG-05 discretion; specific narrative → SLA-DG-08 manual review.",
+    "sub_decisions": {
+      "resolution_type": "MANUAL_REVIEW"
+    },
+    "labeler_id": "COUNTERFACTUAL-SPEC",
+    "label_timestamp": "2026-10-09T03:00:00+05:30",
+    "policy_version": "0.1",
+    "derived_from": "DG-004",
+    "perturbation": "High-value headphone claim re-priced below ₹5,000 (PoD intact, no unboxing)."
+  }
+]

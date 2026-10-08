@@ -10,7 +10,6 @@ import json
 import os
 import re
 import time
-from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional
 
 from dotenv import load_dotenv
@@ -19,6 +18,9 @@ from src.clause_matching.clause_retrieval import RetrievedClause, retrieve
 from src.clause_matching.sla_clauses import load_clauses, sla_version
 from src.config.paths import ENV_FILE
 from src.evidence_extraction.case_loader import evidence_ids, evidence_items
+from src.evidence_extraction.extractor import CaseFacts, extract_facts
+from src.reasoning_engine.result import VALID_DECISIONS, Adjudication  # noqa: F401 - re-exported
+from src.reasoning_engine.rules_engine import RULES_MODEL, adjudicate_rules
 from src.llm import (
     LLMProvider,
     ProviderResponse,
@@ -32,7 +34,19 @@ load_dotenv(ENV_FILE)
 DEFAULT_MODEL = os.getenv("ADJUDICATION_MODEL", "openai/gpt-oss-120b")
 MAX_TOKENS = 3000
 
-VALID_DECISIONS = {"APPROVE", "REJECT", "ESCALATE"}
+# Phase 4: three prompting styles compared in the evaluation.
+PROMPT_STYLES = {
+    "zero_shot": "Zero-shot — case evidence + retrieved clauses only",
+    "facts": "Fact-grounded — adds the extractor's source-linked facts",
+    "cot": "Fact-grounded + structured reasoning — model writes its analysis steps first",
+}
+DEFAULT_PROMPT_STYLE = "facts"
+
+ENGINES = {
+    "auto": "LLM when a provider is configured, otherwise the rules engine",
+    "llm": "LLM reasoning engine",
+    "rules": "Deterministic SLA rules engine (offline)",
+}
 
 
 def default_model() -> str:
@@ -79,31 +93,6 @@ Respond with a single JSON object and nothing else - no prose, no code fences:
 }"""
 
 
-@dataclass
-class Adjudication:
-    case_id: str
-    decision: str
-    primary_clause_id: str
-    supporting_clause_ids: List[str]
-    evidence_ids_used: List[str]
-    rationale: str
-    resolution_type: str
-    refund_amount_inr: Optional[float]
-    confidence: float
-    model: str
-    sla_version: str
-    latency_seconds: float
-    retrieved_clause_ids: List[str]
-    warnings: List[str] = field(default_factory=list)
-    raw_response: str = ""
-    usage: Dict[str, int] = field(default_factory=dict)
-
-    def to_dict(self) -> Dict[str, Any]:
-        data = self.__dict__.copy()
-        data.pop("raw_response", None)
-        return data
-
-
 # ---------------------------------------------------------------------------
 # Prompt construction
 # ---------------------------------------------------------------------------
@@ -128,12 +117,29 @@ def build_case_view(case: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def build_user_prompt(case: Dict[str, Any], clauses: List[RetrievedClause]) -> str:
+FACTS_INSTRUCTION = """The evidence-extraction module has pre-computed the facts below from the case \
+record. Each fact names the evidence IDs it was read from. They are a starting point, not a \
+verdict: check each against the evidence above, and if the evidence contradicts a fact, \
+follow the evidence and say so in the rationale."""
+
+COT_INSTRUCTION = """Before deciding, work through the SLA in order and record each step in an \
+"analysis" array in your JSON (put it FIRST in the object): (1) reporting window, \
+(2) reliability of the structured records (SLA-PRI-01), (3) evidence sufficiency, \
+(4) the clause whose condition the facts satisfy, (5) resolution and any amount. \
+Each step is one short sentence naming the clause and evidence IDs it relies on."""
+
+
+def build_user_prompt(
+    case: Dict[str, Any],
+    clauses: List[RetrievedClause],
+    prompt_style: str = "zero_shot",
+    facts: Optional[CaseFacts] = None,
+) -> str:
     clause_block = "\n\n".join(
         f"[{item.clause_id}]\n{item.clause.text}" for item in clauses
     )
 
-    return f"""RETRIEVED SLA CLAUSES (SLA v{sla_version()}) - the only clauses you may cite:
+    sections = [f"""RETRIEVED SLA CLAUSES (SLA v{sla_version()}) - the only clauses you may cite:
 
 {clause_block}
 
@@ -143,9 +149,16 @@ ALLOWED CLAUSE IDS: {", ".join(item.clause_id for item in clauses)}
 {json.dumps(build_case_view(case), indent=2, ensure_ascii=False)}
 --- END CASE ---
 
-ALLOWED EVIDENCE IDS: {", ".join(evidence_ids(case))}
+ALLOWED EVIDENCE IDS: {", ".join(evidence_ids(case))}"""]
 
-Adjudicate this case. Respond with the JSON object only."""
+    if prompt_style in {"facts", "cot"}:
+        facts = facts or extract_facts(case)
+        sections.append(f"--- EXTRACTED FACTS ---\n{FACTS_INSTRUCTION}\n\n{facts.to_prompt_block()}\n--- END FACTS ---")
+    if prompt_style == "cot":
+        sections.append(COT_INSTRUCTION)
+
+    sections.append("Adjudicate this case. Respond with the JSON object only.")
+    return "\n\n".join(sections)
 
 
 # ---------------------------------------------------------------------------
@@ -266,18 +279,76 @@ def validate_payload(
 # Entry point
 # ---------------------------------------------------------------------------
 
+def _cross_check(result: Adjudication, rules: Adjudication) -> Dict[str, Any]:
+    return {
+        "rules_decision": rules.decision,
+        "rules_primary_clause_id": rules.primary_clause_id,
+        "rules_refund_amount_inr": rules.refund_amount_inr,
+        "agrees": rules.decision == result.decision,
+        "primary_agrees": rules.primary_clause_id == result.primary_clause_id,
+    }
+
+
+def llm_ready(model: str) -> bool:
+    try:
+        return provider_for_model(model).is_available()
+    except KeyError:
+        return False
+
+
 def adjudicate(
     case: Dict[str, Any],
     model: str = DEFAULT_MODEL,
     top_k: int = 12,
     repair_attempts: int = 1,
+    prompt_style: str = DEFAULT_PROMPT_STYLE,
+    retrieval: str = "hybrid",
+    engine: str = "llm",
 ) -> Adjudication:
-    clauses = retrieve(case, top_k=top_k)
+    """Adjudicate one case.
+
+    engine="llm"   — the model decides; the rules engine runs alongside as a cross-check.
+    engine="rules" — the deterministic SLA decision procedure decides (no API call).
+    engine="auto"  — LLM if its provider is configured, else rules (with a warning).
+    """
+    if prompt_style not in PROMPT_STYLES:
+        raise ValueError(f"unknown prompt_style '{prompt_style}'; choose from {sorted(PROMPT_STYLES)}")
+    if engine not in ENGINES:
+        raise ValueError(f"unknown engine '{engine}'; choose from {sorted(ENGINES)}")
+
+    facts = extract_facts(case)
+    clauses = retrieve(case, top_k=top_k, method=retrieval)
+    allowed = [item.clause_id for item in clauses]
+    rules = adjudicate_rules(case, facts=facts, retrieved_clause_ids=allowed)
+
+    if engine == "rules" or (engine == "auto" and not llm_ready(model)):
+        if engine == "auto":
+            rules.warnings.append(
+                f"{model} is not configured on this deployment — decided by the offline rules engine."
+            )
+        return rules
+
+    result = _adjudicate_llm(case, model, clauses, facts, prompt_style, repair_attempts)
+    result.engine = "llm"
+    result.prompt_style = prompt_style
+    result.facts = facts.to_dict()
+    result.cross_check = _cross_check(result, rules)
+    return result
+
+
+def _adjudicate_llm(
+    case: Dict[str, Any],
+    model: str,
+    clauses: List[RetrievedClause],
+    facts: CaseFacts,
+    prompt_style: str,
+    repair_attempts: int,
+) -> Adjudication:
     allowed = [item.clause_id for item in clauses]
 
     provider = provider_for_model(model)
     messages: List[Dict[str, str]] = [
-        {"role": "user", "content": build_user_prompt(case, clauses)}
+        {"role": "user", "content": build_user_prompt(case, clauses, prompt_style, facts)}
     ]
 
     started = time.perf_counter()
@@ -320,6 +391,7 @@ def adjudicate(
 
     refund = payload.get("refund_amount_inr")
     confidence = payload.get("confidence")
+    analysis = payload.get("analysis") if isinstance(payload.get("analysis"), list) else []
 
     return Adjudication(
         case_id=case["case_id"],
@@ -338,4 +410,6 @@ def adjudicate(
         warnings=warnings,
         raw_response=raw,
         usage=usage,
+        trace=[{"clause": "", "question": f"Step {i + 1}", "answer": str(step), "outcome": "continue"}
+               for i, step in enumerate(analysis)],
     )

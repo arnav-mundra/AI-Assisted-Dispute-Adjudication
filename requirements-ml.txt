@@ -1,0 +1,5 @@
+# Optional: dense clause retrieval (src/clause_matching/clause_retrieval.py, method="dense").
+# Not needed for the app or the tests — the hybrid retriever uses it automatically when present.
+# Heavy (PyTorch); not installed on Streamlit Cloud by default.
+-r requirements.txt
+sentence-transformers>=3.0

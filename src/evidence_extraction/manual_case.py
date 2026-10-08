@@ -46,9 +46,12 @@ def build_manual_case(
     agent_statement: str = "",
     # Damaged goods
     pod_shows_damage: bool = False,
+    pod_unusable: bool = False,
+    pod_description: str = "",
     unboxing_evidence: bool = False,
     unboxing_description: str = "",
     prior_claims_90d: int = 0,
+    delivery_note: str = "",
     # COD mismatch
     order_total_cod_inr: Optional[float] = None,
     claimed_amount_inr: Optional[float] = None,
@@ -110,8 +113,10 @@ def build_manual_case(
             }
         )
 
-    pod_description = (
-        "Delivery photo shows visible external damage to the package "
+    pod_description = pod_description.strip() or (
+        "Low-light, motion-blurred image; package condition cannot be assessed."
+        if pod_unusable
+        else "Delivery photo shows visible external damage to the package "
         "(crushing, tearing or staining)."
         if pod_shows_damage
         else "Delivery photo shows the package intact: edges square, seals unbroken, "
@@ -124,10 +129,25 @@ def build_manual_case(
             "type": "POD",
             "timestamp_ist": _stamp(pod_time),
             "otp_confirmed": True,
-            "image_quality": "clear",
+            "image_quality": "blurry" if pod_unusable else "clear",
             "photo_description": pod_description,
         }
     ]
+    if pod_unusable:
+        delivery_evidence[0]["reliability_note"] = (
+            "Image flagged as blurry by the partner's PoD quality check; not usable for "
+            "assessing package condition."
+        )
+
+    if delivery_note.strip():
+        delivery_evidence.append(
+            {
+                "evidence_id": ids.take(),
+                "type": "DELIVERY_LOG",
+                "timestamp_ist": _stamp(pod_time),
+                "note": delivery_note.strip(),
+            }
+        )
 
     order: Dict[str, Any] = {
         "order_id": (order_id or f"ORD-{case_id}").strip(),
@@ -155,7 +175,7 @@ def build_manual_case(
         order["order_total_cod_inr"] = total
         order["payment_mode"] = "COD"
 
-        if claimed_amount_inr is not None:
+        if claimed_amount_inr:
             customer_evidence[0]["text"] += (
                 f"\n\n[Amount stated by customer as collected: ₹{float(claimed_amount_inr):,.2f}; "
                 f"order total per invoice: ₹{total:,.2f}.]"
