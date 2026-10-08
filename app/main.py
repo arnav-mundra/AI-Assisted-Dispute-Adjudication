@@ -25,7 +25,8 @@ st.set_page_config(page_title="Dispute Adjudicator", page_icon="⚖️", layout=
 
 from app.ui import theme  # noqa: E402
 from app.ui import (  # noqa: E402
-    adjudication_page, evaluation_page, new_dispute_page, overview_page, policy_page, whatif_page,
+    adjudication_page, evaluation_page, new_dispute_page, overview_page, policy_page, quota_panel,
+    whatif_page,
 )
 from app.ui.settings import Settings  # noqa: E402
 from src.clause_matching.clause_retrieval import dense_available  # noqa: E402
@@ -76,6 +77,10 @@ with st.sidebar:
 
     settings = Settings(engine=engine, model=model, prompt_style=prompt_style, retrieval=retrieval,
                         top_k=top_k, llm_ready=model in usable)
+
+    if engine != "rules":
+        st.divider()
+        quota_panel.render(model, settings.llm_ready)
 
     st.divider()
     for row in provider_status():
