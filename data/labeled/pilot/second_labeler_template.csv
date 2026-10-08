@@ -1,0 +1,11 @@
+﻿case_id,dispute_type,decision,governing_clause_ids,decisive_evidence_ids,rationale,labeler_id
+DG-001,DAMAGED_GOODS,,,,,
+DG-002,DAMAGED_GOODS,,,,,
+DG-003,DAMAGED_GOODS,,,,,
+DG-004,DAMAGED_GOODS,,,,,
+DG-005,DAMAGED_GOODS,,,,,
+COD-001,COD_MISMATCH,,,,,
+COD-002,COD_MISMATCH,,,,,
+COD-003,COD_MISMATCH,,,,,
+COD-004,COD_MISMATCH,,,,,
+COD-005,COD_MISMATCH,,,,,

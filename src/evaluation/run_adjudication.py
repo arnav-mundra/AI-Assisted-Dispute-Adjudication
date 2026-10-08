@@ -1,7 +1,10 @@
 """CLI runner for the vertical slice.
 
     python -m src.evaluation.run_adjudication --case DG-001
-    python -m src.evaluation.run_adjudication --all --out runs/pilot_run.json
+    python -m src.evaluation.run_adjudication --case DG-001 --engine rules
+    python -m src.evaluation.run_adjudication --all --prompt-style cot --out runs/pilot_run.json
+
+For scored, saved experiment runs use `python -m src.evaluation.experiment`.
 
 Ground truth is loaded only to print the comparison column, after inference.
 """
@@ -12,12 +15,14 @@ import time
 from pathlib import Path
 from typing import List
 
-from src.reasoning_engine.adjudicator import Adjudication, adjudicate, default_model
+from src.reasoning_engine.adjudicator import PROMPT_STYLES, Adjudication, adjudicate, default_model
 from src.evidence_extraction.case_loader import ROOT, get_case, load_cases, get_ground_truth
 
 
-def run_one(case_id: str, model: str, top_k: int) -> Adjudication:
-    return adjudicate(get_case(case_id), model=model, top_k=top_k)
+def run_one(case_id: str, model: str, top_k: int, engine: str = "llm",
+            prompt_style: str = "facts") -> Adjudication:
+    return adjudicate(get_case(case_id), model=model, top_k=top_k, engine=engine,
+                      prompt_style=prompt_style)
 
 
 def print_result(result: Adjudication) -> None:
@@ -35,6 +40,9 @@ def print_result(result: Adjudication) -> None:
     print(f"confidence      : {result.confidence:.2f}")
     print(f"latency         : {result.latency_seconds}s   tokens: {result.usage}")
     print(f"rationale       : {result.rationale}")
+    if result.cross_check:
+        verdict = "agrees" if result.cross_check.get("agrees") else "DISAGREES"
+        print(f"rules check     : {verdict} (rules engine: {result.cross_check.get('rules_decision')})")
     if result.warnings:
         print(f"warnings        : {result.warnings}")
 
@@ -45,6 +53,8 @@ def main() -> None:
     parser.add_argument("--all", action="store_true", help="Run all pilot cases")
     parser.add_argument("--model", default=default_model())
     parser.add_argument("--top-k", type=int, default=12)
+    parser.add_argument("--engine", choices=["llm", "rules", "auto"], default="llm")
+    parser.add_argument("--prompt-style", choices=sorted(PROMPT_STYLES), default="facts")
     parser.add_argument("--out", help="Write results to this JSON file")
     parser.add_argument(
         "--delay", type=float, default=5.0,
@@ -66,7 +76,7 @@ def main() -> None:
         if index:
             time.sleep(args.delay)  # free-tier providers throttle rapid sequential calls
         try:
-            result = run_one(case_id, args.model, args.top_k)
+            result = run_one(case_id, args.model, args.top_k, args.engine, args.prompt_style)
         except Exception as exc:  # one bad case must not lose the whole run
             failures.append(f"{case_id}: {exc}")
             print(f"\n=== {case_id} ===\nFAILED: {exc}")

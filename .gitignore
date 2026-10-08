@@ -16,6 +16,8 @@ data/raw/*
 !data/raw/pilot/*.json
 data/synthetic/*
 !data/synthetic/.gitkeep
+!data/synthetic/counterfactual/
+!data/synthetic/counterfactual/*.json
 *.db
 *.sqlite3
 
@@ -35,4 +37,4 @@ chroma_db/
 .idea/
 
 # Adjudication run outputs
-runs/
+/runs/

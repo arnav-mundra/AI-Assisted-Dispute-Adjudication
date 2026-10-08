@@ -17,7 +17,7 @@ python-dotenv>=1.0.1
 # >=1.41 is required: streamlit 1.39/1.40 pin `pillow<11`, and no Pillow below
 # 11.3.0 publishes a cp314 wheel, so pip tries to compile Pillow from source
 # and fails on the missing zlib/jpeg headers.
-streamlit>=1.41,<2
+streamlit>=1.50,<2
 
 # --- Evaluation view (app/ui/evaluation_page.py) ---
 # >=2.3.3 is the first pandas release with cp314 wheels; 2.2.3 ships only an
