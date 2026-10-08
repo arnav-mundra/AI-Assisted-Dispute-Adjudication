@@ -11,6 +11,8 @@ class Settings:
     retrieval: str       # lexical | bm25 | dense | hybrid
     top_k: int
     llm_ready: bool
+    guard: bool = False          # escalate when the rules engine disagrees with the LLM
+    min_confidence: float = 0.0  # escalate LLM rulings below this confidence
 
     @property
     def effective_engine(self) -> str:
@@ -20,7 +22,8 @@ class Settings:
 
     @property
     def key(self) -> str:
-        return f"{self.effective_engine}|{self.model}|{self.prompt_style}|{self.retrieval}|{self.top_k}"
+        return (f"{self.effective_engine}|{self.model}|{self.prompt_style}|{self.retrieval}|{self.top_k}"
+                f"|{self.guard}|{self.min_confidence}")
 
     def describe(self) -> str:
         if self.effective_engine == "rules":

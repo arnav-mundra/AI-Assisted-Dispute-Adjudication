@@ -1,5 +1,6 @@
 from src.evaluation.analysis import (
     collect_errors,
+    confidence_floor_sweep,
     consistency,
     error_kind,
     guard_effect,
@@ -14,6 +15,25 @@ def test_guard_escalates_only_on_disagreement():
     assert guarded(agree)["decision"] == "REJECT"
     assert guarded(differ)["decision"] == "ESCALATE"
     assert guarded({"decision": "REJECT"})["decision"] == "REJECT"
+
+
+def test_confidence_floor_sweep():
+    run = {
+        "config": {"dataset": "pilot", "engine": "llm", "model": "m/x", "prompt_style": "facts"},
+        "predictions": [
+            {"case_id": "DG-004", "decision": "REJECT", "confidence": 0.55},   # wrong, low confidence
+            {"case_id": "DG-001", "decision": "APPROVE", "confidence": 0.85},  # right, high confidence
+        ],
+    }
+    by_floor = {row["floor"]: row for row in confidence_floor_sweep([run], floors=(0.6, 0.9))}
+    assert by_floor[0.6]["errors_fixed"] == 1 and by_floor[0.6]["correct_sent_to_review"] == 0
+    assert by_floor[0.9]["errors_fixed"] == 1 and by_floor[0.9]["correct_sent_to_review"] == 1
+
+
+def test_guarded_runs_are_not_simulated_again():
+    run = {"config": {"dataset": "pilot", "engine": "llm", "model": "m/x", "prompt_style": "facts",
+                      "guard": True}, "predictions": []}
+    assert guard_effect([run]) == [] and confidence_floor_sweep([run]) == []
 
 
 def test_guard_effect_counts_fixes_and_review_cost():

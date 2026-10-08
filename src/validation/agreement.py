@@ -17,7 +17,7 @@ import csv
 import json
 from collections import Counter
 from pathlib import Path
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List, Optional, Sequence
 
 from src.config.paths import RESULTS_DIR, ROOT
 from src.evaluation.datasets import DATASETS, load_dataset
@@ -36,8 +36,9 @@ def template_path(dataset: str) -> Path:
     return ROOT / "data" / "labeled" / dataset / "second_labeler_template.csv"
 
 
-def export_template(dataset: str, out: Path) -> Path:
-    cases, _ = load_dataset(dataset)
+def export_template(dataset: str, out: Path, cases_file: Optional[Path] = None) -> Path:
+    """Blind template for a named dataset, or for any case file (e.g. unlabelled drafts)."""
+    cases = json.loads(cases_file.read_text(encoding="utf-8")) if cases_file else load_dataset(dataset)[0]
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", encoding="utf-8-sig", newline="") as file:  # BOM so Excel reads ₹ correctly
         writer = csv.DictWriter(file, fieldnames=TEMPLATE_COLUMNS)
@@ -166,6 +167,7 @@ def main() -> None:
     export = sub.add_parser("export", help="Write a blind labelling template.")
     export.add_argument("--dataset", choices=sorted(DATASETS), default="pilot")
     export.add_argument("--out", default=None)
+    export.add_argument("--cases", default=None, help="Any case file instead of a named dataset.")
     comp = sub.add_parser("compare", help="Score a filled template against the frozen labels.")
     comp.add_argument("--dataset", choices=sorted(DATASETS), default="pilot")
     comp.add_argument("--second", required=True, help="Filled CSV template or ground-truth JSON.")
@@ -173,7 +175,10 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command == "export":
-        path = export_template(args.dataset, Path(args.out) if args.out else template_path(args.dataset))
+        cases_file = Path(args.cases) if args.cases else None
+        if cases_file and not args.out:
+            parser.error("--cases needs --out")
+        path = export_template(args.dataset, Path(args.out) if args.out else template_path(args.dataset), cases_file)
         print(f"blind template -> {path}")
         return
 

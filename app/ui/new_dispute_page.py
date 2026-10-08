@@ -64,8 +64,11 @@ def _form(settings: Settings) -> None:
         ex = {}
 
     with st.form("new_dispute"):
+        example_message = ("The box was crushed and the ceramic base is cracked across the rim…"
+                           if dispute_type == DAMAGED_GOODS else
+                           "The invoice for my order was ₹1,500 but the agent collected ₹1,700 in cash…")
         narrative = st.text_area("Customer's message", value=ex.get("narrative", ""), height=120,
-                                 placeholder="The box was crushed and the ceramic base is cracked across the rim…")
+                                 placeholder=example_message)
         agent = st.text_input("Delivery agent's statement (optional)", value=ex.get("agent", ""))
         hours = st.slider("Hours between delivery and the customer's first message", 0.0, 240.0,
                           float(ex.get("hours", 8.0)), 0.5)

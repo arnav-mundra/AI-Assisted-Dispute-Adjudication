@@ -43,7 +43,7 @@ def render(model: str, llm_ready: bool) -> None:
 
     if llm_ready:
         if st.button("Check now", key="quota_probe", help="Sends one ~20-token request to refresh the readings.",
-                     use_container_width=True):
+                     width="stretch"):
             result = quota.probe(model)
             st.toast("Limits refreshed" if result == "ok" else f"Groq: {result}")
             st.rerun(scope="fragment")

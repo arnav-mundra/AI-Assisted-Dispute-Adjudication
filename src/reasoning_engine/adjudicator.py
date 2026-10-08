@@ -20,6 +20,7 @@ from src.config.paths import ENV_FILE
 from src.evidence_extraction.case_loader import evidence_ids, evidence_items
 from src.evidence_extraction.extractor import CaseFacts, extract_facts
 from src.reasoning_engine.result import VALID_DECISIONS, Adjudication  # noqa: F401 - re-exported
+from src.reasoning_engine import safeguards
 from src.reasoning_engine.rules_engine import RULES_MODEL, adjudicate_rules
 from src.llm import (
     LLMProvider,
@@ -315,12 +316,17 @@ def adjudicate(
     prompt_style: str = DEFAULT_PROMPT_STYLE,
     retrieval: str = "hybrid",
     engine: str = "llm",
+    guard: bool = False,
+    min_confidence: float = 0.0,
 ) -> Adjudication:
     """Adjudicate one case.
 
     engine="llm"   — the model decides; the rules engine runs alongside as a cross-check.
     engine="rules" — the deterministic SLA decision procedure decides (no API call).
     engine="auto"  — LLM if its provider is configured, else rules (with a warning).
+
+    guard / min_confidence (LLM only) send the model's ruling to manual review when the
+    rules engine disagrees or its confidence is below the floor — see safeguards.py.
     """
     if prompt_style not in PROMPT_STYLES:
         raise ValueError(f"unknown prompt_style '{prompt_style}'; choose from {sorted(PROMPT_STYLES)}")
@@ -344,6 +350,7 @@ def adjudicate(
     result.prompt_style = prompt_style
     result.facts = facts.to_dict()
     result.cross_check = _cross_check(result, rules)
+    safeguards.apply(result, guard=guard, min_confidence=min_confidence)
     return result
 
 

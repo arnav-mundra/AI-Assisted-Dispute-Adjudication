@@ -183,7 +183,8 @@ def render(settings: Settings) -> None:
                 with st.spinner("Adjudicating…"):
                     try:
                         result = adjudicate(edited, model=settings.model, top_k=settings.top_k,
-                                            prompt_style=settings.prompt_style, retrieval=settings.retrieval)
+                                            prompt_style=settings.prompt_style, retrieval=settings.retrieval,
+                                            guard=settings.guard, min_confidence=settings.min_confidence)
                         theme.ruling_card(result)
                         theme.cross_check(result)
                     except Exception as exc:

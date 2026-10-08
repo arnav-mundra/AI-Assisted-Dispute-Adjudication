@@ -13,6 +13,7 @@ Pilot stage (10 cases) — must be complete before the dataset is scaled.
 - [x] Full test suite run on Python 3.11 (`python -m pytest -v` — 5 passed)
 - [ ] Second-labeler review of the 10 pilot labels (inter-annotator agreement)
 - [ ] Difficulty distribution reviewed against the matrix (EASY / HARD / ESCALATION)
+      — review drafted in `docs/phase1/DIFFICULTY_REVIEW.md`; awaiting sign-off
 - [ ] Freeze pilot dataset, then scale to the full dataset
 
 ## Pilot exit criteria

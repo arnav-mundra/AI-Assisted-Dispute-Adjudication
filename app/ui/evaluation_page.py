@@ -67,7 +67,8 @@ def render(settings: Settings) -> None:
             bar = st.progress(0.0, text="Starting…")
             run_experiment(engine="llm", model=settings.model, prompt_style=settings.prompt_style,
                            retrieval=settings.retrieval, top_k=settings.top_k, dataset=dataset, delay=1.0,
-                           progress=lambda i, n, cid: bar.progress(i / n, text=f"Adjudicating {cid}…"))
+                           progress=lambda i, n, cid: bar.progress(i / n, text=f"Adjudicating {cid}…"),
+                           guard=settings.guard, min_confidence=settings.min_confidence)
             bar.empty()
             st.rerun()
     with c3:

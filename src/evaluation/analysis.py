@@ -20,6 +20,7 @@ from src.config.paths import RESULTS_DIR
 from src.evaluation.datasets import load_dataset
 from src.evaluation.experiment import list_runs
 from src.evaluation.metrics import score_run
+from src.reasoning_engine import safeguards
 
 ERROR_KINDS = {
     "missed_escalation": "Forced a decision where the reference escalates",
@@ -52,17 +53,24 @@ def error_kind(predicted: str, reference: str) -> Optional[str]:
     return "polarity"
 
 
-def config_key(run: Dict[str, Any]) -> Tuple[str, str, str, str]:
+def config_key(run: Dict[str, Any]) -> Tuple[str, str, str, str, str]:
     config = run.get("config", {})
+    safeguards_on = (["guard"] if config.get("guard") else []) + (
+        [f"conf ≥ {config['min_confidence']:.2f}"] if config.get("min_confidence") else [])
     return (config.get("dataset", ""), config.get("engine", ""),
-            config.get("model", ""), config.get("prompt_style", ""))
+            config.get("model", ""), config.get("prompt_style", ""), " · ".join(safeguards_on))
 
 
-def describe(key: Tuple[str, str, str, str]) -> str:
-    dataset, engine, model, style = key
+def describe(key: Tuple[str, str, str, str, str]) -> str:
+    dataset, engine, model, style, safeguards_on = key
     if engine == "rules":
         return f"{dataset} · rules engine"
-    return f"{dataset} · {model.split('/')[-1]} · {style}"
+    return f"{dataset} · {model.split('/')[-1]} · {style}" + (f" · {safeguards_on}" if safeguards_on else "")
+
+
+def _unguarded(run: Dict[str, Any]) -> bool:
+    config = run.get("config", {})
+    return config.get("engine") == "llm" and not config.get("guard") and not config.get("min_confidence")
 
 
 # ---------------------------------------------------------------------------
@@ -159,36 +167,56 @@ def consistency(runs: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
 # Disagreement guard (simulated offline from the saved cross-check)
 # ---------------------------------------------------------------------------
 
-def guarded(prediction: Dict[str, Any]) -> Dict[str, Any]:
-    """The LLM decision, escalated whenever the rules engine disagrees with it."""
-    cross = prediction.get("cross_check") or {}
-    if cross.get("rules_decision") and cross.get("agrees") is False:
-        return {**prediction, "decision": "ESCALATE", "resolution_type": "MANUAL_REVIEW"}
-    return prediction
+def guarded(prediction: Dict[str, Any], min_confidence: float = 0.0, guard: bool = True) -> Dict[str, Any]:
+    """The saved LLM decision with the live safeguards applied (see reasoning_engine/safeguards.py)."""
+    return safeguards.apply_to_dict(prediction, guard=guard, min_confidence=min_confidence)
+
+
+def _effect(run: Dict[str, Any], guard: bool, min_confidence: float) -> Dict[str, Any]:
+    _, labels = load_dataset(run["config"]["dataset"])
+    before = score_run(run["predictions"], labels)
+    after = score_run([guarded(p, min_confidence, guard) for p in run["predictions"]], labels)
+    flips = [(b, a) for b, a in zip(before["per_case"], after["per_case"]) if b["predicted"] != a["predicted"]]
+    return {
+        "config": describe(config_key(run)),
+        "run_id": run.get("run_id", ""),
+        "n": before["n"],
+        "accuracy_before": before.get("decision_accuracy", 0.0),
+        "accuracy_after": after.get("decision_accuracy", 0.0),
+        "escalation_recall_before": before.get("escalation_recall", 0.0),
+        "escalation_recall_after": after.get("escalation_recall", 0.0),
+        "escalated_by_guard": len(flips),
+        "errors_fixed": sum(1 for b, a in flips if a["correct"]),
+        "correct_sent_to_review": sum(1 for b, a in flips if b["correct"]),
+    }
 
 
 def guard_effect(runs: Sequence[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Per LLM run: decision metrics before and after the disagreement guard."""
+    """Per unguarded LLM run: decision metrics before and after the disagreement guard."""
+    return [_effect(run, guard=True, min_confidence=0.0) for run in runs if _unguarded(run)]
+
+
+FLOORS = (0.5, 0.6, 0.7, 0.8, 0.9, 0.95)
+
+
+def confidence_floor_sweep(runs: Sequence[Dict[str, Any]],
+                           floors: Sequence[float] = FLOORS) -> List[Dict[str, Any]]:
+    """Pooled over unguarded LLM runs: what each confidence floor alone would have done."""
+    eligible = [run for run in runs if _unguarded(run)]
     rows = []
-    for run in runs:
-        if run.get("config", {}).get("engine") != "llm":
+    for floor in floors:
+        effects = [_effect(run, guard=False, min_confidence=floor) for run in eligible]
+        n = sum(e["n"] for e in effects)
+        if not n:
             continue
-        _, labels = load_dataset(run["config"]["dataset"])
-        before = score_run(run["predictions"], labels)
-        after_predictions = [guarded(p) for p in run["predictions"]]
-        after = score_run(after_predictions, labels)
-        flips = [(b, a) for b, a in zip(before["per_case"], after["per_case"]) if b["predicted"] != a["predicted"]]
         rows.append({
-            "config": describe(config_key(run)),
-            "run_id": run.get("run_id", ""),
-            "n": before["n"],
-            "accuracy_before": before.get("decision_accuracy", 0.0),
-            "accuracy_after": after.get("decision_accuracy", 0.0),
-            "escalation_recall_before": before.get("escalation_recall", 0.0),
-            "escalation_recall_after": after.get("escalation_recall", 0.0),
-            "escalated_by_guard": len(flips),
-            "errors_fixed": sum(1 for b, a in flips if a["correct"]),
-            "correct_sent_to_review": sum(1 for b, a in flips if b["correct"]),
+            "floor": floor,
+            "n": n,
+            "accuracy_before": sum(e["accuracy_before"] * e["n"] for e in effects) / n,
+            "accuracy_after": sum(e["accuracy_after"] * e["n"] for e in effects) / n,
+            "escalated": sum(e["escalated_by_guard"] for e in effects),
+            "errors_fixed": sum(e["errors_fixed"] for e in effects),
+            "correct_sent_to_review": sum(e["correct_sent_to_review"] for e in effects),
         })
     return rows
 
@@ -238,6 +266,20 @@ def render_report(runs: Sequence[Dict[str, Any]]) -> str:
             lines.append(f"| {row['config']} | {row['n']} | {row['accuracy_before']:.0%} → {row['accuracy_after']:.0%} "
                          f"| {row['escalation_recall_before']:.0%} → {row['escalation_recall_after']:.0%} "
                          f"| {row['escalated_by_guard']} | {row['errors_fixed']} | {row['correct_sent_to_review']} |")
+
+    sweep = confidence_floor_sweep(runs)
+    if sweep:
+        lines += ["", "## Confidence floor (simulated)", "",
+                  "Escalate any LLM ruling whose own confidence is below the floor. Pooled over every "
+                  "unguarded LLM run above. A floor only helps if the model is less confident when it is "
+                  "wrong — compare the two right-hand columns.", "",
+                  "| Floor | Predictions | Accuracy before → after | Escalated | Errors fixed "
+                  "| Correct rulings sent to review |",
+                  "|---|---|---|---|---|---|"]
+        for row in sweep:
+            lines.append(f"| {row['floor']:.2f} | {row['n']} | {row['accuracy_before']:.0%} → "
+                         f"{row['accuracy_after']:.0%} | {row['escalated']} | {row['errors_fixed']} "
+                         f"| {row['correct_sent_to_review']} |")
 
     lines += ["", "## Error taxonomy", ""]
     if not errors:

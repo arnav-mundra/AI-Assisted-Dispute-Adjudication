@@ -68,6 +68,15 @@ with st.sidebar:
                          disabled=engine == "rules")
     prompt_style = st.selectbox("Prompt style", list(PROMPT_STYLES), index=1, format_func=STYLE_LABELS.get,
                                 disabled=engine == "rules")
+    with st.expander("Safeguards"):
+        guard = st.checkbox("Escalate when the rules engine disagrees", value=False,
+                            disabled=engine == "rules",
+                            help="Sends the model's ruling to manual review whenever the deterministic "
+                                 "rules engine reaches a different decision.")
+        min_confidence = st.slider("Escalate below confidence", 0.0, 0.95, 0.0, 0.05,
+                                   disabled=engine == "rules",
+                                   help="0 turns this off. Rulings the model is less sure of than this go "
+                                        "to manual review.")
     with st.expander("Retrieval settings"):
         methods = ["hybrid", "lexical", "bm25"] + (["dense"] if dense_available() else [])
         retrieval = st.selectbox("Clause retriever", methods)
@@ -76,7 +85,7 @@ with st.sidebar:
                                "clauses are always added on top.")
 
     settings = Settings(engine=engine, model=model, prompt_style=prompt_style, retrieval=retrieval,
-                        top_k=top_k, llm_ready=model in usable)
+                        top_k=top_k, llm_ready=model in usable, guard=guard, min_confidence=min_confidence)
 
     if engine != "rules":
         st.divider()

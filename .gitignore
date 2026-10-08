@@ -18,6 +18,11 @@ data/synthetic/*
 !data/synthetic/.gitkeep
 !data/synthetic/counterfactual/
 !data/synthetic/counterfactual/*.json
+# Hand-drafted, unlabelled cases awaiting a labeller.
+!data/synthetic/drafts/
+!data/synthetic/drafts/*.json
+!data/synthetic/drafts/*.csv
+!data/synthetic/drafts/*.md
 *.db
 *.sqlite3
 
