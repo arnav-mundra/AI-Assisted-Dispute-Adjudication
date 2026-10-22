@@ -44,6 +44,8 @@ python -m src.evaluation.retrieval_eval                                     # re
 python scripts/groq_quota.py                                                # Groq rate-limit check
 python -m src.validation.agreement export --dataset pilot                   # blind second-labeller CSV
 python -m src.validation.agreement compare --dataset pilot --second <filled.csv>   # Cohen's kappa
+python -m src.validation.heldout_labels compare                             # held-out: A vs B kappa, adjudication sheet
+python -m src.validation.heldout_labels finalize                            # held-out: final labels
 python -m pytest
 ```
 
@@ -67,10 +69,12 @@ Scored runs are written to `results/runs/` and appear in the app's Evaluation vi
 ├── data/
 │   ├── raw/pilot/                # pilot_cases.json — model input
 │   ├── labeled/pilot/            # pilot_ground_truth.json — frozen reference labels
+│   ├── raw/heldout/              # 34 held-out cases (HO-001..HO-034), labelled blind
+│   ├── labeled/heldout/          # annotator sheets, guide, case views; final labels once agreed
 │   └── synthetic/counterfactual/ # 16-case counterfactual stress set + its labels
 ├── results/runs/                 # scored experiment runs (one JSON per run)
 ├── docs/                         # SLA, phase docs, deployment
-└── tests/                        # 58 offline tests (no network calls)
+└── tests/                        # offline tests (no network calls)
 ```
 
 ## Pipeline
@@ -146,6 +150,7 @@ Optional `ADJUDICATION_MODEL` pins the default. Never commit `.env`.
 |---|---|---|
 | 0 | Setup, schemas, ground-truth protocol, reproducibility | Complete |
 | 1 | Pilot dataset: 10 cases + frozen reference labels | Complete (pilot); second-labeller template and kappa tooling ready, labelling pending; 10 unlabelled draft cases in `data/synthetic/drafts/`; difficulty review drafted (`docs/phase1/DIFFICULTY_REVIEW.md`) |
+| 1b | Held-out set: 34 new cases written after the rules-engine freeze (tag `rules-engine-frozen-v1`) | Cases, scenario matrix (`docs/phase2/SCENARIO_MATRIX_V2.md`) and blind labelling kit ready; two-annotator labelling pending. `--dataset heldout` is refused until `heldout_ground_truth.json` exists |
 | 2 | Evidence extraction module | Rule-based extractor complete; spaCy/NER variant optional |
 | 3 | Clause matching | Lexical, BM25, dense, hybrid + fact triggers complete; compared in `results/retrieval_comparison.md` (hybrid: 100% context recall) |
 | 4 | Reasoning engine: 3 prompting styles × models | 3 styles run on gpt-oss-120b; escalation prompt fix awaiting re-run (Groq free-tier daily limit); other models not run |
