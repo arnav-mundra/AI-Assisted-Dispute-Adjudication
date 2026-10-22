@@ -25,7 +25,14 @@ PILOT_GROUND_TRUTH_FILE = LABELED_DIR / "pilot" / "pilot_ground_truth.json"
 COUNTERFACTUAL_CASES_FILE = SYNTHETIC_DIR / "counterfactual" / "counterfactual_cases.json"
 COUNTERFACTUAL_LABELS_FILE = SYNTHETIC_DIR / "counterfactual" / "counterfactual_labels.json"
 
-RUNS_DIR = ROOT / "runs"                    # scratch output (gitignored)
+# Held-out evaluation set (Phase 2): cases written blind to the rules engine, labels from
+# two independent annotators. The labels file exists only once annotation is finalised.
+HELDOUT_CASES_FILE = RAW_DIR / "heldout" / "heldout_cases.json"
+HELDOUT_LABEL_DIR = LABELED_DIR / "heldout"
+HELDOUT_GROUND_TRUTH_FILE = HELDOUT_LABEL_DIR / "heldout_ground_truth.json"
+HELDOUT_CASE_VIEWS_DIR = HELDOUT_LABEL_DIR / "case_views"
+
+RUNS_DIR = ROOT / "runs"                   # scratch output (gitignored)
 RESULTS_DIR = ROOT / "results"              # scored experiment runs (tracked)
 EXPERIMENT_RUNS_DIR = RESULTS_DIR / "runs"
 
