@@ -8,6 +8,9 @@
 
 Per GROUND_TRUTH_SCHEMA.md, disagreements are recorded, never averaged away, and
 the frozen first-labeller file is not modified.
+
+The held-out set has no first-labeller file; its two-annotator workflow (kappa between
+annotators, adjudication, final labels) lives in src/validation/heldout_labels.py.
 """
 
 from __future__ import annotations
@@ -20,7 +23,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
 from src.config.paths import RESULTS_DIR, ROOT
-from src.evaluation.datasets import DATASETS, load_dataset
+from src.evaluation.datasets import DATASETS, load_cases, load_dataset
 
 DECISIONS = ("APPROVE", "REJECT", "ESCALATE")
 PROCEDURAL_CLAUSES = frozenset({"SLA-PRI-02"})
@@ -38,7 +41,7 @@ def template_path(dataset: str) -> Path:
 
 def export_template(dataset: str, out: Path, cases_file: Optional[Path] = None) -> Path:
     """Blind template for a named dataset, or for any case file (e.g. unlabelled drafts)."""
-    cases = json.loads(cases_file.read_text(encoding="utf-8")) if cases_file else load_dataset(dataset)[0]
+    cases = json.loads(cases_file.read_text(encoding="utf-8")) if cases_file else load_cases(dataset)
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", encoding="utf-8-sig", newline="") as file:  # BOM so Excel reads ₹ correctly
         writer = csv.DictWriter(file, fieldnames=TEMPLATE_COLUMNS)
