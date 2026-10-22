@@ -14,6 +14,9 @@ data/raw/*
 # The pilot dataset is a research artifact, not a bulky reference corpus — keep it tracked.
 !data/raw/pilot/
 !data/raw/pilot/*.json
+# Held-out evaluation cases (model input only; labels live in data/labeled/heldout/).
+!data/raw/heldout/
+!data/raw/heldout/*.json
 data/synthetic/*
 !data/synthetic/.gitkeep
 !data/synthetic/counterfactual/
