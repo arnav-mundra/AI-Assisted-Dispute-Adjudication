@@ -53,19 +53,21 @@ def error_kind(predicted: str, reference: str) -> Optional[str]:
     return "polarity"
 
 
-def config_key(run: Dict[str, Any]) -> Tuple[str, str, str, str, str]:
+def config_key(run: Dict[str, Any]) -> Tuple[Any, ...]:
     config = run.get("config", {})
     safeguards_on = (["guard"] if config.get("guard") else []) + (
         [f"conf ≥ {config['min_confidence']:.2f}"] if config.get("min_confidence") else [])
     return (config.get("dataset", ""), config.get("engine", ""),
-            config.get("model", ""), config.get("prompt_style", ""), " · ".join(safeguards_on))
+            config.get("model", ""), config.get("prompt_style", ""), " · ".join(safeguards_on),
+            config.get("retrieval", ""), config.get("top_k", ""))
 
 
-def describe(key: Tuple[str, str, str, str, str]) -> str:
-    dataset, engine, model, style, safeguards_on = key
+def describe(key: Tuple[Any, ...]) -> str:
+    dataset, engine, model, style, safeguards_on, retrieval, top_k = key
     if engine == "rules":
         return f"{dataset} · rules engine"
-    return f"{dataset} · {model.split('/')[-1]} · {style}" + (f" · {safeguards_on}" if safeguards_on else "")
+    return (f"{dataset} · {model.split('/')[-1]} · {style}" + (f" · {safeguards_on}" if safeguards_on else "")
+            + (f" · {retrieval} k={top_k}" if retrieval else ""))
 
 
 def _unguarded(run: Dict[str, Any]) -> bool:

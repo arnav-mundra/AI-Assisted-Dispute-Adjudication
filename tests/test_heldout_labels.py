@@ -122,3 +122,13 @@ def test_blank_and_zero_refunds_agree(tmp_path, cases):
     a, b = read_sheet(sheet_path("A", tmp_path)), read_sheet(sheet_path("B", tmp_path))
     b[cases[0]["case_id"]]["refund_amount_inr"] = 0.0
     assert not any(r["issues"] for r in compare_sheets(a, b)["rows"])
+
+
+def test_adjudicated_ids_are_checked(tmp_path, cases):
+    _fill(sheet_path("A", tmp_path), cases, ["APPROVE", "REJECT", "ESCALATE", "APPROVE"])
+    _fill(sheet_path("B", tmp_path), cases, ["APPROVE", "REJECT", "ESCALATE", "REJECT"])
+    a, b = read_sheet(sheet_path("A", tmp_path)), read_sheet(sheet_path("B", tmp_path))
+    row = {"final_decision": "ESCALATE", "final_governing_clause_ids": "SLA-DG-66",
+           "final_resolution_type": "MANUAL_REVIEW", "adjudicator_id": "ADJUDICATOR-C"}
+    with pytest.raises(ValueError, match="SLA-DG-66"):
+        build_ground_truth(cases, a, b, {cases[3]["case_id"]: row}, STAMP)

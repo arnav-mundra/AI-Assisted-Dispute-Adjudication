@@ -7,7 +7,7 @@
 
 Each run is written to results/runs/<run_id>.json with its configuration, every
 prediction, and the metrics, so the Evaluation view can compare runs side by side.
-Ground truth is loaded only after all predictions are made.
+Labels are joined only after all predictions are made.
 """
 
 from __future__ import annotations
@@ -19,6 +19,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
+from src.clause_matching.clause_retrieval import dense_available
 from src.config.paths import EXPERIMENT_RUNS_DIR
 from src.evaluation.datasets import DATASETS, load_dataset
 from src.evaluation.metrics import baselines, format_summary, score_run
@@ -69,6 +70,8 @@ def run_experiment(
             predictions.append(result.to_dict())
         except Exception as exc:  # one failed case must not lose the run
             failures.append({"case_id": case["case_id"], "error": str(exc)[:300]})
+            # Scored as wrong, not dropped, so accuracy keeps the full denominator.
+            predictions.append({"case_id": case["case_id"], "decision": "UNPARSED", "warnings": [str(exc)[:300]]})
 
     # Labels joined only now, after every prediction is made.
     metrics = score_run(predictions, labels)
@@ -78,6 +81,7 @@ def run_experiment(
         "model": model,
         "prompt_style": prompt_style if engine != "rules" else "",
         "retrieval": retrieval,
+        "dense": retrieval == "hybrid" and dense_available(),
         "top_k": top_k,
         "dataset": dataset,
         "repeat": repeat,

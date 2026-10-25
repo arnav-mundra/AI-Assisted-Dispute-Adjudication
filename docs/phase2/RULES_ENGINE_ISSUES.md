@@ -12,3 +12,4 @@ until the held-out labels are final.
 | Date | Reporter | Clause(s) | Suspected issue | How noticed |
 |---|---|---|---|---|
 | — | — | — | None recorded. | During held-out case construction (2026-10-22) the engine was deliberately neither opened nor run, so that the cases could not be shaped around it. |
+| 2026-10-25 | Code audit | SLA-DG-01/02, SLA-COD-01 | The reporting-window rule stops only when `within_window` is `False`. When the reporting time is unknown (`None`, e.g. missing timestamps) it continues as if the claim were on time, so a case can reach APPROVE with no window check. No current pilot or counterfactual case has an unknown window. | Code reading; confirmed by removing the timestamps from a pilot damaged-goods case. |

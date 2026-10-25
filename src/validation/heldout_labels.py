@@ -21,7 +21,6 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
@@ -33,7 +32,7 @@ from src.config.paths import (
     HELDOUT_LABEL_DIR,
 )
 from src.reasoning_engine.result import RESOLUTION_TYPES
-from src.validation.agreement import DECISIONS, PROCEDURAL_CLAUSES, _jaccard, _split, cohens_kappa, kappa_band
+from src.validation.agreement import DECISIONS, PROCEDURAL_CLAUSES, _clause, _jaccard, _split, cohens_kappa, kappa_band
 from src.validation.case_views import write_views
 from src.validation.validate_pilot import collect_case_evidence_ids, extract_sla_clause_ids
 
@@ -48,7 +47,6 @@ ADJUDICATION_COLUMNS = (
     "final_resolution_type", "final_refund_amount_inr", "adjudicator_id", "adjudicator_notes",
 )
 IST = timezone(timedelta(hours=5, minutes=30))
-_SUBCLAUSE = re.compile(r"\([a-z]\)$", re.IGNORECASE)
 
 
 def sheet_path(letter: str, label_dir: Path = HELDOUT_LABEL_DIR) -> Path:
@@ -97,11 +95,6 @@ def write_blank_sheets(cases: Sequence[Dict[str, Any]], label_dir: Path = HELDOU
 # ---------------------------------------------------------------------------
 # Reading and checking a filled sheet
 # ---------------------------------------------------------------------------
-
-def _clause(value: str) -> str:
-    """'sla-dg-07(b)' -> 'SLA-DG-07': labels are scored at clause level, as in the pilot."""
-    return _SUBCLAUSE.sub("", value.strip().upper())
-
 
 def _refund(value: str) -> Optional[float]:
     value = (value or "").strip().replace("₹", "").replace(",", "")
@@ -331,12 +324,20 @@ def build_ground_truth(cases: Sequence[Dict[str, Any]], a: Dict[str, Dict[str, A
             clauses = [_clause(c) for c in _split(row.get("final_governing_clause_ids") or "")]
             resolution = (row.get("final_resolution_type") or "").strip().upper()
             adjudicator = (row.get("adjudicator_id") or "").strip()
-            if decision not in DECISIONS or not clauses or resolution not in RESOLUTION_TYPES or not adjudicator:
-                unresolved.append(cid)
-                continue
             evidence = [e.upper() for e in _split(row.get("final_decisive_evidence_ids") or "")] or _union(
                 la["decisive_evidence_ids"], lb["decisive_evidence_ids"])
-            refund = _refund(row.get("final_refund_amount_inr") or "")
+            refund_text = (row.get("final_refund_amount_inr") or "").strip()
+            try:
+                refund = _refund(refund_text)
+            except ValueError:
+                refund = refund_text  # check_labels reports it
+            # The adjudicator's row is checked exactly like an annotator sheet.
+            problems = check_labels({cid: {"decision": decision, "governing_clause_ids": clauses,
+                                           "decisive_evidence_ids": evidence, "resolution_type": resolution,
+                                           "refund_amount_inr": refund}}, [case])
+            if problems or not adjudicator:
+                unresolved.append("; ".join(problems) if problems else f"{cid}: no adjudicator_id")
+                continue
             labeler_id, how, note = adjudicator, "ADJUDICATED", (row.get("adjudicator_notes") or "").strip()
         sub = {"resolution_type": resolution}
         if refund is not None:
@@ -361,8 +362,8 @@ def build_ground_truth(cases: Sequence[Dict[str, Any]], a: Dict[str, Dict[str, A
             },
         })
     if unresolved:
-        raise ValueError("unresolved disagreements (fill final_decision, final_governing_clause_ids, "
-                         f"final_resolution_type and adjudicator_id in adjudication.csv): {', '.join(unresolved)}")
+        raise ValueError("unresolved disagreements (fix these rows in adjudication.csv):\n  "
+                         + "\n  ".join(unresolved))
     return labels
 
 

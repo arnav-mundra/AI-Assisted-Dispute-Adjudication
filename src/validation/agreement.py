@@ -18,21 +18,27 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 from collections import Counter
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence
 
 from src.config.paths import RESULTS_DIR, ROOT
 from src.evaluation.datasets import DATASETS, load_cases, load_dataset
+from src.evaluation.metrics import DECISIONS, PROCEDURAL_CLAUSES
 
-DECISIONS = ("APPROVE", "REJECT", "ESCALATE")
-PROCEDURAL_CLAUSES = frozenset({"SLA-PRI-02"})
+_SUBCLAUSE = re.compile(r"\([a-z]\)$", re.IGNORECASE)
 TEMPLATE_COLUMNS = ("case_id", "dispute_type", "decision", "governing_clause_ids",
                     "decisive_evidence_ids", "rationale", "labeler_id")
 
 
 def _split(value: str) -> List[str]:
     return [part.strip() for part in value.replace(",", ";").split(";") if part.strip()]
+
+
+def _clause(value: str) -> str:
+    """'sla-dg-07(b)' -> 'SLA-DG-07': labels are scored at clause level."""
+    return _SUBCLAUSE.sub("", value.strip().upper())
 
 
 def template_path(dataset: str) -> Path:
@@ -65,7 +71,7 @@ def load_second_labels(path: Path) -> List[Dict[str, Any]]:
         labels.append({
             "case_id": row["case_id"].strip(),
             "decision": decision,
-            "governing_clause_ids": _split(row.get("governing_clause_ids") or ""),
+            "governing_clause_ids": [_clause(c) for c in _split(row.get("governing_clause_ids") or "")],
             "decisive_evidence_ids": _split(row.get("decisive_evidence_ids") or ""),
             "rationale": (row.get("rationale") or "").strip(),
             "labeler_id": (row.get("labeler_id") or "").strip(),

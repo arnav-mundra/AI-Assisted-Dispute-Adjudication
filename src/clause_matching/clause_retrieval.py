@@ -314,15 +314,14 @@ def retrieve(
     return sorted(selected.values(), key=lambda item: (-item.score, item.clause_id))
 
 
-def governing_recall(method: str, top_k: int, use_facts: Optional[bool] = None,
-                     cases: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+def governing_recall(method: str, top_k: int, use_facts: Optional[bool] = None) -> Dict[str, Any]:
     """Share of reference governing clauses that reach the prompt. Evaluation only."""
     from src.evidence_extraction.case_loader import get_ground_truth, load_cases
 
     hit = total = 0
     sizes: List[int] = []
     misses: List[str] = []
-    for case in cases or load_cases():
+    for case in load_cases():
         label = get_ground_truth(case["case_id"])
         if not label:
             continue
