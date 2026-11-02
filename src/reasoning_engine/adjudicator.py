@@ -181,15 +181,23 @@ TRANSIENT_MARKERS = (
     "503", "overloaded", "unavailable", "high demand",
     "429", "rate limit", "timeout",
 )
+# Groq's JSON mode rejects a malformed generation with a 400. It may pass on a new
+# attempt, but each try spends tokens the meter can't see, so it gets a smaller cap.
+JSON_REJECTED_MARKER = "json_validate_failed"
+JSON_REJECTED_ATTEMPTS = 3
 
 
 def _call_with_retry(
     provider: LLMProvider,
     model: str,
     messages: List[Dict[str, str]],
+    warnings: List[str],
     attempts: int = 5,
 ) -> ProviderResponse:
-    """Providers throttle and briefly 503. A live demo should ride that out."""
+    """Providers throttle and briefly 503. A live demo should ride that out.
+
+    JSON-mode rejections are noted in `warnings` so a saved run shows which cases needed them.
+    """
     last_error: Optional[Exception] = None
 
     for attempt in range(attempts):
@@ -205,14 +213,18 @@ def _call_with_retry(
             raise
         except Exception as exc:  # noqa: BLE001 - re-raised below if not transient
             message = str(exc).lower()
-            if not any(marker in message for marker in TRANSIENT_MARKERS):
+            json_rejected = JSON_REJECTED_MARKER in message
+            if not json_rejected and not any(marker in message for marker in TRANSIENT_MARKERS):
                 raise
             last_error = exc
-            if attempt < attempts - 1:
-                time.sleep(min(2 ** attempt * 3, 30))
+            if json_rejected:
+                warnings.append(f"retried after {JSON_REJECTED_MARKER} (attempt {attempt + 1})")
+            if attempt + 1 >= (JSON_REJECTED_ATTEMPTS if json_rejected else attempts):
+                break
+            time.sleep(min(2 ** attempt * 3, 30))
 
     raise RuntimeError(
-        f"{provider.label} was unavailable after {attempts} attempts: {last_error}"
+        f"{provider.label} failed after {attempt + 1} attempts: {last_error}"
     )
 
 
@@ -374,11 +386,11 @@ def _adjudicate_llm(
         {"role": "user", "content": build_user_prompt(case, clauses, prompt_style, facts)}
     ]
 
+    warnings: List[str] = []
     started = time.perf_counter()
-    response = _call_with_retry(provider, model, messages)
+    response = _call_with_retry(provider, model, messages, warnings)
     raw, usage = response.text, response.usage
 
-    warnings: List[str] = []
     payload: Dict[str, Any] = {}
 
     for attempt in range(repair_attempts + 1):
@@ -405,7 +417,7 @@ def _adjudicate_llm(
                 ),
             },
         ]
-        retry = _call_with_retry(provider, model, messages)
+        retry = _call_with_retry(provider, model, messages, warnings)
         raw = retry.text
         usage = {key: usage.get(key, 0) + value for key, value in retry.usage.items()}
         warnings.append(f"repaired after: {'; '.join(problems)}")

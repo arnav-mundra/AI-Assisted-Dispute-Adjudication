@@ -129,6 +129,8 @@ class MockProvider(LLMProvider):
 
     def _complete(self, system, messages, model, max_tokens, temperature):
         text = self.replies.pop(0) if self.replies else "{}"
+        if isinstance(text, Exception):
+            raise text
         return ProviderResponse(text=text, model=model, provider=self.name, input_tokens=10, output_tokens=5)
 
 
@@ -178,6 +180,34 @@ def test_llm_hallucinated_ids_trigger_repair(mock_llm):
     result = adjudicate(get_case("COD-001"), model="mock/echo")
     assert result.evidence_ids_used == ["RECON-001"]
     assert any(w.startswith("repaired after") for w in result.warnings)
+
+
+JSON_REJECTED = RuntimeError("Error code: 400 - {'error': {'code': 'json_validate_failed'}}")
+
+
+def test_json_rejection_is_retried_and_noted_without_counting_as_grounding(mock_llm, monkeypatch):
+    monkeypatch.setattr(adjudicator.time, "sleep", lambda seconds: None)
+    MockProvider.replies = [JSON_REJECTED, json.dumps(GOOD)]
+    result = adjudicate(get_case("COD-001"), model="mock/echo")
+    assert result.decision == "APPROVE"
+    assert result.warnings == ["retried after json_validate_failed (attempt 1)"]
+    label = {"case_id": "COD-001", "decision": "APPROVE"}
+    assert score_case(result.to_dict(), label)["grounding_issue"] is False
+
+
+def test_json_rejection_gives_up_after_its_own_cap(mock_llm, monkeypatch):
+    monkeypatch.setattr(adjudicator.time, "sleep", lambda seconds: None)
+    MockProvider.replies = [JSON_REJECTED] * 5 + [json.dumps(GOOD)]
+    with pytest.raises(RuntimeError, match="failed after 3 attempts"):
+        adjudicate(get_case("COD-001"), model="mock/echo")
+    assert len(MockProvider.replies) == 3
+
+
+def test_other_bad_requests_are_not_retried(mock_llm):
+    MockProvider.replies = [RuntimeError("Error code: 400 - invalid model"), json.dumps(GOOD)]
+    with pytest.raises(RuntimeError, match="invalid model"):
+        adjudicate(get_case("COD-001"), model="mock/echo")
+    assert len(MockProvider.replies) == 1
 
 
 def test_auto_engine_falls_back_to_rules_without_a_key(monkeypatch):
