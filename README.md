@@ -40,6 +40,7 @@ python -m src.validation.validate_pilot
 python -m src.evaluation.experiment --engine llm --prompt-style facts --repeats 3   # consistency
 python -m src.evaluation.experiment --engine llm --prompt-style facts --guard      # live disagreement guard
 python -m src.evaluation.analysis                                           # errors, guard, CIs -> results/error_analysis.md
+python scripts/results_tables.py                                            # README results table + results/icaaic_summary.md
 python -m src.evaluation.retrieval_eval                                     # retrievers -> results/retrieval_comparison.md
 python scripts/groq_quota.py                                                # Groq rate-limit check
 python -m src.validation.agreement export --dataset pilot                   # blind second-labeller CSV
@@ -107,13 +108,38 @@ Guarantees that hold today:
   is excluded from clause scoring on both sides, so COD-005's label no longer penalises a
   model for following the instruction not to cite it. The frozen label file is unchanged.
 
-## Results (offline, reproducible without a key)
+## Results
 
-| Configuration | Dataset | Decision acc. | Escalation recall | Clause F1 | Refund acc. |
-|---|---|---|---|---|---|
-| Rules engine | Pilot (10) | 100% | 100% | 82% | 100% |
-| Rules engine | Counterfactual (16) | 100% | 100% | 62% | 100% |
-| Majority class (always approve) | Pilot | 50% | 0% | — | — |
+Generated from `results/runs/` by `python scripts/results_tables.py`. Citable tables with run
+IDs are in `results/icaaic_summary.md`. The 95% intervals are wide at these sample sizes.
+
+<!-- results:start -->
+
+**Pilot**
+
+| Configuration | n | Decision acc. | 95% Wilson CI | Escalation recall | Clause F1 | Refund acc. | Grounding violations |
+|---|---|---|---|---|---|---|---|
+| Rules engine | 10 | 100% | 72%–100% | 100% | 82% | 100% | 0 |
+| gpt-oss-120b · zero_shot | 10 | 80% | 49%–94% | 33% | 58% | 75% | 0 |
+| gpt-oss-120b · facts | 10 | 80% | 49%–94% | 33% | 59% | 75% | 0 |
+| gpt-oss-120b · cot | 10 | 90% | 60%–98% | 67% | 59% | 75% | 0 |
+| qwen3.8-27b · zero_shot | 10 | 80% | 49%–94% | 67% | 51% | 75% | 0 |
+| qwen3.8-27b · facts | 10 | 90% | 60%–98% | 67% | 49% | 100% | 0 |
+| qwen3.8-27b · cot | 10 | 90% | 60%–98% | 67% | 55% | 100% | 0 |
+| gpt-oss-20b · zero_shot | 10 | 70% | 40%–89% | 33% | 55% | 75% | 0 |
+| gpt-oss-20b · cot | 10 | 90% | 60%–98% | 67% | 59% | 75% | 0 |
+| Majority class (always approve) | 10 | 50% | — | 0% | — | — | — |
+
+**Counterfactual**
+
+| Configuration | n | Decision acc. | 95% Wilson CI | Escalation recall | Clause F1 | Refund acc. | Grounding violations |
+|---|---|---|---|---|---|---|---|
+| Rules engine | 16 | 100% | 81%–100% | 100% | 62% | 100% | 0 |
+| gpt-oss-120b · zero_shot | 16 | 81% | 57%–93% | 50% | 46% | 100% | 0 |
+| qwen3.8-27b · cot | 16 | 69% | 44%–86% | 50% | 39% | 100% | 0 |
+| Majority class (always reject) | 16 | 44% | — | 0% | — | — | — |
+
+<!-- results:end -->
 
 Governing-clause recall on the pilot set: hybrid retrieval with fact triggers reaches
 100% at k=1–4 (≈12–14 clauses in context); lexical ranking alone needs k=12 (≈17 clauses)
@@ -123,8 +149,8 @@ for 96%.
 the 10 pilot cases visible, so pilot scores are in-sample. The counterfactual set was built
 to be a fairer test (one SLA-relevant fact changed per case, label written from the SLA
 text for that change), but its labels were written by the same team — have a second
-annotator review them before reporting. LLM numbers come from running
-`python -m src.evaluation.experiment --engine llm --all-styles` with a key.
+annotator review them before reporting. Rules-engine rows reproduce without a key; LLM rows
+need one. Some model and prompt-style cells are still to run: see "Not run yet" in the summary.
 
 ## Providers
 
@@ -153,10 +179,10 @@ Optional `ADJUDICATION_MODEL` pins the default. Never commit `.env`.
 | 1b | Held-out set: 34 new cases written after the rules-engine freeze (tag `rules-engine-frozen-v1`) | Cases, scenario matrix (`docs/phase2/SCENARIO_MATRIX_V2.md`) and blind labelling kit ready; two-annotator labelling pending. `--dataset heldout` is refused until `heldout_ground_truth.json` exists |
 | 2 | Evidence extraction module | Rule-based extractor complete; spaCy/NER variant optional |
 | 3 | Clause matching | Lexical, BM25, dense, hybrid + fact triggers complete; compared in `results/retrieval_comparison.md` (hybrid: 100% context recall) |
-| 4 | Reasoning engine: 3 prompting styles × models | 3 styles run on gpt-oss-120b; escalation prompt fix awaiting re-run (Groq free-tier daily limit); other models not run |
+| 4 | Reasoning engine: 3 prompting styles × models | Re-running with the escalation prompt fix, limited by the Groq free-tier daily budget. Done: gpt-oss-120b and qwen3.8-27b on pilot × 3 styles; gpt-oss-120b counterfactual × zero_shot; qwen3.8-27b counterfactual × cot; gpt-oss-20b pilot × cot and zero_shot. Remaining cells listed in `results/icaaic_summary.md` |
 | 5 | Pipeline integration | Integrated in the Streamlit app; FastAPI not started |
 | 6 | Evaluation vs. baselines + human comparison | Full metric suite, baselines, counterfactual set, Wilson CIs; human comparison pending |
-| 7 | Error analysis, bias/consistency testing | Error taxonomy, disagreement guard and confidence-floor analysis (`results/error_analysis.md`); safeguards available live; repeat-run consistency tooling ready, runs pending |
+| 7 | Error analysis, bias/consistency testing | Error taxonomy, disagreement guard and confidence-floor analysis (`results/error_analysis.md`); safeguards available live; repeat-run consistency tooling ready, repeat runs not done yet |
 | 8 | Demo + report/poster finalization | Demo application complete |
 
 ## Tech Stack
