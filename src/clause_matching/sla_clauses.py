@@ -68,6 +68,3 @@ def sla_version() -> str:
     match = re.search(r"^\*\*Version:\*\*\s*([0-9.]+)", text, re.MULTILINE)
     return match.group(1) if match else "unknown"
 
-
-def clause_ids() -> List[str]:
-    return sorted(load_clauses())

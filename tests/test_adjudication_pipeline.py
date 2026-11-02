@@ -117,3 +117,29 @@ def test_validate_payload_catches_hallucinated_ids():
     assert any("CUSTOMER-999" in p for p in problems)
     assert any("MAYBE" in p for p in problems)
     assert any("confidence" in p for p in problems)
+
+
+def test_validate_payload_rejects_unretrieved_supporting_clause():
+    case = get_case("DG-001")
+    allowed = [item.clause_id for item in retrieve(case)]
+    assert "SLA-COD-04" not in allowed
+    payload = {"decision": "APPROVE", "primary_clause_id": "SLA-DG-06",
+               "supporting_clause_ids": ["SLA-COD-04"], "evidence_ids_used": evidence_ids(case)[:1],
+               "rationale": "x", "confidence": 0.8}
+    assert any("SLA-COD-04" in p and "retrieved" in p for p in validate_payload(payload, case, allowed))
+
+
+def test_extract_json_rejects_non_object():
+    with pytest.raises(ValueError):
+        extract_json('[{"decision": "APPROVE"}]')
+
+
+def test_failed_case_counts_against_accuracy(monkeypatch):
+    from src.evaluation import experiment
+
+    def flaky(case, **_):
+        raise RuntimeError("rate limited")
+    monkeypatch.setattr(experiment, "adjudicate", flaky)
+    run = experiment.run_experiment(engine="rules", save=False)
+    assert len(run["failures"]) == run["metrics"]["n"] > 0
+    assert not any(row["correct"] for row in run["metrics"]["per_case"])

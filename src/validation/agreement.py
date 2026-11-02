@@ -8,6 +8,9 @@
 
 Per GROUND_TRUTH_SCHEMA.md, disagreements are recorded, never averaged away, and
 the frozen first-labeller file is not modified.
+
+The held-out set has no first-labeller file; its two-annotator workflow (kappa between
+annotators, adjudication, final labels) lives in src/validation/heldout_labels.py.
 """
 
 from __future__ import annotations
@@ -15,15 +18,16 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 from collections import Counter
 from pathlib import Path
-from typing import Any, Dict, List, Sequence
+from typing import Any, Dict, List, Optional, Sequence
 
 from src.config.paths import RESULTS_DIR, ROOT
-from src.evaluation.datasets import DATASETS, load_dataset
+from src.evaluation.datasets import DATASETS, load_cases, load_dataset
+from src.evaluation.metrics import DECISIONS, PROCEDURAL_CLAUSES
 
-DECISIONS = ("APPROVE", "REJECT", "ESCALATE")
-PROCEDURAL_CLAUSES = frozenset({"SLA-PRI-02"})
+_SUBCLAUSE = re.compile(r"\([a-z]\)$", re.IGNORECASE)
 TEMPLATE_COLUMNS = ("case_id", "dispute_type", "decision", "governing_clause_ids",
                     "decisive_evidence_ids", "rationale", "labeler_id")
 
@@ -32,12 +36,18 @@ def _split(value: str) -> List[str]:
     return [part.strip() for part in value.replace(",", ";").split(";") if part.strip()]
 
 
+def _clause(value: str) -> str:
+    """'sla-dg-07(b)' -> 'SLA-DG-07': labels are scored at clause level."""
+    return _SUBCLAUSE.sub("", value.strip().upper())
+
+
 def template_path(dataset: str) -> Path:
     return ROOT / "data" / "labeled" / dataset / "second_labeler_template.csv"
 
 
-def export_template(dataset: str, out: Path) -> Path:
-    cases, _ = load_dataset(dataset)
+def export_template(dataset: str, out: Path, cases_file: Optional[Path] = None) -> Path:
+    """Blind template for a named dataset, or for any case file (e.g. unlabelled drafts)."""
+    cases = json.loads(cases_file.read_text(encoding="utf-8")) if cases_file else load_cases(dataset)
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", encoding="utf-8-sig", newline="") as file:  # BOM so Excel reads ₹ correctly
         writer = csv.DictWriter(file, fieldnames=TEMPLATE_COLUMNS)
@@ -61,7 +71,7 @@ def load_second_labels(path: Path) -> List[Dict[str, Any]]:
         labels.append({
             "case_id": row["case_id"].strip(),
             "decision": decision,
-            "governing_clause_ids": _split(row.get("governing_clause_ids") or ""),
+            "governing_clause_ids": [_clause(c) for c in _split(row.get("governing_clause_ids") or "")],
             "decisive_evidence_ids": _split(row.get("decisive_evidence_ids") or ""),
             "rationale": (row.get("rationale") or "").strip(),
             "labeler_id": (row.get("labeler_id") or "").strip(),
@@ -166,6 +176,7 @@ def main() -> None:
     export = sub.add_parser("export", help="Write a blind labelling template.")
     export.add_argument("--dataset", choices=sorted(DATASETS), default="pilot")
     export.add_argument("--out", default=None)
+    export.add_argument("--cases", default=None, help="Any case file instead of a named dataset.")
     comp = sub.add_parser("compare", help="Score a filled template against the frozen labels.")
     comp.add_argument("--dataset", choices=sorted(DATASETS), default="pilot")
     comp.add_argument("--second", required=True, help="Filled CSV template or ground-truth JSON.")
@@ -173,7 +184,10 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.command == "export":
-        path = export_template(args.dataset, Path(args.out) if args.out else template_path(args.dataset))
+        cases_file = Path(args.cases) if args.cases else None
+        if cases_file and not args.out:
+            parser.error("--cases needs --out")
+        path = export_template(args.dataset, Path(args.out) if args.out else template_path(args.dataset), cases_file)
         print(f"blind template -> {path}")
         return
 

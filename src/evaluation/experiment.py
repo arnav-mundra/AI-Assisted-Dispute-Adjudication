@@ -7,7 +7,7 @@
 
 Each run is written to results/runs/<run_id>.json with its configuration, every
 prediction, and the metrics, so the Evaluation view can compare runs side by side.
-Ground truth is loaded only after all predictions are made.
+Labels are joined only after all predictions are made.
 """
 
 from __future__ import annotations
@@ -19,6 +19,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
+from src.clause_matching.clause_retrieval import dense_available
 from src.config.paths import EXPERIMENT_RUNS_DIR
 from src.evaluation.datasets import DATASETS, load_dataset
 from src.evaluation.metrics import baselines, format_summary, score_run
@@ -31,7 +32,9 @@ IST = timezone(timedelta(hours=5, minutes=30))
 def run_label(config: Dict[str, Any]) -> str:
     if config["engine"] == "rules":
         return "Rules engine (deterministic SLA)"
-    return f"{config['model']} · {config['prompt_style']}"
+    extras = (["guard"] if config.get("guard") else []) + (
+        [f"conf ≥ {config['min_confidence']:.2f}"] if config.get("min_confidence") else [])
+    return f"{config['model']} · {config['prompt_style']}" + "".join(f" · {e}" for e in extras)
 
 
 def run_experiment(
@@ -45,6 +48,8 @@ def run_experiment(
     progress: Optional[Callable[[int, int, str], None]] = None,
     save: bool = True,
     repeat: int = 0,
+    guard: bool = False,
+    min_confidence: float = 0.0,
 ) -> Dict[str, Any]:
     cases, labels = load_dataset(dataset)
     model = RULES_MODEL if engine == "rules" else (model or default_model())
@@ -60,10 +65,13 @@ def run_experiment(
             time.sleep(delay)
         try:
             result = adjudicate(case, model=model, top_k=top_k, prompt_style=prompt_style,
-                                retrieval=retrieval, engine=engine)
+                                retrieval=retrieval, engine=engine, guard=guard,
+                                min_confidence=min_confidence)
             predictions.append(result.to_dict())
         except Exception as exc:  # one failed case must not lose the run
             failures.append({"case_id": case["case_id"], "error": str(exc)[:300]})
+            # Scored as wrong, not dropped, so accuracy keeps the full denominator.
+            predictions.append({"case_id": case["case_id"], "decision": "UNPARSED", "warnings": [str(exc)[:300]]})
 
     # Labels joined only now, after every prediction is made.
     metrics = score_run(predictions, labels)
@@ -73,14 +81,19 @@ def run_experiment(
         "model": model,
         "prompt_style": prompt_style if engine != "rules" else "",
         "retrieval": retrieval,
+        "dense": retrieval == "hybrid" and dense_available(),
         "top_k": top_k,
         "dataset": dataset,
         "repeat": repeat,
+        "guard": guard and engine != "rules",
+        "min_confidence": min_confidence if engine != "rules" else 0.0,
     }
     run = {
         "run_id": f"{created.strftime('%Y%m%d-%H%M%S')}_{dataset}_{engine}"
                   + (f"_{model.split('/')[-1]}_{prompt_style}" if engine != "rules" else "")
-                  + (f"_r{repeat}" if repeat else ""),
+                  + (f"_r{repeat}" if repeat else "")
+                  + ("_guard" if config["guard"] else "")
+                  + (f"_floor{int(round(min_confidence * 100))}" if config["min_confidence"] else ""),
         "label": run_label(config),
         "created_at": created.isoformat(timespec="seconds"),
         "config": config,
@@ -129,6 +142,10 @@ def main() -> None:
     parser.add_argument("--dataset", choices=sorted(DATASETS), default="pilot")
     parser.add_argument("--delay", type=float, default=3.0, help="Seconds between LLM calls (throttling).")
     parser.add_argument("--repeats", type=int, default=1, help="Run each style N times (consistency).")
+    parser.add_argument("--guard", action="store_true",
+                        help="Escalate when the rules engine disagrees with the LLM.")
+    parser.add_argument("--min-confidence", type=float, default=0.0,
+                        help="Escalate LLM rulings whose confidence is below this floor.")
     args = parser.parse_args()
 
     styles = sorted(PROMPT_STYLES) if args.all_styles and args.engine == "llm" else [args.prompt_style]
@@ -144,7 +161,8 @@ def main() -> None:
             run = run_experiment(engine=args.engine, model=args.model, prompt_style=style,
                                  retrieval=args.retrieval, top_k=args.top_k, dataset=args.dataset,
                                  delay=args.delay, progress=show,
-                                 repeat=repeat + 1 if args.repeats > 1 else 0)
+                                 repeat=repeat + 1 if args.repeats > 1 else 0,
+                                 guard=args.guard, min_confidence=args.min_confidence)
             print(format_summary(run["metrics"]))
             if run["failures"]:
                 print(f"failed cases: {[f['case_id'] for f in run['failures']]}")

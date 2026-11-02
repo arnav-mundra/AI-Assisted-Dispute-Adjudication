@@ -79,6 +79,19 @@ section[data-testid="stSidebar"] hr {{ border-color: #2A3A5C; }}
 .side-note {{ font-size: .78rem; color: #A9B4CB; line-height: 1.45; margin-top: 4px; }}
 .status {{ display:flex; align-items:center; gap:8px; font-size:.82rem; padding:3px 0; }}
 .status i {{ width:8px; height:8px; border-radius:50%; display:inline-block; }}
+.quota-head {{ display:flex; justify-content:space-between; align-items:baseline; margin:2px 0 8px 0; }}
+.quota-head b {{ font-size:.86rem; font-weight:600; }}
+.quota-head span {{ font-size:.74rem; color:#A9B4CB !important; }}
+.quota-row {{ margin: 0 0 11px 0; }}
+.quota-top {{ display:flex; align-items:baseline; gap:8px; font-size:.82rem; }}
+.quota-top .q-label {{ font-weight:500; }}
+.quota-top .q-reset {{ margin-left:auto; color:#A9B4CB !important; font-size:.76rem; }}
+.quota-top .q-pct {{ min-width:2.6em; text-align:right; color:#E6EBF4; font-variant-numeric:tabular-nums; }}
+.quota-bar {{ height:6px; border-radius:3px; background:#2A3A5C; margin-top:5px; overflow:hidden; }}
+.quota-bar i {{ display:block; height:100%; border-radius:3px; }}
+.quota-sub {{ font-size:.7rem; color:#7F8BA6 !important; margin-top:3px; }}
+.quota-blocked {{ font-size:.76rem; color:#F2B8B5 !important; background:#3A2230; border-radius:4px;
+  padding:6px 8px; margin:0 0 10px 0; line-height:1.4; }}
 
 /* Headings */
 .page-title {{ font-size: 2.05rem; font-weight: 700; color: {INK}; letter-spacing: -0.02em;
@@ -244,6 +257,16 @@ def status(label: str, ok: bool, note: str = "") -> None:
     colour = "#4CC38A" if ok else "#5D6B88"
     md(f'<div class="status"><i style="background:{colour}"></i>{esc(label)}'
        f'<span style="margin-left:auto;color:#A9B4CB">{esc(note)}</span></div>')
+
+
+def quota_meter(label: str, fraction: float, reset_text: str, sub: str = "") -> None:
+    """One usage bar in the style of the Claude usage panel: label, reset time, percent."""
+    pct = max(0.0, min(1.0, fraction))
+    colour = "#E5484D" if pct >= 0.9 else "#E8A23B" if pct >= 0.7 else "#5B8DEF"
+    md(f'<div class="quota-row"><div class="quota-top"><span class="q-label">{esc(label)}</span>'
+       f'<span class="q-reset">{esc(reset_text)}</span><span class="q-pct">{pct:.0%}</span></div>'
+       f'<div class="quota-bar"><i style="width:{pct * 100:.1f}%;background:{colour}"></i></div>'
+       + (f'<div class="quota-sub">{esc(sub)}</div>' if sub else "") + '</div>')
 
 
 def page_header(title: str, lede: str = "") -> None:

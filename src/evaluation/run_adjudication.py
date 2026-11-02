@@ -3,6 +3,10 @@
     python -m src.evaluation.run_adjudication --case DG-001
     python -m src.evaluation.run_adjudication --case DG-001 --engine rules
     python -m src.evaluation.run_adjudication --all --prompt-style cot --out runs/pilot_run.json
+    python -m src.evaluation.run_adjudication --dataset heldout --case HO-001 --engine rules
+
+`--dataset heldout` only runs once the held-out labels are final (see
+src/validation/heldout_labels.py), so no prediction is seen before the reference exists.
 
 For scored, saved experiment runs use `python -m src.evaluation.experiment`.
 
@@ -13,20 +17,19 @@ import argparse
 import json
 import time
 from pathlib import Path
-from typing import List
+from typing import Any, Dict, List, Optional
 
 from src.reasoning_engine.adjudicator import PROMPT_STYLES, Adjudication, adjudicate, default_model
-from src.evidence_extraction.case_loader import ROOT, get_case, load_cases, get_ground_truth
+from src.config.paths import ROOT
+from src.evaluation.datasets import DATASETS, load_dataset
 
 
-def run_one(case_id: str, model: str, top_k: int, engine: str = "llm",
+def run_one(case: Dict[str, Any], model: str, top_k: int, engine: str = "llm",
             prompt_style: str = "facts") -> Adjudication:
-    return adjudicate(get_case(case_id), model=model, top_k=top_k, engine=engine,
-                      prompt_style=prompt_style)
+    return adjudicate(case, model=model, top_k=top_k, engine=engine, prompt_style=prompt_style)
 
 
-def print_result(result: Adjudication) -> None:
-    label = get_ground_truth(result.case_id)
+def print_result(result: Adjudication, label: Optional[Dict[str, Any]] = None) -> None:
     reference = label["decision"] if label else "—"
     match = "MATCH" if label and label["decision"] == result.decision else "DIFFERS"
 
@@ -48,9 +51,10 @@ def print_result(result: Adjudication) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Adjudicate pilot dispute cases.")
+    parser = argparse.ArgumentParser(description="Adjudicate dispute cases from a named dataset.")
+    parser.add_argument("--dataset", choices=sorted(DATASETS), default="pilot")
     parser.add_argument("--case", help="Case ID, e.g. DG-001")
-    parser.add_argument("--all", action="store_true", help="Run all pilot cases")
+    parser.add_argument("--all", action="store_true", help="Run every case in the dataset")
     parser.add_argument("--model", default=default_model())
     parser.add_argument("--top-k", type=int, default=12)
     parser.add_argument("--engine", choices=["llm", "rules", "auto"], default="llm")
@@ -65,9 +69,16 @@ def main() -> None:
     if not args.case and not args.all:
         parser.error("pass --case CASE_ID or --all")
 
-    case_ids: List[str] = (
-        [case["case_id"] for case in load_cases()] if args.all else [args.case]
-    )
+    try:
+        cases, labels = load_dataset(args.dataset)
+    except FileNotFoundError as exc:
+        parser.error(str(exc))
+    cases_by_id = {case["case_id"]: case for case in cases}
+    labels_by_id = {label["case_id"]: label for label in labels}
+    if args.case and args.case not in cases_by_id:
+        parser.error(f"unknown case '{args.case}' in dataset '{args.dataset}'")
+
+    case_ids: List[str] = list(cases_by_id) if args.all else [args.case]
 
     results: List[Adjudication] = []
     failures: List[str] = []
@@ -76,19 +87,19 @@ def main() -> None:
         if index:
             time.sleep(args.delay)  # free-tier providers throttle rapid sequential calls
         try:
-            result = run_one(case_id, args.model, args.top_k, args.engine, args.prompt_style)
+            result = run_one(cases_by_id[case_id], args.model, args.top_k, args.engine, args.prompt_style)
         except Exception as exc:  # one bad case must not lose the whole run
             failures.append(f"{case_id}: {exc}")
             print(f"\n=== {case_id} ===\nFAILED: {exc}")
             continue
         results.append(result)
-        print_result(result)
+        print_result(result, labels_by_id.get(result.case_id))
 
     if args.all:
         agreed = sum(
             1
             for result in results
-            if (label := get_ground_truth(result.case_id)) and label["decision"] == result.decision
+            if (label := labels_by_id.get(result.case_id)) and label["decision"] == result.decision
         )
         print(f"\nAgreement with frozen reference labels: {agreed}/{len(results)}")
         if failures:

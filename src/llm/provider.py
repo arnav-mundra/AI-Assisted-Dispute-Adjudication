@@ -8,7 +8,7 @@ than raising, so the application can show its status instead of crashing.
 """
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
 Message = Dict[str, str]  # {"role": "user" | "assistant", "content": "..."}
@@ -32,6 +32,7 @@ class ProviderResponse:
     provider: str
     input_tokens: int = 0
     output_tokens: int = 0
+    rate_limit_headers: Dict[str, str] = field(default_factory=dict)
 
     @property
     def usage(self) -> Dict[str, int]:
@@ -87,8 +88,22 @@ class LLMProvider(ABC):
         max_tokens: int = 3000,
         temperature: float = 0.0,
     ) -> ProviderResponse:
+        from src.llm import quota
+
         self.require_available()
-        return self._complete(system, messages, model, max_tokens, temperature)
+        try:
+            response = self._complete(system, messages, model, max_tokens, temperature)
+        except Exception as exc:
+            quota.record_error(self.name, model, str(exc))
+            raise
+        quota.record_call(self.name, model, response.input_tokens + response.output_tokens,
+                          response.rate_limit_headers)
+        return response
+
+    def probe(self, model: str) -> None:
+        """Smallest possible request, to refresh rate-limit readings. Recorded like any call."""
+        self.complete(system="Reply with the JSON object {}.", messages=[{"role": "user", "content": "ok"}],
+                      model=model, max_tokens=16, temperature=0.0)
 
     @abstractmethod
     def _complete(

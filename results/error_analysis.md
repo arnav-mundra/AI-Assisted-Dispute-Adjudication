@@ -24,6 +24,19 @@ If the LLM and the rules engine disagree, escalate to manual review. Simulated f
 | pilot · gpt-oss-120b · facts | 10 | 80% → 100% | 33% → 100% | 2 | 2 | 0 |
 | pilot · gpt-oss-120b · cot | 10 | 70% → 100% | 0% → 100% | 3 | 3 | 0 |
 
+## Confidence floor (simulated)
+
+Escalate any LLM ruling whose own confidence is below the floor. Pooled over every unguarded LLM run above. A floor only helps if the model is less confident when it is wrong — compare the two right-hand columns.
+
+| Floor | Predictions | Accuracy before → after | Escalated | Errors fixed | Correct rulings sent to review |
+|---|---|---|---|---|---|
+| 0.50 | 46 | 76% → 76% | 0 | 0 | 0 |
+| 0.60 | 46 | 76% → 76% | 0 | 0 | 0 |
+| 0.70 | 46 | 76% → 76% | 0 | 0 | 0 |
+| 0.80 | 46 | 76% → 80% | 2 | 2 | 0 |
+| 0.90 | 46 | 76% → 76% | 7 | 3 | 3 |
+| 0.95 | 46 | 76% → 67% | 17 | 6 | 10 |
+
 ## Error taxonomy
 
 | Error kind | Count | Share |

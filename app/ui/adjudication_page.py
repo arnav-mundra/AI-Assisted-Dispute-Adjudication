@@ -39,7 +39,8 @@ def render(settings: Settings) -> None:
 
 def _run(case: Dict[str, Any], settings: Settings):
     return adjudicate(case, model=settings.model, top_k=settings.top_k, prompt_style=settings.prompt_style,
-                      retrieval=settings.retrieval, engine=settings.engine)
+                      retrieval=settings.retrieval, engine=settings.engine, guard=settings.guard,
+                      min_confidence=settings.min_confidence)
 
 
 def render_case(case: Dict[str, Any], settings: Settings) -> None:

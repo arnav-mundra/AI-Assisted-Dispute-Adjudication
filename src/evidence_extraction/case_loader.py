@@ -35,7 +35,6 @@ __all__ = [
     "get_case",
     "evidence_items",
     "evidence_ids",
-    "find_evidence",
     "load_ground_truth",
     "get_ground_truth",
 ]
@@ -74,13 +73,6 @@ def evidence_items(case: Dict[str, Any]) -> List[Dict[str, Any]]:
 
 def evidence_ids(case: Dict[str, Any]) -> List[str]:
     return [item["evidence_id"] for item in evidence_items(case) if item.get("evidence_id")]
-
-
-def find_evidence(case: Dict[str, Any], evidence_id: str) -> Optional[Dict[str, Any]]:
-    for item in evidence_items(case):
-        if item.get("evidence_id") == evidence_id:
-            return item
-    return None
 
 
 # ---------------------------------------------------------------------------

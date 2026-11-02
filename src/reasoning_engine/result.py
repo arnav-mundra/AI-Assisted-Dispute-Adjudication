@@ -39,6 +39,7 @@ class Adjudication:
     trace: List[Dict[str, str]] = field(default_factory=list)
     facts: Dict[str, Any] = field(default_factory=dict)
     cross_check: Dict[str, Any] = field(default_factory=dict)
+    safeguard: Dict[str, Any] = field(default_factory=dict)  # set when a safeguard overrode the model
 
     def to_dict(self) -> Dict[str, Any]:
         data = self.__dict__.copy()

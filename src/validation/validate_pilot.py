@@ -1,5 +1,4 @@
 import json
-import re
 from pathlib import Path
 
 
@@ -9,6 +8,9 @@ from src.config.paths import (  # noqa: E402
     ROOT,
     SLA_FILE,
 )
+
+from src.clause_matching.sla_clauses import load_clauses  # noqa: E402
+from src.evidence_extraction.case_loader import evidence_ids as _evidence_ids  # noqa: E402
 
 RAW_CASES_FILE = PILOT_CASES_FILE
 GROUND_TRUTH_FILE = PILOT_GROUND_TRUTH_FILE
@@ -32,31 +34,11 @@ def load_json(path: Path):
 
 
 def extract_sla_clause_ids():
-    text = SLA_FILE.read_text(encoding="utf-8")
-
-    return set(
-        re.findall(
-            r"\bSLA-(?:GEN|DEF|DG|COD|PRI)-\d{2}\b",
-            text,
-        )
-    )
+    return set(load_clauses())  # same source as the model's grounding check
 
 
 def collect_case_evidence_ids(case):
-    evidence_ids = set()
-
-    for section in (
-        "customer_evidence",
-        "agent_evidence",
-        "delivery_evidence",
-    ):
-        for evidence in case.get(section, []):
-            evidence_id = evidence.get("evidence_id")
-
-            if evidence_id:
-                evidence_ids.add(evidence_id)
-
-    return evidence_ids
+    return set(_evidence_ids(case))
 
 
 def validate():
