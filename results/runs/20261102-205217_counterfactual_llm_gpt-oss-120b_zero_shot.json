@@ -1,0 +1,3356 @@
+{
+  "run_id": "20261102-205217_counterfactual_llm_gpt-oss-120b_zero_shot",
+  "label": "openai/gpt-oss-120b · zero_shot",
+  "created_at": "2026-11-02T20:52:17+05:30",
+  "config": {
+    "engine": "llm",
+    "model": "openai/gpt-oss-120b",
+    "prompt_style": "zero_shot",
+    "retrieval": "hybrid",
+    "dense": true,
+    "top_k": 12,
+    "dataset": "counterfactual",
+    "repeat": 0,
+    "guard": false,
+    "min_confidence": 0.0
+  },
+  "wall_seconds": 399.43,
+  "predictions": [
+    {
+      "case_id": "CF-101",
+      "decision": "REJECT",
+      "primary_clause_id": "SLA-DG-01",
+      "supporting_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-05"
+      ],
+      "evidence_ids_used": [
+        "POD-003",
+        "CUSTOMER-005"
+      ],
+      "rationale": "The PoD timestamp (2026-08-05T18:40) to the first customer message (2026-08-08T06:40) is 60 hours, exceeding the 48‑hour window of SLA-DG-01, making the claim ineligible. SLA-DG-02 does not apply because the PoD photo shows no external damage. Although SLA-DG-05 would shift the case to agent discretion when no unboxing evidence is present, the eligibility rule in SLA-DG-01 overrides, leading to rejection.",
+      "resolution_type": "NO_CUSTOMER_ACTION",
+      "refund_amount_inr": null,
+      "confidence": 0.85,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 6.61,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-04",
+        "SLA-DEF-05",
+        "SLA-DEF-01",
+        "SLA-DG-05",
+        "SLA-COD-03",
+        "SLA-DG-06",
+        "SLA-GEN-03",
+        "SLA-DEF-02",
+        "SLA-DG-08",
+        "SLA-DG-07",
+        "SLA-PRI-03",
+        "SLA-DG-01",
+        "SLA-PRI-01",
+        "SLA-DG-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2894,
+        "output_tokens": 1027
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "05 Aug 2026 18:40 IST",
+          "sources": [
+            "POD-003"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "08 Aug 2026 06:40 IST",
+          "sources": [
+            "CUSTOMER-005"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 60.0,
+          "sources": [
+            "CUSTOMER-005",
+            "POD-003"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 3200.0,
+          "sources": [],
+          "detail": "order ORD-2026-40390"
+        },
+        "pod_condition": {
+          "value": "INTACT",
+          "sources": [
+            "POD-003"
+          ],
+          "detail": "Brown carton photographed on a doormat under corridor lighting. All visible edges and corners are square, tape seal unbroken, no dents, tear"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": true,
+          "sources": [
+            "AGENT-003"
+          ],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-005"
+          ],
+          "detail": "crack"
+        },
+        "damage_description_specific": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-005"
+          ],
+          "detail": "type: crack; location: body, button, dial, housing, right, side"
+        },
+        "customer_reports_package_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": "customer states none was recorded"
+        },
+        "damage_photo": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "high_value": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-003"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 48.0,
+          "sources": [
+            "POD-003"
+          ],
+          "detail": "48-hour default (SLA-DG-01)"
+        },
+        "within_window": {
+          "value": false,
+          "sources": [
+            "CUSTOMER-005",
+            "POD-003"
+          ],
+          "detail": "60.0 h vs 48 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "REJECT",
+        "rules_primary_clause_id": "SLA-DG-01",
+        "rules_refund_amount_inr": null,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-102",
+      "decision": "APPROVE",
+      "primary_clause_id": "SLA-DG-06",
+      "supporting_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-01",
+        "SLA-DG-04"
+      ],
+      "evidence_ids_used": [
+        "POD-001",
+        "CUSTOMER-001",
+        "CUSTOMER-002"
+      ],
+      "rationale": "The PoD timestamp is 2026-08-01T11:20, and the customer first reported on 2026-08-05T11:20, a 4‑day interval, which exceeds the default 48‑hour window but falls within the 7‑day extension because the PoD photo shows visible external damage (SLA-DG-02). The PoD photo and the customer's photo both show a crushed box corner and a cracked lamp base, satisfying SLA-DG-06, which mandates approval without further evidence. Hence the claim is approved under SLA-DG-06.",
+      "resolution_type": "REPLACEMENT_DEFAULT",
+      "refund_amount_inr": null,
+      "confidence": 0.97,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 3.75,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-04",
+        "SLA-DEF-02",
+        "SLA-DG-05",
+        "SLA-DEF-05",
+        "SLA-DEF-01",
+        "SLA-COD-03",
+        "SLA-DG-06",
+        "SLA-DG-07",
+        "SLA-PRI-01",
+        "SLA-DG-01",
+        "SLA-DG-03",
+        "SLA-GEN-03",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2878,
+        "output_tokens": 777
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "01 Aug 2026 11:20 IST",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "05 Aug 2026 11:20 IST",
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 96.0,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 2499.0,
+          "sources": [],
+          "detail": "order ORD-2026-40118"
+        },
+        "pod_condition": {
+          "value": "DAMAGED",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "Brown carton photographed on the floor near a doorway. The top-right corner of the box is visibly crushed inward and one side flap is torn o"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "cracked"
+        },
+        "damage_description_specific": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "type: cracked; location: base, bottom, left, right, rim, side"
+        },
+        "customer_reports_package_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "damage_photo": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-002"
+          ],
+          "detail": ""
+        },
+        "high_value": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 168.0,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "7-day exception (PoD shows damage, SLA-DG-02)"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "96.0 h vs 168 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "APPROVE",
+        "rules_primary_clause_id": "SLA-DG-06",
+        "rules_refund_amount_inr": null,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-103",
+      "decision": "REJECT",
+      "primary_clause_id": "SLA-DG-01",
+      "supporting_clause_ids": [
+        "SLA-DG-02"
+      ],
+      "evidence_ids_used": [
+        "POD-001",
+        "CUSTOMER-001"
+      ],
+      "rationale": "The claim was filed on 2026-08-09 19:20 IST, 8 days 8 hours after the PoD timestamp (2026-08-01 11:20 IST), exceeding the standard 48‑hour window (SLA-DG-01). SLA-DG-02 would extend the window to 7 days only if the PoD photo shows visible damage, which it does, but the claim still falls outside the 7‑day extension, making it ineligible. Therefore the claim must be rejected.",
+      "resolution_type": "NO_CUSTOMER_ACTION",
+      "refund_amount_inr": null,
+      "confidence": 0.96,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 4.58,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-04",
+        "SLA-DEF-02",
+        "SLA-DG-05",
+        "SLA-DEF-05",
+        "SLA-DEF-01",
+        "SLA-COD-03",
+        "SLA-DG-06",
+        "SLA-DG-07",
+        "SLA-PRI-01",
+        "SLA-DG-01",
+        "SLA-DG-03",
+        "SLA-GEN-03",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2878,
+        "output_tokens": 855
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "01 Aug 2026 11:20 IST",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "09 Aug 2026 19:20 IST",
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 200.0,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 2499.0,
+          "sources": [],
+          "detail": "order ORD-2026-40118"
+        },
+        "pod_condition": {
+          "value": "DAMAGED",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "Brown carton photographed on the floor near a doorway. The top-right corner of the box is visibly crushed inward and one side flap is torn o"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "cracked"
+        },
+        "damage_description_specific": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "type: cracked; location: base, bottom, left, right, rim, side"
+        },
+        "customer_reports_package_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "damage_photo": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-002"
+          ],
+          "detail": ""
+        },
+        "high_value": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 168.0,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "7-day exception (PoD shows damage, SLA-DG-02)"
+        },
+        "within_window": {
+          "value": false,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "200.0 h vs 168 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "REJECT",
+        "rules_primary_clause_id": "SLA-DG-01",
+        "rules_refund_amount_inr": null,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-104",
+      "decision": "APPROVE",
+      "primary_clause_id": "SLA-DG-06",
+      "supporting_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-01",
+        "SLA-DG-03",
+        "SLA-DG-04"
+      ],
+      "evidence_ids_used": [
+        "POD-001",
+        "CUSTOMER-001",
+        "CUSTOMER-002"
+      ],
+      "rationale": "The PoD timestamp (2026-08-01T11:20) to the first customer message (2026-08-01T19:05) is within 48 hours, satisfying SLA-DG-01, and SLA-DG-02 extends the window to 7 days because the PoD photo shows external damage. The claim includes a photo of the damaged lamp and the crushed box (CUSTOMER-002) meeting SLA-DG-04 and the required unboxing evidence for a high‑value order per SLA-DG-03. Since the PoD photo’s visible damage matches the customer’s description and photo, SLA-DG-06 mandates approval. The approved claim is resolved with a free replacement as per SLA-DG-07.",
+      "resolution_type": "REPLACEMENT_DEFAULT",
+      "refund_amount_inr": null,
+      "confidence": 0.96,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 13.31,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-04",
+        "SLA-DEF-02",
+        "SLA-DG-05",
+        "SLA-DEF-05",
+        "SLA-DEF-01",
+        "SLA-COD-03",
+        "SLA-DG-06",
+        "SLA-DG-07",
+        "SLA-PRI-01",
+        "SLA-DG-01",
+        "SLA-DG-03",
+        "SLA-GEN-03",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2878,
+        "output_tokens": 897
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "01 Aug 2026 11:20 IST",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "01 Aug 2026 19:05 IST",
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 7.75,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 6200.0,
+          "sources": [],
+          "detail": "order ORD-2026-40118"
+        },
+        "pod_condition": {
+          "value": "DAMAGED",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "Brown carton photographed on the floor near a doorway. The top-right corner of the box is visibly crushed inward and one side flap is torn o"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "cracked"
+        },
+        "damage_description_specific": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "type: cracked; location: base, bottom, left, right, rim, side"
+        },
+        "customer_reports_package_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "damage_photo": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-002"
+          ],
+          "detail": ""
+        },
+        "high_value": {
+          "value": true,
+          "sources": [],
+          "detail": "SLA-DG-03 requires unboxing evidence"
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 168.0,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "7-day exception (PoD shows damage, SLA-DG-02)"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "7.8 h vs 168 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "ESCALATE",
+        "rules_primary_clause_id": "SLA-DG-03",
+        "rules_refund_amount_inr": null,
+        "agrees": false,
+        "primary_agrees": false
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-105",
+      "decision": "ESCALATE",
+      "primary_clause_id": "SLA-DG-09",
+      "supporting_clause_ids": [
+        "SLA-DG-06",
+        "SLA-DG-01",
+        "SLA-DG-04"
+      ],
+      "evidence_ids_used": [
+        "POD-001",
+        "CUSTOMER-001",
+        "CUSTOMER-002",
+        "DELIVERY-901"
+      ],
+      "rationale": "The claim was reported within 48 hours (11:20 to 19:05) meeting SLA-DG-01, and the PoD photo shows visible external damage consistent with the customer’s photo and description, satisfying SLA-DG-06 and SLA-DG-04. However, the customer has three prior damaged‑goods claims in the last 90 days (evidence DELIVERY-901), triggering SLA-DG-09 which mandates a manual fraud review instead of standard approval. Hence the case must be escalated for manual review.",
+      "resolution_type": "MANUAL_REVIEW",
+      "refund_amount_inr": null,
+      "confidence": 0.88,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 8.91,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-04",
+        "SLA-DEF-02",
+        "SLA-DG-09",
+        "SLA-DG-07",
+        "SLA-DEF-05",
+        "SLA-DG-05",
+        "SLA-DG-03",
+        "SLA-COD-03",
+        "SLA-PRI-01",
+        "SLA-DG-06",
+        "SLA-DG-01",
+        "SLA-DEF-01",
+        "SLA-PRI-03",
+        "SLA-GEN-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 3030,
+        "output_tokens": 1006
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "01 Aug 2026 11:20 IST",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "01 Aug 2026 19:05 IST",
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 7.75,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 2499.0,
+          "sources": [],
+          "detail": "order ORD-2026-40118"
+        },
+        "pod_condition": {
+          "value": "DAMAGED",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "Brown carton photographed on the floor near a doorway. The top-right corner of the box is visibly crushed inward and one side flap is torn o"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 3,
+          "sources": [
+            "DELIVERY-901"
+          ],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "cracked"
+        },
+        "damage_description_specific": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "type: cracked; location: base, bottom, left, right, rim, side"
+        },
+        "customer_reports_package_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "damage_photo": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-002"
+          ],
+          "detail": ""
+        },
+        "high_value": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 168.0,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "7-day exception (PoD shows damage, SLA-DG-02)"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "7.8 h vs 168 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "ESCALATE",
+        "rules_primary_clause_id": "SLA-DG-09",
+        "rules_refund_amount_inr": null,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-106",
+      "decision": "ESCALATE",
+      "primary_clause_id": "SLA-DG-08",
+      "supporting_clause_ids": [
+        "SLA-DG-01",
+        "SLA-DG-04",
+        "SLA-DG-05",
+        "SLA-PRI-01"
+      ],
+      "evidence_ids_used": [
+        "POD-003",
+        "AGENT-003",
+        "CUSTOMER-005"
+      ],
+      "rationale": "The claim was reported 14h35m after the PoD, within the 48‑hour window (SLA-DG-01). The PoD photo shows an undamaged package and no unboxing evidence is provided, so the claim shifts to agent discretion (SLA-DG-05). The claim also fails the minimum evidence requirement of SLA-DG-04 (no unboxing photo, no damage photo, and only a vague description). Because structured evidence (intact PoD, agent statement) conflicts with the customer's vague claim and there is insufficient proof of fault, SLA-DG-08 requires escalation to manual review.",
+      "resolution_type": "MANUAL_REVIEW",
+      "refund_amount_inr": null,
+      "confidence": 0.95,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 5.69,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DEF-02",
+        "SLA-DG-05",
+        "SLA-DG-04",
+        "SLA-COD-03",
+        "SLA-GEN-03",
+        "SLA-DEF-03",
+        "SLA-DEF-01",
+        "SLA-DG-06",
+        "SLA-DG-07",
+        "SLA-DEF-05",
+        "SLA-PRI-01",
+        "SLA-DG-03",
+        "SLA-DG-01",
+        "SLA-DG-08",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2900,
+        "output_tokens": 792
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "05 Aug 2026 18:40 IST",
+          "sources": [
+            "POD-003"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "06 Aug 2026 09:15 IST",
+          "sources": [
+            "CUSTOMER-005"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 14.58,
+          "sources": [
+            "CUSTOMER-005",
+            "POD-003"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 3200.0,
+          "sources": [],
+          "detail": "order ORD-2026-40390"
+        },
+        "pod_condition": {
+          "value": "INTACT",
+          "sources": [
+            "POD-003"
+          ],
+          "detail": "Brown carton photographed on a doormat under corridor lighting. All visible edges and corners are square, tape seal unbroken, no dents, tear"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": true,
+          "sources": [
+            "AGENT-003"
+          ],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-005"
+          ],
+          "detail": "damaged"
+        },
+        "damage_description_specific": {
+          "value": false,
+          "sources": [
+            "CUSTOMER-005"
+          ],
+          "detail": "type: damaged; location: —"
+        },
+        "customer_reports_package_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-005"
+          ],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "damage_photo": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "high_value": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-003"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 48.0,
+          "sources": [
+            "POD-003"
+          ],
+          "detail": "48-hour default (SLA-DG-01)"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-005",
+            "POD-003"
+          ],
+          "detail": "14.6 h vs 48 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "REJECT",
+        "rules_primary_clause_id": "SLA-DG-04",
+        "rules_refund_amount_inr": null,
+        "agrees": false,
+        "primary_agrees": false
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-107",
+      "decision": "APPROVE",
+      "primary_clause_id": "SLA-DG-05",
+      "supporting_clause_ids": [
+        "SLA-DG-01",
+        "SLA-DG-04",
+        "SLA-DG-07"
+      ],
+      "evidence_ids_used": [
+        "POD-002",
+        "CUSTOMER-003",
+        "CUSTOMER-004"
+      ],
+      "rationale": "The PoD timestamp (2026-08-03T10:15) to the first customer message (2026-08-04T12:15) is 26 hours, within the 48‑hour SLA‑DG‑01 window. The PoD photo shows an undamaged package, so SLA‑DG‑02 does not extend the window. The claim includes a photo of the damaged glass carafe (CUSTOMER-004) satisfying SLA‑DG‑04(b). Because there is no unboxing evidence, SLA‑DG‑05 applies, shifting the decision to agent discretion; based on the credible damage photo and specific description, we exercise discretion to approve. Approved claims default to a free replacement per SLA‑DG‑07.",
+      "resolution_type": "REPLACEMENT_DEFAULT",
+      "refund_amount_inr": null,
+      "confidence": 0.78,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 9.31,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-05",
+        "SLA-DEF-01",
+        "SLA-DG-04",
+        "SLA-DG-06",
+        "SLA-COD-03",
+        "SLA-DEF-03",
+        "SLA-DG-03",
+        "SLA-PRI-01",
+        "SLA-DG-07",
+        "SLA-DG-08",
+        "SLA-COD-06",
+        "SLA-DG-01",
+        "SLA-GEN-03",
+        "SLA-COD-07",
+        "SLA-DEF-05",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 3160,
+        "output_tokens": 1503
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "03 Aug 2026 10:15 IST",
+          "sources": [
+            "POD-002"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "04 Aug 2026 12:15 IST",
+          "sources": [
+            "CUSTOMER-003"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 26.0,
+          "sources": [
+            "CUSTOMER-003",
+            "POD-002"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 1899.0,
+          "sources": [],
+          "detail": "order ORD-2026-40233"
+        },
+        "pod_condition": {
+          "value": "INTACT",
+          "sources": [
+            "POD-002"
+          ],
+          "detail": "Sealed brown carton held by the consignee at an apartment door. Box edges and seams are square and undamaged; shipping label and tape are in"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-003"
+          ],
+          "detail": "chip"
+        },
+        "damage_description_specific": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-003"
+          ],
+          "detail": "type: chip; location: carafe, rim"
+        },
+        "customer_reports_package_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "damage_photo": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-004"
+          ],
+          "detail": ""
+        },
+        "high_value": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-002"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 48.0,
+          "sources": [
+            "POD-002"
+          ],
+          "detail": "48-hour default (SLA-DG-01)"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-003",
+            "POD-002"
+          ],
+          "detail": "26.0 h vs 48 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "ESCALATE",
+        "rules_primary_clause_id": "SLA-DG-08",
+        "rules_refund_amount_inr": null,
+        "agrees": false,
+        "primary_agrees": false
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-108",
+      "decision": "APPROVE",
+      "primary_clause_id": "SLA-DG-06",
+      "supporting_clause_ids": [
+        "SLA-DG-04",
+        "SLA-DG-02",
+        "SLA-PRI-03"
+      ],
+      "evidence_ids_used": [
+        "POD-001",
+        "CUSTOMER-001",
+        "CUSTOMER-002"
+      ],
+      "rationale": "The PoD timestamp (2026-08-01T11:20) to first customer message (2026-08-01T19:05) is within 48 hours, satisfying SLA-DG-01; SLA-DG-02 also extends the window due to visible external damage. The PoD photo shows external damage (crushed corner, torn flap) and the customer's photo and description note the same box damage plus a cracked lamp base, meeting SLA-DG-06's consistency requirement, so the claim is auto‑approved. SLA-DG-04 is satisfied by the photo of the damaged product, and SLA-DG-07 dictates a free replacement.",
+      "resolution_type": "REPLACEMENT_DEFAULT",
+      "refund_amount_inr": null,
+      "confidence": 0.85,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 12.65,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-04",
+        "SLA-DEF-02",
+        "SLA-DEF-05",
+        "SLA-COD-03",
+        "SLA-DG-05",
+        "SLA-DEF-01",
+        "SLA-DG-06",
+        "SLA-DG-07",
+        "SLA-PRI-01",
+        "SLA-DG-01",
+        "SLA-DEF-03",
+        "SLA-DG-03",
+        "SLA-GEN-03",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2922,
+        "output_tokens": 1253
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "01 Aug 2026 11:20 IST",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "01 Aug 2026 19:05 IST",
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 7.75,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 2499.0,
+          "sources": [],
+          "detail": "order ORD-2026-40118"
+        },
+        "pod_condition": {
+          "value": "DAMAGED",
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "Brown carton photographed on the floor near a doorway. The top-right corner of the box is visibly crushed inward and one side flap is torn o"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "crack"
+        },
+        "damage_description_specific": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001"
+          ],
+          "detail": "type: crack; location: base, bottom, rim, side"
+        },
+        "customer_reports_package_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "damage_photo": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-002"
+          ],
+          "detail": ""
+        },
+        "high_value": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 168.0,
+          "sources": [
+            "POD-001"
+          ],
+          "detail": "7-day exception (PoD shows damage, SLA-DG-02)"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-001",
+            "POD-001"
+          ],
+          "detail": "7.8 h vs 168 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "APPROVE",
+        "rules_primary_clause_id": "SLA-DG-06",
+        "rules_refund_amount_inr": null,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-109",
+      "decision": "REJECT",
+      "primary_clause_id": "SLA-COD-01",
+      "supporting_clause_ids": [],
+      "evidence_ids_used": [
+        "POD-006",
+        "CUSTOMER-009"
+      ],
+      "rationale": "The claim was submitted at 2026-08-14T21:35, which is 30 hours after the PoD timestamp of 2026-08-13T15:35, exceeding the 24‑hour reporting window required by SLA-COD-01. Because the eligibility window is missed, the claim is ineligible for review regardless of other evidence. Therefore the claim must be rejected.",
+      "resolution_type": "NO_CUSTOMER_ACTION",
+      "refund_amount_inr": null,
+      "confidence": 0.96,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 28.73,
+      "retrieved_clause_ids": [
+        "SLA-COD-03",
+        "SLA-COD-01",
+        "SLA-COD-06",
+        "SLA-DEF-03",
+        "SLA-COD-02",
+        "SLA-COD-05",
+        "SLA-COD-04",
+        "SLA-COD-09",
+        "SLA-COD-07",
+        "SLA-COD-08",
+        "SLA-GEN-03",
+        "SLA-PRI-01",
+        "SLA-DG-02",
+        "SLA-DG-01",
+        "SLA-DG-06",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [
+        "repaired after: 'SLA-COD-01' is cited as both primary and supporting"
+      ],
+      "usage": {
+        "input_tokens": 5857,
+        "output_tokens": 833
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "13 Aug 2026 15:35 IST",
+          "sources": [
+            "POD-006"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "14 Aug 2026 21:35 IST",
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 30.0,
+          "sources": [
+            "CUSTOMER-009",
+            "POD-006"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 1500.0,
+          "sources": [],
+          "detail": "order ORD-2026-41004"
+        },
+        "invoice_total_inr": {
+          "value": 1500.0,
+          "sources": [],
+          "detail": "COD amount due per invoice"
+        },
+        "claimed_collected_inr": {
+          "value": 1700.0,
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "claimed_excess_inr": {
+          "value": 200.0,
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "recon_status": {
+          "value": "RECORDED",
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": ""
+        },
+        "recon_amount_inr": {
+          "value": 1700.0,
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": ""
+        },
+        "recon_vs_invoice": {
+          "value": "HIGHER",
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": "+₹200.00"
+        },
+        "recon_excess_inr": {
+          "value": 200.0,
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": "SLA-COD-04 formula"
+        },
+        "agent_stated_amount_inr": {
+          "value": 1700.0,
+          "sources": [
+            "AGENT-006"
+          ],
+          "detail": ""
+        },
+        "customer_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "corroboration_verifiable": {
+          "value": null,
+          "sources": [],
+          "detail": ""
+        },
+        "sources_confirming_correct_payment": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 24.0,
+          "sources": [],
+          "detail": "SLA-COD-01"
+        },
+        "within_window": {
+          "value": false,
+          "sources": [
+            "CUSTOMER-009",
+            "POD-006"
+          ],
+          "detail": "30.0 h vs 24 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "REJECT",
+        "rules_primary_clause_id": "SLA-COD-01",
+        "rules_refund_amount_inr": null,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-110",
+      "decision": "REJECT",
+      "primary_clause_id": "SLA-COD-07",
+      "supporting_clause_ids": [
+        "SLA-COD-01",
+        "SLA-COD-03",
+        "SLA-COD-04"
+      ],
+      "evidence_ids_used": [
+        "RECON-001",
+        "CUSTOMER-009"
+      ],
+      "rationale": "The claim was reported 4h35m after the PoD, within the 24‑hour window (SLA-COD-01). The reconciliation log (RECON-001) shows the agent collected ₹1505, ₹5 over the order total, which under SLA-COD-04 would merit a refund. However, SLA-COD-07 classifies any discrepancy ≤₹10 as a rounding/change issue and excludes it from formal dispute resolution, making the claim ineligible for a standard refund. Hence the claim is rejected.",
+      "resolution_type": "NO_STANDARD_RESOLUTION",
+      "refund_amount_inr": null,
+      "confidence": 0.78,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 10.73,
+      "retrieved_clause_ids": [
+        "SLA-COD-03",
+        "SLA-COD-01",
+        "SLA-COD-06",
+        "SLA-COD-05",
+        "SLA-DEF-03",
+        "SLA-COD-02",
+        "SLA-COD-04",
+        "SLA-COD-09",
+        "SLA-COD-08",
+        "SLA-COD-07",
+        "SLA-GEN-03",
+        "SLA-GEN-01",
+        "SLA-DG-02",
+        "SLA-PRI-01",
+        "SLA-PRI-03",
+        "SLA-DG-01",
+        "SLA-DG-06",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2872,
+        "output_tokens": 1190
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "13 Aug 2026 15:35 IST",
+          "sources": [
+            "POD-006"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "13 Aug 2026 20:10 IST",
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 4.58,
+          "sources": [
+            "CUSTOMER-009",
+            "POD-006"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 1500.0,
+          "sources": [],
+          "detail": "order ORD-2026-41004"
+        },
+        "invoice_total_inr": {
+          "value": 1500.0,
+          "sources": [],
+          "detail": "COD amount due per invoice"
+        },
+        "claimed_collected_inr": {
+          "value": 1505.0,
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "claimed_excess_inr": {
+          "value": 5.0,
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "recon_status": {
+          "value": "RECORDED",
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": ""
+        },
+        "recon_amount_inr": {
+          "value": 1505.0,
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": ""
+        },
+        "recon_vs_invoice": {
+          "value": "HIGHER",
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": "+₹5.00"
+        },
+        "recon_excess_inr": {
+          "value": 5.0,
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": "SLA-COD-04 formula"
+        },
+        "agent_stated_amount_inr": {
+          "value": 1700.0,
+          "sources": [
+            "AGENT-006"
+          ],
+          "detail": ""
+        },
+        "customer_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "corroboration_verifiable": {
+          "value": null,
+          "sources": [],
+          "detail": ""
+        },
+        "sources_confirming_correct_payment": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 24.0,
+          "sources": [],
+          "detail": "SLA-COD-01"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-009",
+            "POD-006"
+          ],
+          "detail": "4.6 h vs 24 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "REJECT",
+        "rules_primary_clause_id": "SLA-COD-07",
+        "rules_refund_amount_inr": null,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-111",
+      "decision": "APPROVE",
+      "primary_clause_id": "SLA-COD-06",
+      "supporting_clause_ids": [
+        "SLA-COD-01"
+      ],
+      "evidence_ids_used": [
+        "RECON-004",
+        "CUSTOMER-012",
+        "POD-009"
+      ],
+      "rationale": "The claim was reported 15h25m after the PoD (within the 24‑hour SLA-COD-01 window). The reconciliation log is marked UNAVAILABLE (evidence RECON-004), triggering SLA-COD-06 which mandates a customer‑favorable refund of the excess amount and overrides SLA-COD-07. The excess is ₹8 (2358‑2350) and is therefore refunded.",
+      "resolution_type": "PARTIAL_REFUND",
+      "refund_amount_inr": 8.0,
+      "confidence": 0.97,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 6.67,
+      "retrieved_clause_ids": [
+        "SLA-COD-06",
+        "SLA-COD-01",
+        "SLA-DEF-03",
+        "SLA-COD-05",
+        "SLA-COD-03",
+        "SLA-COD-02",
+        "SLA-COD-04",
+        "SLA-COD-08",
+        "SLA-COD-07",
+        "SLA-PRI-01",
+        "SLA-COD-09",
+        "SLA-DEF-01",
+        "SLA-GEN-03",
+        "SLA-DG-02",
+        "SLA-PRI-03",
+        "SLA-DG-01",
+        "SLA-PRI-02",
+        "SLA-DG-06"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2860,
+        "output_tokens": 894
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "15 Aug 2026 19:05 IST",
+          "sources": [
+            "POD-009"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "16 Aug 2026 10:30 IST",
+          "sources": [
+            "CUSTOMER-012"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 15.42,
+          "sources": [
+            "CUSTOMER-012",
+            "POD-009"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 2350.0,
+          "sources": [],
+          "detail": "order ORD-2026-41377"
+        },
+        "invoice_total_inr": {
+          "value": 2350.0,
+          "sources": [],
+          "detail": "COD amount due per invoice"
+        },
+        "claimed_collected_inr": {
+          "value": 2358.0,
+          "sources": [
+            "CUSTOMER-012"
+          ],
+          "detail": ""
+        },
+        "claimed_excess_inr": {
+          "value": 8.0,
+          "sources": [
+            "CUSTOMER-012"
+          ],
+          "detail": ""
+        },
+        "recon_status": {
+          "value": "UNAVAILABLE",
+          "sources": [
+            "RECON-004"
+          ],
+          "detail": "system outage reported"
+        },
+        "recon_amount_inr": {
+          "value": null,
+          "sources": [
+            "RECON-004"
+          ],
+          "detail": ""
+        },
+        "recon_vs_invoice": {
+          "value": "NO_RECORD",
+          "sources": [
+            "RECON-004"
+          ],
+          "detail": ""
+        },
+        "agent_stated_amount_inr": {
+          "value": null,
+          "sources": [
+            "AGENT-010"
+          ],
+          "detail": "agent did not respond"
+        },
+        "customer_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "corroboration_verifiable": {
+          "value": null,
+          "sources": [],
+          "detail": ""
+        },
+        "sources_confirming_correct_payment": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 24.0,
+          "sources": [],
+          "detail": "SLA-COD-01"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-012",
+            "POD-009"
+          ],
+          "detail": "15.4 h vs 24 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "APPROVE",
+        "rules_primary_clause_id": "SLA-COD-06",
+        "rules_refund_amount_inr": 8.0,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-112",
+      "decision": "REJECT",
+      "primary_clause_id": "SLA-COD-03",
+      "supporting_clause_ids": [
+        "SLA-COD-01",
+        "SLA-PRI-01"
+      ],
+      "evidence_ids_used": [
+        "RECON-005",
+        "CUSTOMER-013",
+        "AGENT-009"
+      ],
+      "rationale": "The claim was reported 14h45m after the PoD (2026-08-16T18:35 to 2026-08-17T09:20), within the 24‑hour window of SLA-COD-01, so it is eligible. The reconciliation log (RECON-005) records the collected amount as ₹3200, matching the order total, which under SLA-COD-03 presumes the overcharge claim is rejected unless the customer provides corroborating evidence. The customer only supplied an unstructured chat message (CUSTOMER-013) with no photo or other proof, so no corroboration exists. Hence the claim is rejected.",
+      "resolution_type": "NO_CUSTOMER_ACTION",
+      "refund_amount_inr": null,
+      "confidence": 0.96,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 6.69,
+      "retrieved_clause_ids": [
+        "SLA-COD-01",
+        "SLA-COD-03",
+        "SLA-COD-05",
+        "SLA-COD-06",
+        "SLA-DEF-03",
+        "SLA-COD-02",
+        "SLA-COD-04",
+        "SLA-COD-08",
+        "SLA-GEN-03",
+        "SLA-COD-07",
+        "SLA-PRI-01",
+        "SLA-COD-09",
+        "SLA-DG-02",
+        "SLA-DG-06",
+        "SLA-DG-01",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2827,
+        "output_tokens": 873
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "16 Aug 2026 18:35 IST",
+          "sources": [
+            "POD-010"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "17 Aug 2026 09:20 IST",
+          "sources": [
+            "CUSTOMER-013"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 14.75,
+          "sources": [
+            "CUSTOMER-013",
+            "POD-010"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 3200.0,
+          "sources": [],
+          "detail": "order ORD-2026-41490"
+        },
+        "invoice_total_inr": {
+          "value": 3200.0,
+          "sources": [],
+          "detail": "COD amount due per invoice"
+        },
+        "claimed_collected_inr": {
+          "value": 3500.0,
+          "sources": [
+            "CUSTOMER-013"
+          ],
+          "detail": ""
+        },
+        "claimed_excess_inr": {
+          "value": 300.0,
+          "sources": [
+            "CUSTOMER-013"
+          ],
+          "detail": ""
+        },
+        "recon_status": {
+          "value": "RECORDED",
+          "sources": [
+            "RECON-005"
+          ],
+          "detail": ""
+        },
+        "recon_amount_inr": {
+          "value": 3200.0,
+          "sources": [
+            "RECON-005"
+          ],
+          "detail": ""
+        },
+        "recon_vs_invoice": {
+          "value": "MATCH",
+          "sources": [
+            "RECON-005"
+          ],
+          "detail": "₹0.00"
+        },
+        "recon_excess_inr": {
+          "value": 0.0,
+          "sources": [
+            "RECON-005"
+          ],
+          "detail": "SLA-COD-04 formula"
+        },
+        "agent_stated_amount_inr": {
+          "value": 3200.0,
+          "sources": [
+            "AGENT-009"
+          ],
+          "detail": ""
+        },
+        "customer_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "corroboration_verifiable": {
+          "value": null,
+          "sources": [],
+          "detail": ""
+        },
+        "sources_confirming_correct_payment": {
+          "value": 2,
+          "sources": [
+            "AGENT-009",
+            "RECON-005"
+          ],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 24.0,
+          "sources": [],
+          "detail": "SLA-COD-01"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-013",
+            "POD-010"
+          ],
+          "detail": "14.8 h vs 24 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "REJECT",
+        "rules_primary_clause_id": "SLA-COD-03",
+        "rules_refund_amount_inr": 0.0,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-113",
+      "decision": "APPROVE",
+      "primary_clause_id": "SLA-COD-04",
+      "supporting_clause_ids": [
+        "SLA-COD-01",
+        "SLA-COD-03",
+        "SLA-COD-07"
+      ],
+      "evidence_ids_used": [
+        "CUSTOMER-010",
+        "POD-007",
+        "RECON-002"
+      ],
+      "rationale": "The claim was reported 16h25m after the PoD, within the 24‑hour SLA-COD-01 window, so it is eligible. The reconciliation log (RECON-002) shows ₹2450 collected versus the order total ₹2200, a higher amount, triggering SLA-COD-04 which mandates refund of the excess (₹250). The discrepancy exceeds the ₹10 threshold of SLA-COD-07, so formal resolution applies. Hence the refund is approved.",
+      "resolution_type": "REFUND",
+      "refund_amount_inr": 250.0,
+      "confidence": 0.97,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 12.47,
+      "retrieved_clause_ids": [
+        "SLA-COD-01",
+        "SLA-COD-06",
+        "SLA-COD-03",
+        "SLA-DEF-03",
+        "SLA-COD-05",
+        "SLA-COD-02",
+        "SLA-COD-04",
+        "SLA-COD-08",
+        "SLA-COD-09",
+        "SLA-COD-07",
+        "SLA-GEN-03",
+        "SLA-PRI-01",
+        "SLA-DG-02",
+        "SLA-PRI-03",
+        "SLA-DG-01",
+        "SLA-PRI-02",
+        "SLA-DG-06"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2767,
+        "output_tokens": 644
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "13 Aug 2026 18:55 IST",
+          "sources": [
+            "POD-007"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "14 Aug 2026 11:20 IST",
+          "sources": [
+            "CUSTOMER-010"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 16.42,
+          "sources": [
+            "CUSTOMER-010",
+            "POD-007"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 2200.0,
+          "sources": [],
+          "detail": "order ORD-2026-41128"
+        },
+        "invoice_total_inr": {
+          "value": 2200.0,
+          "sources": [],
+          "detail": "COD amount due per invoice"
+        },
+        "claimed_collected_inr": {
+          "value": 2500.0,
+          "sources": [
+            "CUSTOMER-010"
+          ],
+          "detail": ""
+        },
+        "claimed_excess_inr": {
+          "value": 300.0,
+          "sources": [
+            "CUSTOMER-010"
+          ],
+          "detail": ""
+        },
+        "recon_status": {
+          "value": "RECORDED",
+          "sources": [
+            "RECON-002"
+          ],
+          "detail": ""
+        },
+        "recon_amount_inr": {
+          "value": 2450.0,
+          "sources": [
+            "RECON-002"
+          ],
+          "detail": ""
+        },
+        "recon_vs_invoice": {
+          "value": "HIGHER",
+          "sources": [
+            "RECON-002"
+          ],
+          "detail": "+₹250.00"
+        },
+        "recon_excess_inr": {
+          "value": 250.0,
+          "sources": [
+            "RECON-002"
+          ],
+          "detail": "SLA-COD-04 formula"
+        },
+        "agent_stated_amount_inr": {
+          "value": 2450.0,
+          "sources": [
+            "AGENT-007"
+          ],
+          "detail": ""
+        },
+        "customer_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "corroboration_verifiable": {
+          "value": null,
+          "sources": [],
+          "detail": ""
+        },
+        "sources_confirming_correct_payment": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 24.0,
+          "sources": [],
+          "detail": "SLA-COD-01"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-010",
+            "POD-007"
+          ],
+          "detail": "16.4 h vs 24 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "APPROVE",
+        "rules_primary_clause_id": "SLA-COD-04",
+        "rules_refund_amount_inr": 250.0,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-114",
+      "decision": "REJECT",
+      "primary_clause_id": "SLA-COD-03",
+      "supporting_clause_ids": [
+        "SLA-COD-01",
+        "SLA-PRI-01"
+      ],
+      "evidence_ids_used": [
+        "RECON-003",
+        "CUSTOMER-011",
+        "AGENT-008"
+      ],
+      "rationale": "The claim was reported 15h25m after the PoD, within the 24‑hour window of SLA-COD-01, so it is eligible. The reconciliation log (RECON-003) shows the collected amount equals the order total, triggering the presumptive rejection in SLA-COD-03. The customer provided no corroborating evidence (e.g., cash handover photo), and the agent statement confirms correct change was given, so the claim remains unsupported. Hence the claim is rejected.",
+      "resolution_type": "NO_CUSTOMER_ACTION",
+      "refund_amount_inr": null,
+      "confidence": 0.96,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 9.64,
+      "retrieved_clause_ids": [
+        "SLA-COD-01",
+        "SLA-COD-03",
+        "SLA-COD-06",
+        "SLA-COD-05",
+        "SLA-DEF-03",
+        "SLA-COD-04",
+        "SLA-COD-02",
+        "SLA-COD-08",
+        "SLA-COD-07",
+        "SLA-COD-09",
+        "SLA-GEN-03",
+        "SLA-PRI-01",
+        "SLA-DG-02",
+        "SLA-PRI-03",
+        "SLA-DG-01",
+        "SLA-PRI-02",
+        "SLA-DG-06"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2789,
+        "output_tokens": 655
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "14 Aug 2026 18:20 IST",
+          "sources": [
+            "POD-008"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "15 Aug 2026 09:45 IST",
+          "sources": [
+            "CUSTOMER-011"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 15.42,
+          "sources": [
+            "CUSTOMER-011",
+            "POD-008"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 1800.0,
+          "sources": [],
+          "detail": "order ORD-2026-41260"
+        },
+        "invoice_total_inr": {
+          "value": 1800.0,
+          "sources": [],
+          "detail": "COD amount due per invoice"
+        },
+        "claimed_collected_inr": {
+          "value": 2000.0,
+          "sources": [
+            "CUSTOMER-011"
+          ],
+          "detail": ""
+        },
+        "claimed_excess_inr": {
+          "value": 200.0,
+          "sources": [
+            "CUSTOMER-011"
+          ],
+          "detail": ""
+        },
+        "recon_status": {
+          "value": "RECORDED",
+          "sources": [
+            "RECON-003"
+          ],
+          "detail": ""
+        },
+        "recon_amount_inr": {
+          "value": 1800.0,
+          "sources": [
+            "RECON-003"
+          ],
+          "detail": ""
+        },
+        "recon_vs_invoice": {
+          "value": "MATCH",
+          "sources": [
+            "RECON-003"
+          ],
+          "detail": "₹0.00"
+        },
+        "recon_excess_inr": {
+          "value": 0.0,
+          "sources": [
+            "RECON-003"
+          ],
+          "detail": "SLA-COD-04 formula"
+        },
+        "agent_stated_amount_inr": {
+          "value": 1800.0,
+          "sources": [
+            "AGENT-008"
+          ],
+          "detail": ""
+        },
+        "customer_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "corroboration_verifiable": {
+          "value": null,
+          "sources": [],
+          "detail": ""
+        },
+        "sources_confirming_correct_payment": {
+          "value": 2,
+          "sources": [
+            "AGENT-008",
+            "RECON-003"
+          ],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 24.0,
+          "sources": [],
+          "detail": "SLA-COD-01"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-011",
+            "POD-008"
+          ],
+          "detail": "15.4 h vs 24 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "REJECT",
+        "rules_primary_clause_id": "SLA-COD-03",
+        "rules_refund_amount_inr": 0.0,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-115",
+      "decision": "APPROVE",
+      "primary_clause_id": "SLA-COD-04",
+      "supporting_clause_ids": [
+        "SLA-COD-01",
+        "SLA-COD-07",
+        "SLA-COD-03"
+      ],
+      "evidence_ids_used": [
+        "RECON-001",
+        "POD-006",
+        "CUSTOMER-009"
+      ],
+      "rationale": "The PoD timestamp (2026-08-13T15:35) to the first customer message (2026-08-13T20:10) is 4h35m, within the 24‑hour SLA-COD-01 window. The reconciliation log (RECON-001) records ₹1700 collected, higher than the order total ₹1500, invoking SLA-COD-04 which mandates refund of the excess. The discrepancy (₹200) exceeds the ₹10 threshold of SLA-COD-07, so formal resolution applies. Structured reconciliation evidence overrides other statements, confirming the overcharge and supporting approval.",
+      "resolution_type": "REFUND",
+      "refund_amount_inr": 200.0,
+      "confidence": 0.97,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 2.38,
+      "retrieved_clause_ids": [
+        "SLA-COD-03",
+        "SLA-COD-06",
+        "SLA-COD-01",
+        "SLA-DEF-03",
+        "SLA-COD-02",
+        "SLA-COD-05",
+        "SLA-COD-04",
+        "SLA-COD-07",
+        "SLA-COD-09",
+        "SLA-COD-08",
+        "SLA-PRI-01",
+        "SLA-GEN-03",
+        "SLA-DG-02",
+        "SLA-DG-06",
+        "SLA-DG-01",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2809,
+        "output_tokens": 817
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "13 Aug 2026 15:35 IST",
+          "sources": [
+            "POD-006"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "13 Aug 2026 20:10 IST",
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 4.58,
+          "sources": [
+            "CUSTOMER-009",
+            "POD-006"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 1500.0,
+          "sources": [],
+          "detail": "order ORD-2026-41004"
+        },
+        "invoice_total_inr": {
+          "value": 1500.0,
+          "sources": [],
+          "detail": "COD amount due per invoice"
+        },
+        "claimed_collected_inr": {
+          "value": 1700.0,
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "claimed_excess_inr": {
+          "value": 200.0,
+          "sources": [
+            "CUSTOMER-009"
+          ],
+          "detail": ""
+        },
+        "recon_status": {
+          "value": "RECORDED",
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": ""
+        },
+        "recon_amount_inr": {
+          "value": 1700.0,
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": ""
+        },
+        "recon_vs_invoice": {
+          "value": "HIGHER",
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": "+₹200.00"
+        },
+        "recon_excess_inr": {
+          "value": 200.0,
+          "sources": [
+            "RECON-001"
+          ],
+          "detail": "SLA-COD-04 formula"
+        },
+        "agent_stated_amount_inr": {
+          "value": 1700.0,
+          "sources": [
+            "AGENT-006"
+          ],
+          "detail": ""
+        },
+        "customer_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "corroboration_verifiable": {
+          "value": null,
+          "sources": [],
+          "detail": ""
+        },
+        "sources_confirming_correct_payment": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 24.0,
+          "sources": [],
+          "detail": "SLA-COD-01"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-009",
+            "POD-006"
+          ],
+          "detail": "4.6 h vs 24 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "APPROVE",
+        "rules_primary_clause_id": "SLA-COD-04",
+        "rules_refund_amount_inr": 200.0,
+        "agrees": true,
+        "primary_agrees": true
+      },
+      "safeguard": {}
+    },
+    {
+      "case_id": "CF-116",
+      "decision": "ESCALATE",
+      "primary_clause_id": "SLA-DG-05",
+      "supporting_clause_ids": [
+        "SLA-DG-01",
+        "SLA-DG-04",
+        "SLA-PRI-03"
+      ],
+      "evidence_ids_used": [
+        "CUSTOMER-006",
+        "POD-004",
+        "AGENT-004"
+      ],
+      "rationale": "The claim was filed 18h35m after the PoD timestamp, satisfying the 48‑hour window (SLA-DG-01). The PoD photo shows an intact package with no external damage, and the customer provides only a detailed written description (SLA-DG-04). Because the PoD is intact and no unboxing evidence is supplied, the claim shifts to agent discretion per SLA-DG-05, which does not yield an automatic approval or rejection. Therefore the case must be escalated for manual review.",
+      "resolution_type": "MANUAL_REVIEW",
+      "refund_amount_inr": null,
+      "confidence": 0.92,
+      "model": "openai/gpt-oss-120b",
+      "sla_version": "0.1",
+      "latency_seconds": 15.88,
+      "retrieved_clause_ids": [
+        "SLA-DG-02",
+        "SLA-DG-05",
+        "SLA-DG-04",
+        "SLA-DEF-02",
+        "SLA-DG-03",
+        "SLA-DEF-01",
+        "SLA-DG-07",
+        "SLA-DG-08",
+        "SLA-DEF-05",
+        "SLA-DG-06",
+        "SLA-COD-03",
+        "SLA-DEF-03",
+        "SLA-DG-01",
+        "SLA-PRI-01",
+        "SLA-GEN-03",
+        "SLA-PRI-03",
+        "SLA-PRI-02"
+      ],
+      "warnings": [],
+      "usage": {
+        "input_tokens": 2960,
+        "output_tokens": 1087
+      },
+      "engine": "llm",
+      "prompt_style": "zero_shot",
+      "trace": [],
+      "facts": {
+        "pod_time": {
+          "value": "08 Aug 2026 15:50 IST",
+          "sources": [
+            "POD-004"
+          ],
+          "detail": ""
+        },
+        "claim_time": {
+          "value": "09 Aug 2026 10:25 IST",
+          "sources": [
+            "CUSTOMER-006"
+          ],
+          "detail": ""
+        },
+        "hours_to_report": {
+          "value": 18.58,
+          "sources": [
+            "CUSTOMER-006",
+            "POD-004"
+          ],
+          "detail": "PoD → first customer message, IST (SLA-GEN-03)"
+        },
+        "order_value_inr": {
+          "value": 3900.0,
+          "sources": [],
+          "detail": "order ORD-2026-40512"
+        },
+        "pod_condition": {
+          "value": "INTACT",
+          "sources": [
+            "POD-004"
+          ],
+          "detail": "Sealed shipping carton held at chest height by the consignee in a lobby. Corners intact, security tape unbroken, no crushing, tearing or sta"
+        },
+        "hub_damage_exception": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "prior_claims_90d": {
+          "value": 0,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_acknowledges_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "agent_asserts_intact": {
+          "value": true,
+          "sources": [
+            "AGENT-004"
+          ],
+          "detail": ""
+        },
+        "customer_reports_damage": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-006"
+          ],
+          "detail": "snapped"
+        },
+        "damage_description_specific": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-006"
+          ],
+          "detail": "type: snapped; location: arm, cup, hinge, left"
+        },
+        "customer_reports_package_damage": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "unboxing_evidence": {
+          "value": false,
+          "sources": [],
+          "detail": "customer states none was recorded"
+        },
+        "damage_photo": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "high_value": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "pod_record_doubted": {
+          "value": false,
+          "sources": [
+            "POD-004"
+          ],
+          "detail": ""
+        },
+        "independent_damage_corroboration": {
+          "value": false,
+          "sources": [],
+          "detail": ""
+        },
+        "reporting_window_h": {
+          "value": 48.0,
+          "sources": [
+            "POD-004"
+          ],
+          "detail": "48-hour default (SLA-DG-01)"
+        },
+        "within_window": {
+          "value": true,
+          "sources": [
+            "CUSTOMER-006",
+            "POD-004"
+          ],
+          "detail": "18.6 h vs 48 h"
+        }
+      },
+      "cross_check": {
+        "rules_decision": "ESCALATE",
+        "rules_primary_clause_id": "SLA-DG-08",
+        "rules_refund_amount_inr": null,
+        "agrees": true,
+        "primary_agrees": false
+      },
+      "safeguard": {}
+    }
+  ],
+  "failures": [],
+  "metrics": {
+    "n": 16,
+    "missing": [],
+    "decision_accuracy": 0.8125,
+    "macro_f1": 0.775946275946276,
+    "per_class": {
+      "APPROVE": {
+        "precision": 0.7142857142857143,
+        "recall": 1.0,
+        "f1": 0.8333333333333333,
+        "support": 5
+      },
+      "REJECT": {
+        "precision": 1.0,
+        "recall": 0.8571428571428571,
+        "f1": 0.923076923076923,
+        "support": 7
+      },
+      "ESCALATE": {
+        "precision": 0.6666666666666666,
+        "recall": 0.5,
+        "f1": 0.5714285714285715,
+        "support": 4
+      }
+    },
+    "escalation_recall": 0.5,
+    "escalation_precision": 0.6666666666666666,
+    "confusion": {
+      "APPROVE": {
+        "APPROVE": 5
+      },
+      "REJECT": {
+        "REJECT": 6,
+        "ESCALATE": 1
+      },
+      "ESCALATE": {
+        "APPROVE": 2,
+        "ESCALATE": 2
+      }
+    },
+    "clause_precision": 0.32142857142857145,
+    "clause_recall": 0.8181818181818182,
+    "clause_f1": 0.46153846153846156,
+    "primary_clause_accuracy": 0.875,
+    "evidence_precision": 0.7555555555555555,
+    "evidence_recall": 1.0,
+    "resolution_accuracy": 0.4375,
+    "refund_accuracy": 1.0,
+    "grounding_issue_rate": 0.0,
+    "cross_check_agreement": 0.8125,
+    "mean_confidence": 0.9181250000000001,
+    "mean_confidence_correct": 0.9230769230769231,
+    "mean_confidence_wrong": 0.8966666666666666,
+    "brier_score": 0.15979374999999998,
+    "mean_latency_seconds": 9.875,
+    "total_tokens": 64384,
+    "per_case": [
+      {
+        "case_id": "CF-101",
+        "predicted": "REJECT",
+        "reference": "REJECT",
+        "correct": true,
+        "primary_clause": "SLA-DG-01",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 2,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-DG-01"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-02",
+          "SLA-DG-05"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 0,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.85,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 6.61,
+        "tokens": 3921
+      },
+      {
+        "case_id": "CF-102",
+        "predicted": "APPROVE",
+        "reference": "APPROVE",
+        "correct": true,
+        "primary_clause": "SLA-DG-06",
+        "primary_in_reference": true,
+        "clause_tp": 2,
+        "clause_fp": 2,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-DG-02",
+          "SLA-DG-06"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-02",
+          "SLA-DG-04",
+          "SLA-DG-06"
+        ],
+        "evidence_tp": 3,
+        "evidence_fp": 0,
+        "evidence_fn": 0,
+        "resolution_ok": true,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.97,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 3.75,
+        "tokens": 3655
+      },
+      {
+        "case_id": "CF-103",
+        "predicted": "REJECT",
+        "reference": "REJECT",
+        "correct": true,
+        "primary_clause": "SLA-DG-01",
+        "primary_in_reference": true,
+        "clause_tp": 2,
+        "clause_fp": 0,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-02"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-02"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 0,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.96,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 4.58,
+        "tokens": 3733
+      },
+      {
+        "case_id": "CF-104",
+        "predicted": "APPROVE",
+        "reference": "ESCALATE",
+        "correct": false,
+        "primary_clause": "SLA-DG-06",
+        "primary_in_reference": false,
+        "clause_tp": 1,
+        "clause_fp": 4,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-DG-03"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-02",
+          "SLA-DG-03",
+          "SLA-DG-04",
+          "SLA-DG-06"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 1,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.96,
+        "grounding_issue": false,
+        "cross_check_agrees": false,
+        "latency_seconds": 13.31,
+        "tokens": 3775
+      },
+      {
+        "case_id": "CF-105",
+        "predicted": "ESCALATE",
+        "reference": "ESCALATE",
+        "correct": true,
+        "primary_clause": "SLA-DG-09",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 3,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-DG-09"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-04",
+          "SLA-DG-06",
+          "SLA-DG-09"
+        ],
+        "evidence_tp": 1,
+        "evidence_fp": 3,
+        "evidence_fn": 0,
+        "resolution_ok": true,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.88,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 8.91,
+        "tokens": 4036
+      },
+      {
+        "case_id": "CF-106",
+        "predicted": "ESCALATE",
+        "reference": "REJECT",
+        "correct": false,
+        "primary_clause": "SLA-DG-08",
+        "primary_in_reference": false,
+        "clause_tp": 1,
+        "clause_fp": 4,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-DG-04"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-04",
+          "SLA-DG-05",
+          "SLA-DG-08",
+          "SLA-PRI-01"
+        ],
+        "evidence_tp": 1,
+        "evidence_fp": 2,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.95,
+        "grounding_issue": false,
+        "cross_check_agrees": false,
+        "latency_seconds": 5.69,
+        "tokens": 3692
+      },
+      {
+        "case_id": "CF-107",
+        "predicted": "APPROVE",
+        "reference": "ESCALATE",
+        "correct": false,
+        "primary_clause": "SLA-DG-05",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 3,
+        "clause_fn": 1,
+        "reference_clauses": [
+          "SLA-DG-05",
+          "SLA-DG-08"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-04",
+          "SLA-DG-05",
+          "SLA-DG-07"
+        ],
+        "evidence_tp": 3,
+        "evidence_fp": 0,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.78,
+        "grounding_issue": false,
+        "cross_check_agrees": false,
+        "latency_seconds": 9.31,
+        "tokens": 4663
+      },
+      {
+        "case_id": "CF-108",
+        "predicted": "APPROVE",
+        "reference": "APPROVE",
+        "correct": true,
+        "primary_clause": "SLA-DG-06",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 3,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-DG-06"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-02",
+          "SLA-DG-04",
+          "SLA-DG-06",
+          "SLA-PRI-03"
+        ],
+        "evidence_tp": 3,
+        "evidence_fp": 0,
+        "evidence_fn": 0,
+        "resolution_ok": true,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.85,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 12.65,
+        "tokens": 4175
+      },
+      {
+        "case_id": "CF-109",
+        "predicted": "REJECT",
+        "reference": "REJECT",
+        "correct": true,
+        "primary_clause": "SLA-COD-01",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 0,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-COD-01"
+        ],
+        "predicted_clauses": [
+          "SLA-COD-01"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 0,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.96,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 28.73,
+        "tokens": 6690
+      },
+      {
+        "case_id": "CF-110",
+        "predicted": "REJECT",
+        "reference": "REJECT",
+        "correct": true,
+        "primary_clause": "SLA-COD-07",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 3,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-COD-07"
+        ],
+        "predicted_clauses": [
+          "SLA-COD-01",
+          "SLA-COD-03",
+          "SLA-COD-04",
+          "SLA-COD-07"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 0,
+        "evidence_fn": 0,
+        "resolution_ok": true,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.78,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 10.73,
+        "tokens": 4062
+      },
+      {
+        "case_id": "CF-111",
+        "predicted": "APPROVE",
+        "reference": "APPROVE",
+        "correct": true,
+        "primary_clause": "SLA-COD-06",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 1,
+        "clause_fn": 1,
+        "reference_clauses": [
+          "SLA-COD-06",
+          "SLA-COD-07"
+        ],
+        "predicted_clauses": [
+          "SLA-COD-01",
+          "SLA-COD-06"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 1,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": true,
+        "predicted_refund": 8.0,
+        "reference_refund": 8.0,
+        "confidence": 0.97,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 6.67,
+        "tokens": 3754
+      },
+      {
+        "case_id": "CF-112",
+        "predicted": "REJECT",
+        "reference": "REJECT",
+        "correct": true,
+        "primary_clause": "SLA-COD-03",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 2,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-COD-03"
+        ],
+        "predicted_clauses": [
+          "SLA-COD-01",
+          "SLA-COD-03",
+          "SLA-PRI-01"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 1,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.96,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 6.69,
+        "tokens": 3700
+      },
+      {
+        "case_id": "CF-113",
+        "predicted": "APPROVE",
+        "reference": "APPROVE",
+        "correct": true,
+        "primary_clause": "SLA-COD-04",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 3,
+        "clause_fn": 1,
+        "reference_clauses": [
+          "SLA-COD-04",
+          "SLA-PRI-01"
+        ],
+        "predicted_clauses": [
+          "SLA-COD-01",
+          "SLA-COD-03",
+          "SLA-COD-04",
+          "SLA-COD-07"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 1,
+        "evidence_fn": 0,
+        "resolution_ok": true,
+        "refund_ok": true,
+        "predicted_refund": 250.0,
+        "reference_refund": 250.0,
+        "confidence": 0.97,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 12.47,
+        "tokens": 3411
+      },
+      {
+        "case_id": "CF-114",
+        "predicted": "REJECT",
+        "reference": "REJECT",
+        "correct": true,
+        "primary_clause": "SLA-COD-03",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 2,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-COD-03"
+        ],
+        "predicted_clauses": [
+          "SLA-COD-01",
+          "SLA-COD-03",
+          "SLA-PRI-01"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 1,
+        "evidence_fn": 0,
+        "resolution_ok": false,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.96,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 9.64,
+        "tokens": 3444
+      },
+      {
+        "case_id": "CF-115",
+        "predicted": "APPROVE",
+        "reference": "APPROVE",
+        "correct": true,
+        "primary_clause": "SLA-COD-04",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 3,
+        "clause_fn": 0,
+        "reference_clauses": [
+          "SLA-COD-04"
+        ],
+        "predicted_clauses": [
+          "SLA-COD-01",
+          "SLA-COD-03",
+          "SLA-COD-04",
+          "SLA-COD-07"
+        ],
+        "evidence_tp": 2,
+        "evidence_fp": 1,
+        "evidence_fn": 0,
+        "resolution_ok": true,
+        "refund_ok": true,
+        "predicted_refund": 200.0,
+        "reference_refund": 200.0,
+        "confidence": 0.97,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 2.38,
+        "tokens": 3626
+      },
+      {
+        "case_id": "CF-116",
+        "predicted": "ESCALATE",
+        "reference": "ESCALATE",
+        "correct": true,
+        "primary_clause": "SLA-DG-05",
+        "primary_in_reference": true,
+        "clause_tp": 1,
+        "clause_fp": 3,
+        "clause_fn": 1,
+        "reference_clauses": [
+          "SLA-DG-05",
+          "SLA-DG-08"
+        ],
+        "predicted_clauses": [
+          "SLA-DG-01",
+          "SLA-DG-04",
+          "SLA-DG-05",
+          "SLA-PRI-03"
+        ],
+        "evidence_tp": 3,
+        "evidence_fp": 0,
+        "evidence_fn": 0,
+        "resolution_ok": true,
+        "refund_ok": null,
+        "predicted_refund": null,
+        "reference_refund": null,
+        "confidence": 0.92,
+        "grounding_issue": false,
+        "cross_check_agrees": true,
+        "latency_seconds": 15.88,
+        "tokens": 4047
+      }
+    ]
+  },
+  "baselines": {
+    "majority_class": {
+      "label": "REJECT",
+      "decision_accuracy": 0.4375,
+      "escalation_recall": 0.0
+    },
+    "random_uniform": {
+      "decision_accuracy": 0.3333333333333333,
+      "escalation_recall": 0.3333333333333333
+    }
+  }
+}
