@@ -190,7 +190,7 @@ def test_json_rejection_is_retried_and_noted_without_counting_as_grounding(mock_
     MockProvider.replies = [JSON_REJECTED, json.dumps(GOOD)]
     result = adjudicate(get_case("COD-001"), model="mock/echo")
     assert result.decision == "APPROVE"
-    assert result.warnings == ["retried after json_validate_failed (attempt 1)"]
+    assert result.warnings == ["retried after json_validate_failed (rejection 1)"]
     label = {"case_id": "COD-001", "decision": "APPROVE"}
     assert score_case(result.to_dict(), label)["grounding_issue"] is False
 
@@ -201,6 +201,13 @@ def test_json_rejection_gives_up_after_its_own_cap(mock_llm, monkeypatch):
     with pytest.raises(RuntimeError, match="failed after 3 attempts"):
         adjudicate(get_case("COD-001"), model="mock/echo")
     assert len(MockProvider.replies) == 3
+
+
+def test_rate_limits_do_not_use_up_json_rejection_retries(mock_llm, monkeypatch):
+    monkeypatch.setattr(adjudicator.time, "sleep", lambda seconds: None)
+    rate_limited = RuntimeError("Error code: 429 - rate limit")
+    MockProvider.replies = [rate_limited, rate_limited, JSON_REJECTED, json.dumps(GOOD)]
+    assert adjudicate(get_case("COD-001"), model="mock/echo").decision == "APPROVE"
 
 
 def test_other_bad_requests_are_not_retried(mock_llm):

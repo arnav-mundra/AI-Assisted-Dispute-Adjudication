@@ -199,6 +199,7 @@ def _call_with_retry(
     JSON-mode rejections are noted in `warnings` so a saved run shows which cases needed them.
     """
     last_error: Optional[Exception] = None
+    json_rejections = 0  # counted apart so earlier rate limits don't use up these retries
 
     for attempt in range(attempts):
         try:
@@ -218,9 +219,10 @@ def _call_with_retry(
                 raise
             last_error = exc
             if json_rejected:
-                warnings.append(f"retried after {JSON_REJECTED_MARKER} (attempt {attempt + 1})")
-            if attempt + 1 >= (JSON_REJECTED_ATTEMPTS if json_rejected else attempts):
-                break
+                json_rejections += 1
+                warnings.append(f"retried after {JSON_REJECTED_MARKER} (rejection {json_rejections})")
+                if json_rejections >= JSON_REJECTED_ATTEMPTS:
+                    break
             time.sleep(min(2 ** attempt * 3, 30))
 
     raise RuntimeError(
