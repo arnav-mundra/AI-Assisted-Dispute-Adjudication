@@ -1,6 +1,6 @@
 # Error analysis and consistency
 
-Generated from 18 saved run(s) in `results/runs/`. Confidence intervals are 95% Wilson intervals over all predictions pooled per configuration.
+Generated from 22 saved run(s) in `results/runs/`. Confidence intervals are 95% Wilson intervals over all predictions pooled per configuration.
 
 ## Accuracy and stability by configuration
 
@@ -10,11 +10,13 @@ Generated from 18 saved run(s) in `results/runs/`. Confidence intervals are 95% 
 | counterfactual · gpt-oss-120b · facts · hybrid k=12 | 1 | 81% ± 0% | 57%–93% | 75% | — |
 | counterfactual · gpt-oss-120b · zero_shot · hybrid k=12 | 1 | 81% ± 0% | 57%–93% | 50% | — |
 | counterfactual · gpt-oss-20b · cot · hybrid k=12 | 1 | 69% ± 0% | 44%–86% | 25% | — |
+| counterfactual · gpt-oss-20b · facts · hybrid k=12 | 1 | 62% ± 0% | 39%–82% | 25% | — |
+| counterfactual · gpt-oss-20b · zero_shot · hybrid k=12 | 1 | 75% ± 0% | 51%–90% | 25% | — |
 | counterfactual · qwen3.8-27b · cot · hybrid k=12 | 1 | 69% ± 0% | 44%–86% | 50% | — |
 | counterfactual · qwen3.8-27b · facts · hybrid k=12 | 1 | 94% ± 0% | 72%–99% | 100% | — |
 | counterfactual · qwen3.8-27b · zero_shot · hybrid k=12 | 1 | 69% ± 0% | 44%–86% | 75% | — |
 | counterfactual · rules engine | 1 | 100% ± 0% | 81%–100% | 100% | — |
-| pilot · gpt-oss-120b · cot · hybrid k=12 | 2 | 85% ± 7% | 64%–95% | 50% | 90% |
+| pilot · gpt-oss-120b · cot · hybrid k=12 | 4 | 82% ± 5% | 68%–91% | 42% | 95% |
 | pilot · gpt-oss-120b · facts · hybrid k=12 | 1 | 80% ± 0% | 49%–94% | 33% | — |
 | pilot · gpt-oss-120b · zero_shot · hybrid k=12 | 1 | 80% ± 0% | 49%–94% | 33% | — |
 | pilot · gpt-oss-20b · cot · hybrid k=12 | 1 | 90% ± 0% | 60%–98% | 67% | — |
@@ -26,7 +28,7 @@ Generated from 18 saved run(s) in `results/runs/`. Confidence intervals are 95% 
 
 Cases whose decision changed between repeats of the same configuration:
 
-- **pilot · gpt-oss-120b · cot · hybrid k=12** · DG-004: ESCALATE×1, REJECT×1
+- **pilot · gpt-oss-120b · cot · hybrid k=12** · DG-004: ESCALATE×1, REJECT×3
 
 ## Disagreement guard (simulated)
 
@@ -34,6 +36,10 @@ If the LLM and the rules engine disagree, escalate to manual review. Simulated f
 
 | Configuration | n | Accuracy before → after | Escalation recall before → after | Escalated by guard | Errors fixed | Correct decisions sent to review |
 |---|---|---|---|---|---|---|
+| counterfactual · gpt-oss-20b · zero_shot · hybrid k=12 | 16 | 75% → 94% | 25% → 100% | 3 | 3 | 0 |
+| pilot · gpt-oss-120b · cot · hybrid k=12 | 10 | 80% → 100% | 33% → 100% | 2 | 2 | 0 |
+| counterfactual · gpt-oss-20b · facts · hybrid k=12 | 16 | 62% → 81% | 25% → 100% | 4 | 3 | 0 |
+| pilot · gpt-oss-120b · cot · hybrid k=12 | 10 | 80% → 100% | 33% → 100% | 2 | 2 | 0 |
 | counterfactual · gpt-oss-20b · cot · hybrid k=12 | 16 | 69% → 88% | 25% → 100% | 4 | 3 | 0 |
 | pilot · gpt-oss-120b · cot · hybrid k=12 | 10 | 80% → 100% | 33% → 100% | 2 | 2 | 0 |
 | counterfactual · qwen3.8-27b · zero_shot · hybrid k=12 | 16 | 69% → 75% | 75% → 100% | 2 | 1 | 0 |
@@ -57,24 +63,24 @@ Escalate any LLM ruling whose own confidence is below the floor. Pooled over eve
 
 | Floor | Predictions | Accuracy before → after | Escalated | Errors fixed | Correct rulings sent to review |
 |---|---|---|---|---|---|
-| 0.50 | 202 | 80% → 80% | 0 | 0 | 0 |
-| 0.60 | 202 | 80% → 80% | 0 | 0 | 0 |
-| 0.70 | 202 | 80% → 80% | 0 | 0 | 0 |
-| 0.80 | 202 | 80% → 81% | 3 | 2 | 1 |
-| 0.90 | 202 | 80% → 80% | 15 | 7 | 7 |
-| 0.95 | 202 | 80% → 78% | 26 | 10 | 14 |
+| 0.50 | 254 | 79% → 79% | 0 | 0 | 0 |
+| 0.60 | 254 | 79% → 79% | 0 | 0 | 0 |
+| 0.70 | 254 | 79% → 79% | 0 | 0 | 0 |
+| 0.80 | 254 | 79% → 79% | 3 | 2 | 1 |
+| 0.90 | 254 | 79% → 80% | 21 | 12 | 8 |
+| 0.95 | 254 | 79% → 78% | 37 | 16 | 19 |
 
 ## Error taxonomy
 
 | Error kind | Count | Share |
 |---|---|---|
-| Forced a decision where the reference escalates | 23 | 57% |
-| Escalated where the reference decides | 12 | 30% |
-| Approved where the reference rejects, or the reverse | 5 | 12% |
+| Forced a decision where the reference escalates | 33 | 61% |
+| Escalated where the reference decides | 15 | 28% |
+| Approved where the reference rejects, or the reverse | 6 | 11% |
 
-The rules-engine cross-check reached the reference decision on **40 of 40** LLM errors — the share a disagreement flag would have routed to review.
+The rules-engine cross-check reached the reference decision on **54 of 54** LLM errors — the share a disagreement flag would have routed to review.
 
-Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 (3), CF-107 (2)
+Cases most often wrong: COD-005 (11), CF-106 (9), CF-104 (8), DG-004 (5), CF-107 (4), CF-110 (4)
 
 ## Every error
 
@@ -88,6 +94,8 @@ Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 
 | CF-104 | counterfactual · gpt-oss-120b · facts · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-06 | SLA-DG-03 | — | 0.96 | ESCALATE |
 | CF-104 | counterfactual · gpt-oss-120b · zero_shot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-06 | SLA-DG-03 | — | 0.96 | ESCALATE |
 | CF-104 | counterfactual · gpt-oss-20b · cot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-06 | SLA-DG-03 | — | 0.85 | ESCALATE |
+| CF-104 | counterfactual · gpt-oss-20b · facts · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-06 | SLA-DG-03 | — | 0.95 | ESCALATE |
+| CF-104 | counterfactual · gpt-oss-20b · zero_shot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-06 | SLA-DG-03 | — | 0.95 | ESCALATE |
 | CF-104 | counterfactual · qwen3.8-27b · cot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-06 | SLA-DG-03 | — | 0.95 | ESCALATE |
 | CF-104 | counterfactual · qwen3.8-27b · zero_shot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-06 | SLA-DG-03 | — | 0.95 | ESCALATE |
 | CF-105 | counterfactual · qwen3.8-27b · cot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-06 | SLA-DG-09 | DELIVERY-901 | 0.95 | ESCALATE |
@@ -95,16 +103,26 @@ Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 
 | CF-106 | counterfactual · gpt-oss-120b · facts · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-08 | SLA-DG-04 | — | 0.92 | REJECT |
 | CF-106 | counterfactual · gpt-oss-120b · zero_shot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-08 | SLA-DG-04 | — | 0.95 | REJECT |
 | CF-106 | counterfactual · gpt-oss-20b · cot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-08 | SLA-DG-04 | — | 0.85 | REJECT |
+| CF-106 | counterfactual · gpt-oss-20b · facts · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-08 | SLA-DG-04 | — | 0.85 | REJECT |
+| CF-106 | counterfactual · gpt-oss-20b · zero_shot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-08 | SLA-DG-04 | — | 0.85 | REJECT |
 | CF-106 | counterfactual · qwen3.8-27b · cot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-08 | SLA-DG-04 | — | 0.95 | REJECT |
 | CF-106 | counterfactual · qwen3.8-27b · facts · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-05 | SLA-DG-04 | — | 0.95 | REJECT |
 | CF-106 | counterfactual · qwen3.8-27b · zero_shot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-05 | SLA-DG-04 | — | 0.95 | REJECT |
 | CF-107 | counterfactual · gpt-oss-120b · zero_shot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | — | 0.78 | ESCALATE |
 | CF-107 | counterfactual · gpt-oss-20b · cot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | — | 0.85 | ESCALATE |
+| CF-107 | counterfactual · gpt-oss-20b · facts · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | — | 0.80 | ESCALATE |
+| CF-107 | counterfactual · gpt-oss-20b · zero_shot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | — | 0.80 | ESCALATE |
 | CF-109 | counterfactual · qwen3.8-27b · zero_shot · hybrid k=12 | polarity | APPROVE → REJECT | SLA-COD-04 | SLA-COD-01 | — | 0.95 | REJECT |
 | CF-110 | counterfactual · gpt-oss-120b · cot · hybrid k=12 | polarity | APPROVE → REJECT | SLA-COD-04 | SLA-COD-07 | — | 0.93 | REJECT |
 | CF-110 | counterfactual · gpt-oss-120b · facts · hybrid k=12 | polarity | APPROVE → REJECT | SLA-COD-04 | SLA-COD-07 | — | 0.96 | REJECT |
 | CF-110 | counterfactual · gpt-oss-20b · cot · hybrid k=12 | polarity | APPROVE → REJECT | SLA-COD-04 | SLA-COD-07 | — | 0.95 | REJECT |
+| CF-110 | counterfactual · gpt-oss-20b · facts · hybrid k=12 | polarity | APPROVE → REJECT | SLA-COD-04 | SLA-COD-07 | — | 0.95 | REJECT |
+| CF-114 | counterfactual · gpt-oss-20b · facts · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-COD-09 | SLA-COD-03 | — | 0.85 | REJECT |
 | CF-116 | counterfactual · gpt-oss-20b · cot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | AGENT-004 | 0.85 | ESCALATE |
+| CF-116 | counterfactual · gpt-oss-20b · facts · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | — | 0.85 | ESCALATE |
+| CF-116 | counterfactual · gpt-oss-20b · zero_shot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | AGENT-004 | 0.85 | ESCALATE |
+| COD-005 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-COD-03 | SLA-COD-03, SLA-COD-09, SLA-PRI-01, SLA-PRI-02 | AGENT-009 | 0.96 | ESCALATE |
+| COD-005 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-COD-03 | SLA-COD-03, SLA-COD-09, SLA-PRI-01, SLA-PRI-02 | AGENT-009 | 0.96 | ESCALATE |
 | COD-005 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-COD-03 | SLA-COD-03, SLA-COD-09, SLA-PRI-01, SLA-PRI-02 | — | 0.94 | ESCALATE |
 | COD-005 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-COD-03 | SLA-COD-03, SLA-COD-09, SLA-PRI-01, SLA-PRI-02 | — | 0.96 | ESCALATE |
 | COD-005 | pilot · gpt-oss-120b · facts · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-COD-03 | SLA-COD-03, SLA-COD-09, SLA-PRI-01, SLA-PRI-02 | CUSTOMER-014 | 0.96 | ESCALATE |
@@ -117,6 +135,8 @@ Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 
 | DG-002 | pilot · gpt-oss-20b · zero_shot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-08 | SLA-DG-01 | — | 0.85 | REJECT |
 | DG-002 | pilot · qwen3.8-27b · zero_shot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-05 | SLA-DG-01 | — | 0.95 | REJECT |
 | DG-003 | pilot · gpt-oss-20b · zero_shot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | — | 0.75 | ESCALATE |
+| DG-004 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-DG-03 | SLA-DG-03, SLA-DG-05, SLA-DG-08 | AGENT-004 | 0.86 | ESCALATE |
+| DG-004 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-DG-03 | SLA-DG-03, SLA-DG-05, SLA-DG-08 | — | 0.92 | ESCALATE |
 | DG-004 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-DG-03 | SLA-DG-03, SLA-DG-05, SLA-DG-08 | — | 0.93 | ESCALATE |
 | DG-004 | pilot · gpt-oss-120b · facts · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-DG-03 | SLA-DG-03, SLA-DG-05, SLA-DG-08 | AGENT-004 | 0.92 | ESCALATE |
 | DG-004 | pilot · gpt-oss-120b · zero_shot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-DG-03 | SLA-DG-03, SLA-DG-05, SLA-DG-08 | — | 0.85 | ESCALATE |
@@ -155,6 +175,14 @@ Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 
 
 > Reporting window is 7 days per SLA-DG-02 because the PoD photo (POD-001) shows visible external damage and the customer reported within 7.8 hours. The governing clause is SLA-DG-06, which overrides the high‑value unboxing requirement (SLA-DG-03) because it is more specific. The PoD photo and the customer’s post‑delivery photo (CUSTOMER-002) are consistent with the package damage, satisfying SLA-DG-06. Therefore the claim is approved and the default resolution is a free replacement per SLA-DG-07.
 
+**CF-104 · counterfactual · gpt-oss-20b · facts · hybrid k=12** (APPROVE, reference ESCALATE)
+
+> The PoD photo (POD-001) shows visible external damage (crushed corner, torn flap). The customer’s post‑delivery photo (CUSTOMER-002) depicts a crack consistent with that damage. SLA‑DG‑06 states that when PoD shows external damage and the customer’s evidence is consistent, the claim is approved without further evidence. The claim was reported 7.8 h after PoD, well within the 48‑hour window (SLA‑DG‑01) and the 7‑day extension (SLA‑DG‑02). Although SLA‑DG‑03 requires unboxing evidence for high‑value orders, SLA‑DG‑06 is a more specific clause and overrides the general requirement. Thus the claim is approved.
+
+**CF-104 · counterfactual · gpt-oss-20b · zero_shot · hybrid k=12** (APPROVE, reference ESCALATE)
+
+> The PoD timestamp is 2026-08-01T11:20:00+05:30 and the first customer message is 2026-08-01T19:05:00+05:30, a 7 h 45 m interval well within the 48‑hour reporting window (SLA‑DG‑01). The order value ₹6200 qualifies as high‑value, so unboxing evidence is required (SLA‑DG‑03); the customer photo (CUSTOMER‑002) shows the package and product condition at delivery, satisfying SLA‑DEF‑05. The PoD photo (POD‑001) shows visible external damage, and the customer’s claim/photo is consistent with that damage, triggering automatic approval under SLA‑DG‑06. Structured evidence (PoD and photo) takes priority over narrative (SLA‑PRI‑01).
+
 **CF-104 · counterfactual · qwen3.8-27b · cot · hybrid k=12** (APPROVE, reference ESCALATE)
 
 > The PoD photo (POD-001) shows visible external damage (crushed corner, torn flap), which extends the reporting window to 7 days under SLA-DG-02. The customer reported the damage within 7.8 hours (CUSTOMER-001), well within the extended window. The customer's description and photo (CUSTOMER-002) are consistent with the external damage shown in the PoD, satisfying the conditions of SLA-DG-06. Therefore, the claim is approved for a free replacement as per SLA-DG-07.
@@ -183,6 +211,14 @@ Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 
 
 > The claim was reported 14.6 h after PoD, within the 48‑hour window (SLA‑DG‑01). The PoD record is clear and trustworthy (SLA‑PRI‑01). However, the claim lacks required evidence: no unboxing photo, no photo of the damaged product, and the description is not specific (SLA‑DG‑04). With an intact PoD photo and no unboxing evidence, the claim falls to agent discretion (SLA‑DG‑05). Because the evidence is insufficient to determine fault, the SLA mandates escalation to manual review (SLA‑DG‑08).
 
+**CF-106 · counterfactual · gpt-oss-20b · facts · hybrid k=12** (ESCALATE, reference REJECT)
+
+> The PoD timestamp is 2026-08-05 18:40 IST and the first customer message is 2026-08-06 09:15 IST, a 14.6‑hour interval well within the 48‑hour window of SLA‑DG‑01, so the claim is eligible. However, SLA‑DG‑04 requires at least one of unboxing evidence, a post‑delivery photo of the damaged product, or a specific written description; the customer’s message is generic and no unboxing or damage photo is provided. With the PoD photo showing an intact package (SLA‑DG‑05) and no unboxing evidence, the case falls under “insufficient evidence” per SLA‑DG‑08, which mandates escalation to manual review. Thus the claim cannot be auto‑approved or auto‑rejected.
+
+**CF-106 · counterfactual · gpt-oss-20b · zero_shot · hybrid k=12** (ESCALATE, reference REJECT)
+
+> The PoD timestamp is 2026-08-05T18:40:00+05:30 and the first customer message is 2026-08-06T09:15:00+05:30, a 14 h 35 min interval, within the 48‑hour reporting window of SLA‑DG‑01. The PoD photo (POD‑003) shows an intact package with no visible external damage, so SLA‑DG‑02 does not extend the window. The claim lacks unboxing evidence, a photo of the damaged product, and a specific written description, violating SLA‑DG‑04. The customer’s narrative conflicts with the structured PoD evidence, and the agent statement confirms the package was in good condition. According to SLA‑DG‑08, contradictory or insufficient evidence warrants escalation to manual review rather than an automatic decision.
+
 **CF-106 · counterfactual · qwen3.8-27b · cot · hybrid k=12** (ESCALATE, reference REJECT)
 
 > The claim was reported within the 48-hour window (SLA-DG-01) based on the PoD timestamp (POD-003) and the first customer message (CUSTOMER-005). The PoD photo (POD-003) shows an intact package, and the customer failed to provide the specific damage description or unboxing evidence required by SLA-DG-04. Under SLA-DG-05, the case shifts to agent discretion, but the lack of specific evidence and the conflict with the structured PoD record make the evidence insufficient to determine fault. Therefore, SLA-DG-08 requires the case to be escalated to manual review rather than auto-approved or rejected.
@@ -203,6 +239,14 @@ Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 
 
 > The claim was filed 26 h after PoD, within the 48‑hour window (SLA‑DG‑01). The PoD photo is clear and shows an intact package, so structured evidence is reliable (SLA‑PRI‑01). The customer provided a post‑delivery photo of the damaged carafe rim (SLA‑DG‑04), satisfying the evidence requirement. Because the PoD shows no external damage and no unboxing evidence, the claim falls under agent discretion (SLA‑DG‑05), which we approve based on the credible narrative and photo. The approved claim is resolved with a free replacement (SLA‑DG‑07).
 
+**CF-107 · counterfactual · gpt-oss-20b · facts · hybrid k=12** (APPROVE, reference ESCALATE)
+
+> The claim was filed 26 h after the PoD timestamp, within the 48‑hour reporting window (SLA‑DG‑01). The PoD photo shows an intact package, and the customer supplied a post‑delivery photo of the damaged glass carafe (SLA‑DG‑04). Because the PoD photo is intact and no unboxing evidence was provided, SLA‑DG‑05 shifts the case to agent discretion. Structured evidence (PoD) does not conflict with the narrative, so SLA‑PRI‑01 does not override the discretion. The evidence supports a credible claim of in‑transit damage, so the claim is approved under agent discretion.
+
+**CF-107 · counterfactual · gpt-oss-20b · zero_shot · hybrid k=12** (APPROVE, reference ESCALATE)
+
+> The PoD timestamp is 2026-08-03T10:15:00+05:30 and the first customer message is 2026-08-04T12:15:00+05:30, a 26‑hour interval well within the 48‑hour eligibility window of SLA‑DG‑01. The PoD photo shows an intact package, and the customer supplied a photo of the damaged glass rim (SLA‑DG‑04). Because the PoD shows no external damage and no unboxing evidence is provided, SLA‑DG‑05 shifts the claim to agent discretion, but the evidence is sufficient and not contradictory, so the claim is approved. Structured evidence (PoD) is not in doubt, satisfying SLA‑PRI‑01. The default resolution for an approved damaged‑goods claim is a free replacement (SLA‑DG‑07).
+
 **CF-109 · counterfactual · qwen3.8-27b · zero_shot · hybrid k=12** (APPROVE, reference REJECT)
 
 > The claim is eligible for review as it was reported within 24 hours of the Proof-of-Delivery timestamp (2026-08-13T15:35:00+05:30 to 2026-08-14T21:35:00+05:30 is approximately 30 hours, but the SLA-COD-01 window is 24 hours; however, the reconciliation log is the primary evidence). The reconciliation log (RECON-001) shows an amount of ₹1700 collected, which is higher than the order total of ₹1500. Under SLA-COD-04, this corroborates the customer's overcharge claim, and the excess amount (₹1700 - ₹1500 = ₹200) must be refunded. The discrepancy exceeds the ₹10 threshold in SLA-COD-07, so it is eligible for formal resolution.
@@ -219,13 +263,29 @@ Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 
 
 > The claim was reported 4.6 h after PoD, within the 24‑hour window of SLA‑COD‑01. The reconciliation log is recorded and reliable per SLA‑PRI‑01. The log shows a higher amount (₹1,505) than the invoice (₹1,500), satisfying SLA‑COD‑04, which mandates a refund of the excess ₹5.00. Thus the claim is approved and the refund is issued.
 
+**CF-110 · counterfactual · gpt-oss-20b · facts · hybrid k=12** (APPROVE, reference REJECT)
+
+> The claim was reported 4.6 h after PoD, within the 24‑hour window of SLA‑COD‑01, making it eligible. The reconciliation log (RECON‑001) records ₹1,505, higher than the invoice ₹1,500, satisfying SLA‑COD‑04’s condition for an overcharge. SLA‑COD‑03 confirms the reconciliation log is the primary evidence source, and no corroborating evidence is required when the log shows a higher amount. Thus the excess ₹5 should be refunded.
+
+**CF-114 · counterfactual · gpt-oss-20b · facts · hybrid k=12** (ESCALATE, reference REJECT)
+
+> The claim was reported 15.4 h after PoD, within the 24‑hour window of SLA‑COD‑01, making it eligible. The reconciliation log (RECON‑003) and agent statement (AGENT‑008) both record ₹1,800, matching the order total, which per SLA‑COD‑03 presumptively rejects the claim unless corroborating evidence is provided. However, SLA‑COD‑09 overrides this by stating that if at least two independent sources confirm the correct amount and the claim is knowingly false, the case must be escalated for account‑level review. The evidence satisfies this fraud condition, so the appropriate outcome is escalation rather than a simple reject.
+
 **CF-116 · counterfactual · gpt-oss-20b · cot · hybrid k=12** (APPROVE, reference ESCALATE)
 
 > The claim was filed 18.6 hours after delivery, within the 48‑hour window of SLA‑DG‑01. Structured PoD evidence is trustworthy (SLA‑PRI‑01). The customer’s specific description meets the evidence requirement of SLA‑DG‑04. Because the PoD shows an intact package and no unboxing evidence is provided, SLA‑DG‑05 applies, giving agent discretion to approve based on narrative credibility. The claim is therefore approved and resolved with a free replacement under SLA‑DG‑07.
 
+**CF-116 · counterfactual · gpt-oss-20b · facts · hybrid k=12** (APPROVE, reference ESCALATE)
+
+> The claim was filed 18.6 h after PoD, within the 48‑hour window (SLA‑DG‑01). The PoD photo shows an intact package (SLA‑DEF‑01) and no unboxing evidence was provided, so the case falls under SLA‑DG‑05, which routes it to agent discretion. The customer’s written description is specific enough to satisfy the evidence requirement of SLA‑DG‑04. Structured evidence (PoD) does not conflict with the narrative, so SLA‑PRI‑01 does not override the discretionary approval. Therefore the claim is approved and resolved via free replacement per SLA‑DG‑07.
+
+**CF-116 · counterfactual · gpt-oss-20b · zero_shot · hybrid k=12** (APPROVE, reference ESCALATE)
+
+> The claim was filed 18h35m after the PoD timestamp, well within the 48‑hour window of SLA‑DG‑01. PoD photo shows an intact package, and the customer supplied a specific written description of the internal damage, satisfying the evidence requirement of SLA‑DG‑04. Because the PoD shows no external damage and no unboxing evidence is provided, SLA‑DG‑05 applies, moving the case to agent discretion. Given the product is electronics (high‑fragility) and the narrative is credible, the claim is approved for a free replacement.
+
 **COD-005 · pilot · gpt-oss-120b · cot · hybrid k=12** (REJECT, reference ESCALATE)
 
-> The claim was reported 14.8 hours after the PoD, satisfying SLA-COD-01's 24‑hour window. The reconciliation log (RECON-005) shows the exact order amount of ₹3,200, matching the invoice, and there is no flag to doubt its accuracy, so SLA-PRI-01 gives it priority over the customer's unverified photo. Under SLA-COD-03, when the log matches the order total the overcharge claim is presumptively rejected unless the customer provides valid corroborating evidence, which the photo lacks verifiable metadata. Consequently, the claim is rejected with no refund.
+> The claim was reported 14.8 hours after PoD, satisfying SLA-COD-01's 24‑hour window. Structured evidence (reconciliation log RECON-005) matches the invoice amount, and SLA-PRI-01 gives it priority over unstructured evidence. Since the log matches, SLA-COD-03 presumes rejection unless the customer provides corroborating evidence; the photo lacks verifiable metadata, so the presumption stands. Therefore the claim is rejected with no customer action required.
 
 **COD-005 · pilot · gpt-oss-120b · facts · hybrid k=12** (REJECT, reference ESCALATE)
 
@@ -269,7 +329,7 @@ Cases most often wrong: COD-005 (9), CF-106 (7), CF-104 (6), CF-110 (3), DG-004 
 
 **DG-004 · pilot · gpt-oss-120b · cot · hybrid k=12** (REJECT, reference ESCALATE)
 
-> The claim was reported 18.6 hours after delivery, meeting the 48‑hour SLA-DG-01 window. Structured PoD evidence is reliable (SLA-PRI-01). While the customer gave a specific damage description satisfying SLA-DG-04, the order value exceeds ₹5,000, invoking SLA-DG-03 which mandates unboxing evidence; none was supplied, making the claim ineligible. Hence the claim is rejected.
+> The claim was reported 18.6 hours after delivery, within the 48‑hour window (SLA-DG-01). PoD data is reliable (SLA-PRI-01). Although the customer gave a specific written description satisfying SLA-DG-04, the order value exceeds ₹5,000, invoking SLA-DG-03 which mandates unboxing evidence; none was provided. As the more specific clause is unmet, the claim must be rejected.
 
 **DG-004 · pilot · gpt-oss-120b · facts · hybrid k=12** (REJECT, reference ESCALATE)
 

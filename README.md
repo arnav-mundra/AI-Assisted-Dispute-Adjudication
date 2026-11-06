@@ -122,6 +122,8 @@ IDs are in `results/icaaic_summary.md`. The 95% intervals are wide at these samp
 | Rules engine | 10 | 100% | 72%–100% | 100% | 82% | 100% | 0 |
 | gpt-oss-120b · zero_shot | 10 | 80% | 49%–94% | 33% | 58% | 75% | 0 |
 | gpt-oss-120b · facts | 10 | 80% | 49%–94% | 33% | 59% | 75% | 0 |
+| gpt-oss-120b · cot | 10 | 80% | 49%–94% | 33% | 57% | 75% | 0 |
+| gpt-oss-120b · cot | 10 | 80% | 49%–94% | 33% | 58% | 75% | 0 |
 | gpt-oss-120b · cot | 10 | 80% | 49%–94% | 33% | 58% | 75% | 0 |
 | gpt-oss-120b · cot | 10 | 90% | 60%–98% | 67% | 59% | 75% | 0 |
 | qwen3.8-27b · zero_shot | 10 | 80% | 49%–94% | 67% | 51% | 75% | 0 |
@@ -142,6 +144,8 @@ IDs are in `results/icaaic_summary.md`. The 95% intervals are wide at these samp
 | qwen3.8-27b · zero_shot | 16 | 69% | 44%–86% | 75% | 38% | 100% | 0 |
 | qwen3.8-27b · facts | 16 | 94% | 72%–99% | 100% | 41% | 100% | 0 |
 | qwen3.8-27b · cot | 16 | 69% | 44%–86% | 50% | 39% | 100% | 0 |
+| gpt-oss-20b · zero_shot | 16 | 75% | 51%–90% | 25% | 45% | 100% | 0 |
+| gpt-oss-20b · facts | 16 | 62% | 39%–82% | 25% | 40% | 100% | 0 |
 | gpt-oss-20b · cot | 16 | 69% | 44%–86% | 25% | 39% | 100% | 0 |
 | Majority class (always reject) | 16 | 44% | — | 0% | — | — | — |
 
