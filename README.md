@@ -130,6 +130,7 @@ IDs are in `results/icaaic_summary.md`. The 95% intervals are wide at these samp
 | qwen3.8-27b · facts | 10 | 90% | 60%–98% | 67% | 49% | 100% | 0 |
 | qwen3.8-27b · cot | 10 | 90% | 60%–98% | 67% | 55% | 100% | 0 |
 | gpt-oss-20b · zero_shot | 10 | 70% | 40%–89% | 33% | 55% | 75% | 0 |
+| gpt-oss-20b · facts | 10 | 90% | 60%–98% | 67% | 62% | 75% | 0 |
 | gpt-oss-20b · cot | 10 | 90% | 60%–98% | 67% | 59% | 75% | 0 |
 | Majority class (always approve) | 10 | 50% | — | 0% | — | — | — |
 

@@ -1,6 +1,6 @@
 # Error analysis and consistency
 
-Generated from 22 saved run(s) in `results/runs/`. Confidence intervals are 95% Wilson intervals over all predictions pooled per configuration.
+Generated from 23 saved run(s) in `results/runs/`. Confidence intervals are 95% Wilson intervals over all predictions pooled per configuration.
 
 ## Accuracy and stability by configuration
 
@@ -20,6 +20,7 @@ Generated from 22 saved run(s) in `results/runs/`. Confidence intervals are 95% 
 | pilot · gpt-oss-120b · facts · hybrid k=12 | 1 | 80% ± 0% | 49%–94% | 33% | — |
 | pilot · gpt-oss-120b · zero_shot · hybrid k=12 | 1 | 80% ± 0% | 49%–94% | 33% | — |
 | pilot · gpt-oss-20b · cot · hybrid k=12 | 1 | 90% ± 0% | 60%–98% | 67% | — |
+| pilot · gpt-oss-20b · facts · hybrid k=12 | 1 | 90% ± 0% | 60%–98% | 67% | — |
 | pilot · gpt-oss-20b · zero_shot · hybrid k=12 | 1 | 70% ± 0% | 40%–89% | 33% | — |
 | pilot · qwen3.8-27b · cot · hybrid k=12 | 1 | 90% ± 0% | 60%–98% | 67% | — |
 | pilot · qwen3.8-27b · facts · hybrid k=12 | 1 | 90% ± 0% | 60%–98% | 67% | — |
@@ -36,6 +37,7 @@ If the LLM and the rules engine disagree, escalate to manual review. Simulated f
 
 | Configuration | n | Accuracy before → after | Escalation recall before → after | Escalated by guard | Errors fixed | Correct decisions sent to review |
 |---|---|---|---|---|---|---|
+| pilot · gpt-oss-20b · facts · hybrid k=12 | 10 | 90% → 100% | 67% → 100% | 1 | 1 | 0 |
 | counterfactual · gpt-oss-20b · zero_shot · hybrid k=12 | 16 | 75% → 94% | 25% → 100% | 3 | 3 | 0 |
 | pilot · gpt-oss-120b · cot · hybrid k=12 | 10 | 80% → 100% | 33% → 100% | 2 | 2 | 0 |
 | counterfactual · gpt-oss-20b · facts · hybrid k=12 | 16 | 62% → 81% | 25% → 100% | 4 | 3 | 0 |
@@ -63,22 +65,22 @@ Escalate any LLM ruling whose own confidence is below the floor. Pooled over eve
 
 | Floor | Predictions | Accuracy before → after | Escalated | Errors fixed | Correct rulings sent to review |
 |---|---|---|---|---|---|
-| 0.50 | 254 | 79% → 79% | 0 | 0 | 0 |
-| 0.60 | 254 | 79% → 79% | 0 | 0 | 0 |
-| 0.70 | 254 | 79% → 79% | 0 | 0 | 0 |
-| 0.80 | 254 | 79% → 79% | 3 | 2 | 1 |
-| 0.90 | 254 | 79% → 80% | 21 | 12 | 8 |
-| 0.95 | 254 | 79% → 78% | 37 | 16 | 19 |
+| 0.50 | 264 | 79% → 79% | 0 | 0 | 0 |
+| 0.60 | 264 | 79% → 79% | 0 | 0 | 0 |
+| 0.70 | 264 | 79% → 79% | 0 | 0 | 0 |
+| 0.80 | 264 | 79% → 80% | 4 | 3 | 1 |
+| 0.90 | 264 | 79% → 81% | 22 | 13 | 8 |
+| 0.95 | 264 | 79% → 78% | 38 | 17 | 19 |
 
 ## Error taxonomy
 
 | Error kind | Count | Share |
 |---|---|---|
-| Forced a decision where the reference escalates | 33 | 61% |
-| Escalated where the reference decides | 15 | 28% |
+| Forced a decision where the reference escalates | 34 | 62% |
+| Escalated where the reference decides | 15 | 27% |
 | Approved where the reference rejects, or the reverse | 6 | 11% |
 
-The rules-engine cross-check reached the reference decision on **54 of 54** LLM errors — the share a disagreement flag would have routed to review.
+The rules-engine cross-check reached the reference decision on **55 of 55** LLM errors — the share a disagreement flag would have routed to review.
 
 Cases most often wrong: COD-005 (11), CF-106 (9), CF-104 (8), DG-004 (5), CF-107 (4), CF-110 (4)
 
@@ -134,6 +136,7 @@ Cases most often wrong: COD-005 (11), CF-106 (9), CF-104 (8), DG-004 (5), CF-107
 | COD-005 | pilot · qwen3.8-27b · zero_shot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-COD-03 | SLA-COD-03, SLA-COD-09, SLA-PRI-01, SLA-PRI-02 | — | 0.95 | ESCALATE |
 | DG-002 | pilot · gpt-oss-20b · zero_shot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-08 | SLA-DG-01 | — | 0.85 | REJECT |
 | DG-002 | pilot · qwen3.8-27b · zero_shot · hybrid k=12 | over escalation | ESCALATE → REJECT | SLA-DG-05 | SLA-DG-01 | — | 0.95 | REJECT |
+| DG-003 | pilot · gpt-oss-20b · facts · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-04 | SLA-DG-05, SLA-DG-08 | AGENT-003 | 0.75 | ESCALATE |
 | DG-003 | pilot · gpt-oss-20b · zero_shot · hybrid k=12 | missed escalation | APPROVE → ESCALATE | SLA-DG-05 | SLA-DG-05, SLA-DG-08 | — | 0.75 | ESCALATE |
 | DG-004 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-DG-03 | SLA-DG-03, SLA-DG-05, SLA-DG-08 | AGENT-004 | 0.86 | ESCALATE |
 | DG-004 | pilot · gpt-oss-120b · cot · hybrid k=12 | missed escalation | REJECT → ESCALATE | SLA-DG-03 | SLA-DG-03, SLA-DG-05, SLA-DG-08 | — | 0.92 | ESCALATE |
@@ -322,6 +325,10 @@ Cases most often wrong: COD-005 (11), CF-106 (9), CF-104 (8), DG-004 (5), CF-107
 **DG-002 · pilot · qwen3.8-27b · zero_shot · hybrid k=12** (ESCALATE, reference REJECT)
 
 > The reporting window is calculated from the PoD timestamp (2026-08-03T10:15:00+05:30) to the first customer message (2026-08-06T09:30:00+05:30), which is approximately 72 hours and 15 minutes. This exceeds the 48-hour limit in SLA-DG-01, and SLA-DG-02 does not apply because the PoD photo (POD-002) shows an intact package. The customer provided a specific description and a photo of the damage (CUSTOMER-003, CUSTOMER-004), satisfying the evidence requirements of SLA-DG-04. However, because the PoD shows an intact package and no unboxing evidence was provided, SLA-DG-05 shifts the claim to agent discretion rather than auto-approval or auto-rejection. Since the SLA explicitly routes this scenario to discretion and the record does not settle the question of fault (intact external package vs. internal damage), the case must be escalated to manual review.
+
+**DG-003 · pilot · gpt-oss-20b · facts · hybrid k=12** (APPROVE, reference ESCALATE)
+
+> The claim was filed 14.6 h after PoD, well within the 48‑hour window of SLA‑DG‑01. The customer’s chat provides a specific written description of the damage, satisfying SLA‑DG‑04’s evidence requirement. PoD photo shows an intact package, so SLA‑DG‑05 applies, moving the case to agent discretion; the narrative credibility and product category (small appliance) support approval. No clause mandates rejection, and the evidence is not contradictory, so the claim is approved for replacement.
 
 **DG-003 · pilot · gpt-oss-20b · zero_shot · hybrid k=12** (APPROVE, reference ESCALATE)
 
