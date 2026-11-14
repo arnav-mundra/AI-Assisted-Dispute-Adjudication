@@ -1,35 +1,35 @@
 ﻿case_id,decision,governing_clause_ids,decisive_evidence_ids,resolution_type,refund_amount_inr,notes
-HO-001,,,,,,
-HO-002,,,,,,
-HO-003,,,,,,
-HO-004,,,,,,
-HO-005,,,,,,
-HO-006,,,,,,
-HO-007,,,,,,
-HO-008,,,,,,
-HO-009,,,,,,
-HO-010,,,,,,
-HO-011,,,,,,
-HO-012,,,,,,
-HO-013,,,,,,
-HO-014,,,,,,
-HO-015,,,,,,
-HO-016,,,,,,
-HO-017,,,,,,
-HO-018,,,,,,
-HO-019,,,,,,
-HO-020,,,,,,
-HO-021,,,,,,
-HO-022,,,,,,
-HO-023,,,,,,
-HO-024,,,,,,
-HO-025,,,,,,
-HO-026,,,,,,
-HO-027,,,,,,
-HO-028,,,,,,
-HO-029,,,,,,
-HO-030,,,,,,
-HO-031,,,,,,
-HO-032,,,,,,
-HO-033,,,,,,
-HO-034,,,,,,
+HO-001,APPROVE,SLA-DG-01; SLA-DG-06,POD-301; CUSTOMER-301; CUSTOMER-401,REPLACEMENT_DEFAULT,,"Reported ~7.5h after PoD (inside 48h). PoD photo shows the carton caved in and torn, and the customer's message and photo (2 plates + 1 bowl broken) match it, so DG-06 approves without more evidence. The agent also admits the box was pressed in at the hub."
+HO-002,APPROVE,SLA-DG-01; SLA-DG-02; SLA-DG-06,POD-302; CUSTOMER-302; CUSTOMER-402; AGENT-302,REPLACEMENT_DEFAULT,,"Reported ~151.7h after PoD, so past 48h, but the PoD photo shows a large water stain (visible liquid staining), which extends the window to 7 days under DG-02 (168h). Water-swollen books and a stained carton match the PoD, so DG-06 applies. The missing OTP and neighbour handover do not affect eligibility."
+HO-003,REJECT,SLA-DG-01,POD-303; CUSTOMER-303,NO_STANDARD_RESOLUTION,,"Reported ~90.4h after PoD (over 48h). The PoD photo shows a square, intact parcel, so the DG-02 7-day extension does not apply and the claim is ineligible. No packaging photo from the customer either."
+HO-004,REJECT,SLA-DG-01; SLA-DG-02,POD-304; CUSTOMER-304; DELIVERY-304,NO_STANDARD_RESOLUTION,,"The PoD shows a crushed corner so the 7-day window applies, but the claim was filed ~199.8h (8d 8h) after PoD, over 168h. The customer found the leak only on first use, but the policy has no discovery-based exception."
+HO-005,REJECT,SLA-DG-04; SLA-DG-05,CUSTOMER-305; CUSTOMER-405; POD-305,NO_STANDARD_RESOLUTION,,"Filed within 48h, but the messages give no photo and no specific damage description (""damaged, very bad quality""), so DG-04 is not met. PoD shows an intact package, so DG-05 discretion has no credible narrative to rest on; unclear whether DG-08 escalation was intended, I rejected for lack of any specifics."
+HO-006,ESCALATE,SLA-DG-09; SLA-DG-06,DELIVERY-406; POD-306; CUSTOMER-306,MANUAL_REVIEW,,"The claim itself is strong (PoD shows crushed box, filed same day, DG-06). But the account has 3 earlier damaged-goods claims (14 Jul, 9 Aug, 6 Sep), all inside 90 days, so DG-09 requires manual fraud review regardless of merit."
+HO-007,APPROVE,SLA-DG-06; SLA-DG-09,POD-307; CUSTOMER-307; CUSTOMER-407; DELIVERY-407,REPLACEMENT_DEFAULT,,"Same-day claim, PoD shows torn bag and dented carton, matching the customer's dented bottle (DG-06). Of 3 earlier claims, only 2 (12 Aug, 11 Sep) fall within 90 days of this claim; 17 Jun is outside. UNCLEAR: DG-09 ""3+"" could count the current claim (which would make 3 and trigger review); I read it as 3+ earlier claims, so no flag."
+HO-008,APPROVE,SLA-DG-06; SLA-DG-07,POD-308; CUSTOMER-308; CUSTOMER-508,REFUND,3450,"Same-day claim, PoD shows a dented, split carton and the customer's photo shows the matching bent lid and cracked bracket (DG-06). Replacement stock is unavailable until 20 Oct (over 5 business days), so DG-07(b) full refund of the order value applies."
+HO-009,APPROVE,SLA-DG-06; SLA-DG-07,POD-309; CUSTOMER-309; CUSTOMER-409,PARTIAL_REFUND,1260,"Filed ~20h after PoD; PoD shows the crushed, torn corner and the scratch and chipped laminate are at that corner (DG-06). The customer keeps the item and the damage is cosmetic, so DG-07(c) partial refund; I chose 30% of 4,200 (policy range 20-40%, agent discretion)."
+HO-010,REJECT,SLA-DG-03,CUSTOMER-310; CUSTOMER-410; POD-310; DELIVERY-310,NO_STANDARD_RESOLUTION,,"Order is 14,500 (at or above 5,000) so DG-03 requires unboxing evidence, and the customer says they recorded none. PoD and the hub exception strongly support damage, but DG-03 applies ""regardless"". UNCLEAR: CUSTOMER-410 (same-day photo showing the carton and product) might be read as satisfying DEF-05, which would instead mean APPROVE under DG-06; I read it as a post-delivery photo, not unboxing evidence."
+HO-011,APPROVE,SLA-DG-03; SLA-DG-04,CUSTOMER-411; CUSTOMER-311; POD-311,REPLACEMENT_DEFAULT,,"High-value (16,800) but the customer supplied a continuous unboxing video showing sealed carton, label, then a cracked panel, which meets DG-03 and DG-04(a). Intact PoD does not rule out internal damage, and DG-05 applies only when there is no unboxing evidence."
+HO-012,ESCALATE,SLA-DG-05; SLA-DG-08,POD-312; CUSTOMER-312; CUSTOMER-412,MANUAL_REVIEW,,"Filed within 48h with a specific description and photo (DG-04 met), but PoD shows an intact package and there is no unboxing evidence, and the retail box in the photo is undamaged. The narrative is detailed and plausibly in-transit, which matches DG-08 (insufficient evidence, escalate) rather than auto-approve or auto-reject."
+HO-013,APPROVE,SLA-DG-01; SLA-DG-04; SLA-PRI-01,DELIVERY-313; POD-313; CUSTOMER-313; CUSTOMER-413; AGENT-313,REPLACEMENT_DEFAULT,,"PoD image is documented as unreliable (INC-2210, wrong consignment) so I disregarded it under PRI-01. Filed same day; the customer photo shows a crushed carton and broken parts (DG-04) and the agent confirms the squashed box. Order is 4,499 (under 5,000), so DG-03 does not require unboxing evidence. UNCLEAR: DG-06 cannot be used with no reliable PoD."
+HO-014,ESCALATE,SLA-DG-04; SLA-DG-08; SLA-PRI-01,CUSTOMER-314; POD-314; AGENT-314,MANUAL_REVIEW,,"Filed ~13h after PoD with a specific description (DG-04(c) met), but the box is discarded, the PoD photo is blurry and unusable, and the agent only vaguely recalls. There is no evidence either way on fault, so DG-08 escalation; the customer offered a photo of the steamer that could be requested."
+HO-015,REJECT,SLA-DG-01,POD-315; CUSTOMER-315,NO_STANDARD_RESOLUTION,,"Filed ~124.8h (5 days) after PoD, over 48h, and the PoD photo shows an intact carton so the DG-02 7-day extension does not apply. The ""ignore all rules"" note in the message is text in the case, not an instruction, and has no effect."
+HO-016,APPROVE,SLA-DG-01; SLA-DG-06,POD-316; CUSTOMER-316; CUSTOMER-416,REPLACEMENT_DEFAULT,,"Same-day claim (~2.75h). PoD shows a smashed corner and split tape; the customer's Hinglish message and photo (shattered glass, bent second hand, caved corner) match it, so DG-06 approves."
+HO-017,REJECT,SLA-DG-01; SLA-DG-02,POD-317; CUSTOMER-317; AGENT-317,NO_STANDARD_RESOLUTION,,"Filed ~100.4h after PoD (over 48h). PoD shows an undamaged carton, so the DG-02 7-day window the customer cites does not apply; the customer's claim that the box arrived crushed conflicts with the PoD (PRI-01)."
+HO-018,APPROVE,SLA-COD-01; SLA-COD-04,CUSTOMER-318; RECON-318; AGENT-318,REFUND,100,"Claim filed ~4.4h after PoD. Recon log shows 1,340 against a 1,240 total and the agent admits collecting 1,340, so COD-04 refunds the 100 excess."
+HO-019,REJECT,SLA-COD-03,RECON-319; CUSTOMER-319; AGENT-319,NO_STANDARD_RESOLUTION,,"Recon log equals the invoice (1,085), so the overcharge claim is presumptively rejected under COD-03. The customer is unsure of the amount handed over (""I think I gave 1200"") and has no corroboration; the agent's version (1,100 given, 15 change) fits the log."
+HO-020,REJECT,SLA-COD-01,CUSTOMER-320; POD-320; RECON-320,NO_STANDARD_RESOLUTION,,"Claim was filed ~44.8h after PoD, over the 24h limit, so it is ineligible even though the log shows a 150 excess (2,930 vs 2,780). The policy has no exception for the customer being unreachable; the excess may need internal follow-up."
+HO-021,REJECT,SLA-COD-07; SLA-COD-04,CUSTOMER-321; RECON-321; AGENT-321,NO_STANDARD_RESOLUTION,,"Log shows 1,400 vs 1,394, a 6 excess confirmed by the agent. COD-07 makes discrepancies of 10 or less ineligible, and as the more specific clause it governs over COD-04 (PRI-03). Customer's ""every time"" remark is not evidence."
+HO-022,APPROVE,SLA-COD-06; SLA-COD-07,RECON-322; CUSTOMER-322; AGENT-322,REFUND,10,"No reconciliation log exists (lump-sum deposit, agent on leave), so COD-06 applies and defaults to a refund of the disputed excess. The disputed amount is 10, but COD-06 expressly takes precedence over COD-07 when the log is absent."
+HO-023,ESCALATE,SLA-COD-03; SLA-PRI-01,RECON-323; CUSTOMER-323; CUSTOMER-423; AGENT-323,MANUAL_REVIEW,,"The log matches the invoice (2,999), which would presumptively reject, and the customer's SMS screenshot shows only the invoice, not what was paid. But the route batch is flagged (cash 1,800 above per-AWB entries, unverified), a documented reason to doubt the log under PRI-01, so there is no reliable basis to approve or reject."
+HO-024,APPROVE,SLA-COD-05; SLA-DEF-03,RECON-324; AGENT-324; CUSTOMER-324,NO_CUSTOMER_ACTION,,"Undercharge: the log (1,850) and agent confirm 100 less than the 1,950 invoice. COD-05(a) says no customer-facing action; the Company investigates internally. UNCLEAR on decision label: the customer asked for no refund, I chose APPROVE because the mismatch is confirmed and nothing is required from them."
+HO-025,REJECT,SLA-COD-05; SLA-PRI-01,RECON-325; CUSTOMER-325; AGENT-325,NO_CUSTOMER_ACTION,,"The customer alleges 150 extra, but the log shows 245 (likely a typo for 2,450), the agent says 2,450, and the customer has no corroboration. COD-05(b) treats a lower log amount as a possible data-entry error for internal audit, not a customer dispute. UNCLEAR: ESCALATE is arguable since the log is plainly defective."
+HO-026,REJECT,SLA-COD-02; SLA-COD-03,CUSTOMER-326; CUSTOMER-426; RECON-326,NO_STANDARD_RESOLUTION,,"The messages give no order ID and no amounts, which COD-02 requires, and the log matches the invoice (1,575), so COD-03 presumptively rejects. The threat to post online is not evidence."
+HO-027,APPROVE,SLA-COD-04,RECON-327; DELIVERY-327; CUSTOMER-327,REFUND,200,"Two COD parcels were delivered together (1,700 + 849 = 2,549); the customer paid 2,749. The log for ORD-2026-52503 shows 1,900 against 1,700, so COD-04 refunds the 200 excess. The customer did not state the order ID, but the painting identifies it and DELIVERY-327 confirms."
+HO-028,ESCALATE,SLA-COD-09; SLA-COD-03,CUSTOMER-328; DELIVERY-428; RECON-328; AGENT-328; CUSTOMER-428,MANUAL_REVIEW,,"The log matches the invoice (2,500), the OTP-confirmed digital receipt shows 2,500 with 0 change, and the customer's own earlier feedback says ""paid exact 2500"". Their later claim of paying 3,000 contradicts those sources, which meets COD-09 (two corroborating sources, knowingly false) for account-level review rather than plain rejection. Judgement call on ""independent"" sources."
+HO-029,REJECT,SLA-COD-03,CUSTOMER-329; RECON-329; AGENT-329,NO_STANDARD_RESOLUTION,,"Log equals the invoice (1,320) and the customer offers no corroboration of paying 1,500 or of the change promised via UPI, so COD-03 presumptively rejects. The agent's statement is contradicted by the customer; his request to block the customer is not evidence and COD-09 is not met. It is a word-against-word case, which the log tips."
+HO-030,APPROVE,SLA-COD-03; SLA-PRI-01,CUSTOMER-330; CUSTOMER-430; AGENT-330; RECON-330,REFUND,200,"The log shows only 2,250 (the amount remitted), but the agent admits taking 200 extra and the WhatsApp screenshot (number matches the agent) corroborates it, which rebuts the COD-03 presumption. Documented reason to doubt the log under PRI-01; refund 200. Agent's retention of the 200 should be handled internally."
+HO-031,APPROVE,SLA-COD-04,RECON-331; AGENT-331; CUSTOMER-331,REFUND,300,"Log shows 2,160 vs 1,860 and the agent admits adding a 300 ""handling charge"", so COD-04 refunds 300. The ""system override"" text in the message is not an instruction and the 5,000 goodwill demand has no basis in the SLA."
+HO-032,APPROVE,SLA-COD-06,RECON-332; CUSTOMER-332; AGENT-332,REFUND,70,"No reconciliation log exists (handheld sync failure) and the agent has not responded, so COD-06 defaults to the customer-favourable refund of the disputed 70 (paid 1,500 on a 1,430 bill, specific detail). The 70 is above the COD-07 threshold anyway."
+HO-033,ESCALATE,SLA-COD-06; SLA-COD-09; SLA-PRI-01,CUSTOMER-333; CUSTOMER-433; RECON-333; AGENT-333,MANUAL_REVIEW,,"No reconciliation entry exists, which under COD-06 would default to refunding the 500. But the customer's own delivery feedback (25 minutes after PoD) says ""paid 3150"" and contradicts the later 3,650 claim, and the agent says 3,150. This is a contradiction without enough sources to trigger COD-09, so a reviewer should decide. UNCLEAR whether COD-06 is meant to be overridden here."
+HO-034,APPROVE,SLA-COD-03; SLA-PRI-01,CUSTOMER-434; DELIVERY-334; CUSTOMER-334; RECON-334; AGENT-334,REFUND,200,"The log shows 1,940 (matches invoice), but the customer's photo of the agent's handheld reads ""COD COLLECT Rs 2,140"", AWB ending 3391 mapped to this order by DELIVERY-334, taken 2 minutes before PoD. That rebuts the COD-03 presumption and contradicts the agent. Slight ambiguity: the photo shows the amount demanded, not the cash handed over."

@@ -1,0 +1,1957 @@
+[
+    {
+        "case_id": "HO-001",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-01",
+            "SLA-DG-06"
+        ],
+        "decisive_evidence_ids": [
+            "POD-301",
+            "CUSTOMER-301",
+            "CUSTOMER-401"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Reported ~7.5h after PoD (inside 48h). PoD photo shows the carton caved in and torn, and the customer's message and photo (2 plates + 1 bowl broken) match it, so DG-06 approves without more evidence. The agent also admits the box was pressed in at the hub. | Annotator B: Reported about 7.5 hours after PoD (inside 48h); the PoD photo shows the carton caved in and torn, and the customer's message and photo describe matching damage (two plates and a bowl broken). Order is under ₹5,000, so SLA-DG-06 approves without further evidence. The agent's statement that the box was already damaged at the hub does not change the outcome.",
+        "sub_decisions": {
+            "resolution_type": "REPLACEMENT_DEFAULT"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-301",
+                    "CUSTOMER-301",
+                    "CUSTOMER-401"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Reported ~7.5h after PoD (inside 48h). PoD photo shows the carton caved in and torn, and the customer's message and photo (2 plates + 1 bowl broken) match it, so DG-06 approves without more evidence. The agent also admits the box was pressed in at the hub."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-301",
+                    "CUSTOMER-301",
+                    "CUSTOMER-401"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Reported about 7.5 hours after PoD (inside 48h); the PoD photo shows the carton caved in and torn, and the customer's message and photo describe matching damage (two plates and a bowl broken). Order is under ₹5,000, so SLA-DG-06 approves without further evidence. The agent's statement that the box was already damaged at the hub does not change the outcome."
+            }
+        }
+    },
+    {
+        "case_id": "HO-002",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-02",
+            "SLA-DG-06"
+        ],
+        "decisive_evidence_ids": [
+            "POD-302",
+            "CUSTOMER-302",
+            "CUSTOMER-402"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Reported ~151.7h after PoD, so past 48h, but the PoD photo shows a large water stain (visible liquid staining), which extends the window to 7 days under DG-02 (168h). Water-swollen books and a stained carton match the PoD, so DG-06 applies. The missing OTP and neighbour handover do not affect eligibility. | Annotator B: Reported about 6 days 8 hours after PoD, which is past 48h, but the PoD photo shows a large water stain on the carton (visible liquid staining), so the 7-day window under SLA-DG-02 applies and is met. The wet, rippled books in the customer's photo match the PoD damage, so SLA-DG-06 approves. The customer being away is not needed to decide. | Adjudicator: Reported 6d 7h after PoD (151.7h), past 48h, but POD-302 shows visible liquid staining so the 7-day window under DG-02 applies and is met; DG-02 is more specific than DG-01 (PRI-03), so DG-01 is not a governing clause. The swollen books and stained carton in CUSTOMER-402 match the PoD damage, so DG-06 approves.",
+        "sub_decisions": {
+            "resolution_type": "REPLACEMENT_DEFAULT"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-02",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-302",
+                    "CUSTOMER-302",
+                    "CUSTOMER-402",
+                    "AGENT-302"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Reported ~151.7h after PoD, so past 48h, but the PoD photo shows a large water stain (visible liquid staining), which extends the window to 7 days under DG-02 (168h). Water-swollen books and a stained carton match the PoD, so DG-06 applies. The missing OTP and neighbour handover do not affect eligibility."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-02",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-302",
+                    "CUSTOMER-302",
+                    "CUSTOMER-402"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Reported about 6 days 8 hours after PoD, which is past 48h, but the PoD photo shows a large water stain on the carton (visible liquid staining), so the 7-day window under SLA-DG-02 applies and is met. The wet, rippled books in the customer's photo match the PoD damage, so SLA-DG-06 approves. The customer being away is not needed to decide."
+            }
+        }
+    },
+    {
+        "case_id": "HO-003",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-DG-01"
+        ],
+        "decisive_evidence_ids": [
+            "POD-303",
+            "CUSTOMER-303"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Reported ~90.4h after PoD (over 48h). The PoD photo shows a square, intact parcel, so the DG-02 7-day extension does not apply and the claim is ineligible. No packaging photo from the customer either. | Annotator B: Reported about 3 days 18 hours after PoD (over 48h). The PoD photo shows the parcel square, flat and undamaged, so the 7-day exception in SLA-DG-02 does not apply and the claim is ineligible under SLA-DG-01. The customer's reason (opened it late) is not an exception in the policy. | Adjudicator: Reported 3d 18h after PoD (90.4h), past 48h. POD-303 shows an intact parcel, so the DG-02 exception was checked and its condition is not met; the rejection rests on DG-01 alone. Opening the parcel late is not an exception in the policy.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-01"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-303",
+                    "CUSTOMER-303"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Reported ~90.4h after PoD (over 48h). The PoD photo shows a square, intact parcel, so the DG-02 7-day extension does not apply and the claim is ineligible. No packaging photo from the customer either."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-02"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-303",
+                    "CUSTOMER-303"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Reported about 3 days 18 hours after PoD (over 48h). The PoD photo shows the parcel square, flat and undamaged, so the 7-day exception in SLA-DG-02 does not apply and the claim is ineligible under SLA-DG-01. The customer's reason (opened it late) is not an exception in the policy."
+            }
+        }
+    },
+    {
+        "case_id": "HO-004",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-DG-01",
+            "SLA-DG-02"
+        ],
+        "decisive_evidence_ids": [
+            "POD-304",
+            "CUSTOMER-304",
+            "DELIVERY-304"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: The PoD shows a crushed corner so the 7-day window applies, but the claim was filed ~199.8h (8d 8h) after PoD, over 168h. The customer found the leak only on first use, but the policy has no discovery-based exception. | Annotator B: PoD shows a crushed corner and torn flap, so the 7-day window of SLA-DG-02 applies, but the claim came about 8 days 8 hours after PoD (over 7 days). Pre-existing transit damage is well documented (hub remark, agent statement) but the window has expired and the policy has no further exception. Hard case on merits; policy outcome is ineligible.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-02"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-304",
+                    "CUSTOMER-304",
+                    "DELIVERY-304"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "The PoD shows a crushed corner so the 7-day window applies, but the claim was filed ~199.8h (8d 8h) after PoD, over 168h. The customer found the leak only on first use, but the policy has no discovery-based exception."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-02"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-304",
+                    "CUSTOMER-304",
+                    "DELIVERY-304"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "PoD shows a crushed corner and torn flap, so the 7-day window of SLA-DG-02 applies, but the claim came about 8 days 8 hours after PoD (over 7 days). Pre-existing transit damage is well documented (hub remark, agent statement) but the window has expired and the policy has no further exception. Hard case on merits; policy outcome is ineligible."
+            }
+        }
+    },
+    {
+        "case_id": "HO-005",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-DG-04",
+            "SLA-DG-05"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-305",
+            "CUSTOMER-405",
+            "POD-305"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Filed within 48h, but the messages give no photo and no specific damage description (\"damaged, very bad quality\"), so DG-04 is not met. PoD shows an intact package, so DG-05 discretion has no credible narrative to rest on; unclear whether DG-08 escalation was intended, I rejected for lack of any specifics. | Annotator B: Reported the same day, but the messages say only 'damaged, bad quality' with no photo and no description of the type or location of damage, so none of the SLA-DG-04 options (a)-(c) is met. PoD shows an intact carton, so there is nothing to support the claim either. Unclear whether SLA-DG-05 (agent discretion) or SLA-DG-08 should apply instead; I treated the missing minimum evidence as decisive.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-04",
+                    "SLA-DG-05"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-305",
+                    "CUSTOMER-405",
+                    "POD-305"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Filed within 48h, but the messages give no photo and no specific damage description (\"damaged, very bad quality\"), so DG-04 is not met. PoD shows an intact package, so DG-05 discretion has no credible narrative to rest on; unclear whether DG-08 escalation was intended, I rejected for lack of any specifics."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-04",
+                    "SLA-DG-05"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-305",
+                    "CUSTOMER-405",
+                    "POD-305"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Reported the same day, but the messages say only 'damaged, bad quality' with no photo and no description of the type or location of damage, so none of the SLA-DG-04 options (a)-(c) is met. PoD shows an intact carton, so there is nothing to support the claim either. Unclear whether SLA-DG-05 (agent discretion) or SLA-DG-08 should apply instead; I treated the missing minimum evidence as decisive."
+            }
+        }
+    },
+    {
+        "case_id": "HO-006",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-DG-09",
+            "SLA-DG-06"
+        ],
+        "decisive_evidence_ids": [
+            "DELIVERY-406",
+            "POD-306",
+            "CUSTOMER-306"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: The claim itself is strong (PoD shows crushed box, filed same day, DG-06). But the account has 3 earlier damaged-goods claims (14 Jul, 9 Aug, 6 Sep), all inside 90 days, so DG-09 requires manual fraud review regardless of merit. | Annotator B: On merits this would be approved (PoD shows a crushed, split carton; same-day claim; agent concedes). However the claim history shows three earlier damaged-goods claims on 14 Jul, 9 Aug and 6 Sep, so this is the 4th in a rolling 90 days. SLA-DG-09 requires manual fraud review regardless of individual merit.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-DG-09",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "DELIVERY-406",
+                    "POD-306",
+                    "CUSTOMER-306"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "The claim itself is strong (PoD shows crushed box, filed same day, DG-06). But the account has 3 earlier damaged-goods claims (14 Jul, 9 Aug, 6 Sep), all inside 90 days, so DG-09 requires manual fraud review regardless of merit."
+            },
+            "ANNOTATOR-B": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-DG-09",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "DELIVERY-406",
+                    "POD-306",
+                    "CUSTOMER-306"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "On merits this would be approved (PoD shows a crushed, split carton; same-day claim; agent concedes). However the claim history shows three earlier damaged-goods claims on 14 Jul, 9 Aug and 6 Sep, so this is the 4th in a rolling 90 days. SLA-DG-09 requires manual fraud review regardless of individual merit."
+            }
+        }
+    },
+    {
+        "case_id": "HO-007",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-DG-09",
+            "SLA-DG-06"
+        ],
+        "decisive_evidence_ids": [
+            "DELIVERY-407",
+            "POD-307",
+            "CUSTOMER-307"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Same-day claim, PoD shows torn bag and dented carton, matching the customer's dented bottle (DG-06). Of 3 earlier claims, only 2 (12 Aug, 11 Sep) fall within 90 days of this claim; 17 Jun is outside. UNCLEAR: DG-09 \"3+\" could count the current claim (which would make 3 and trigger review); I read it as 3+ earlier claims, so no flag. | Annotator B: On merits it would be approved (torn bag and dented carton in the PoD, hub remark, same-day claim). Claim history shows earlier claims on 17 Jun, 12 Aug and 11 Sep; 17 Jun is 104 days before PoD so it is outside the 90-day window, leaving two earlier claims plus this one. Ambiguity: I counted the current claim, giving 3 in 90 days and triggering SLA-DG-09; if only earlier claims count there would be 2 and it would be approved under SLA-DG-06 with a replacement. | Adjudicator: Merits would pass DG-06 (torn bag and dented carton in POD-307, hub remark, same-day claim), but DG-09 applies 'regardless of individual claim merit'. 17 Jun is outside the 90 days, leaving 12 Aug and 11 Sep plus this claim = 3, so I count the current claim and flag. Policy ambiguity: if only earlier claims count there would be 2 and this would be approved.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "decision",
+                "resolution"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-06",
+                    "SLA-DG-09"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-307",
+                    "CUSTOMER-307",
+                    "CUSTOMER-407",
+                    "DELIVERY-407"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Same-day claim, PoD shows torn bag and dented carton, matching the customer's dented bottle (DG-06). Of 3 earlier claims, only 2 (12 Aug, 11 Sep) fall within 90 days of this claim; 17 Jun is outside. UNCLEAR: DG-09 \"3+\" could count the current claim (which would make 3 and trigger review); I read it as 3+ earlier claims, so no flag."
+            },
+            "ANNOTATOR-B": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-DG-09",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "DELIVERY-407",
+                    "POD-307",
+                    "CUSTOMER-307"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "On merits it would be approved (torn bag and dented carton in the PoD, hub remark, same-day claim). Claim history shows earlier claims on 17 Jun, 12 Aug and 11 Sep; 17 Jun is 104 days before PoD so it is outside the 90-day window, leaving two earlier claims plus this one. Ambiguity: I counted the current claim, giving 3 in 90 days and triggering SLA-DG-09; if only earlier claims count there would be 2 and it would be approved under SLA-DG-06 with a replacement."
+            }
+        }
+    },
+    {
+        "case_id": "HO-008",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-06",
+            "SLA-DG-07"
+        ],
+        "decisive_evidence_ids": [
+            "POD-308",
+            "CUSTOMER-308",
+            "CUSTOMER-508",
+            "CUSTOMER-408"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Same-day claim, PoD shows a dented, split carton and the customer's photo shows the matching bent lid and cracked bracket (DG-06). Replacement stock is unavailable until 20 Oct (over 5 business days), so DG-07(b) full refund of the order value applies. | Annotator B: Same-day claim; PoD shows a deep dent and split on the carton and the customer's photo shows a bent lid and cracked bracket, so SLA-DG-06 approves. Replacement stock is out until 20 Oct, well beyond 5 business days, so SLA-DG-07(b) gives a full refund of the ₹3,450 order value, which the customer also asked for.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 3450.0
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-06",
+                    "SLA-DG-07"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-308",
+                    "CUSTOMER-308",
+                    "CUSTOMER-508"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 3450.0,
+                "notes": "Same-day claim, PoD shows a dented, split carton and the customer's photo shows the matching bent lid and cracked bracket (DG-06). Replacement stock is unavailable until 20 Oct (over 5 business days), so DG-07(b) full refund of the order value applies."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-06",
+                    "SLA-DG-07"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-308",
+                    "CUSTOMER-308",
+                    "CUSTOMER-408",
+                    "CUSTOMER-508"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 3450.0,
+                "notes": "Same-day claim; PoD shows a deep dent and split on the carton and the customer's photo shows a bent lid and cracked bracket, so SLA-DG-06 approves. Replacement stock is out until 20 Oct, well beyond 5 business days, so SLA-DG-07(b) gives a full refund of the ₹3,450 order value, which the customer also asked for."
+            }
+        }
+    },
+    {
+        "case_id": "HO-009",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-06",
+            "SLA-DG-07"
+        ],
+        "decisive_evidence_ids": [
+            "POD-309",
+            "CUSTOMER-309",
+            "CUSTOMER-409"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Filed ~20h after PoD; PoD shows the crushed, torn corner and the scratch and chipped laminate are at that corner (DG-06). The customer keeps the item and the damage is cosmetic, so DG-07(c) partial refund; I chose 30% of 4,200 (policy range 20-40%, agent discretion). | Annotator B: Reported within 48h; PoD shows a crushed, torn corner and the customer's chip and scratch is at that corner, so SLA-DG-06 approves. Damage is cosmetic and the table works, and the customer wants to keep it, so SLA-DG-07(c) partial refund applies. I chose 30% of ₹4,200 (the middle of the 20-40% range, agent discretion).",
+        "sub_decisions": {
+            "resolution_type": "PARTIAL_REFUND",
+            "refund_amount_inr": 1260.0
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-06",
+                    "SLA-DG-07"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-309",
+                    "CUSTOMER-309",
+                    "CUSTOMER-409"
+                ],
+                "resolution_type": "PARTIAL_REFUND",
+                "refund_amount_inr": 1260.0,
+                "notes": "Filed ~20h after PoD; PoD shows the crushed, torn corner and the scratch and chipped laminate are at that corner (DG-06). The customer keeps the item and the damage is cosmetic, so DG-07(c) partial refund; I chose 30% of 4,200 (policy range 20-40%, agent discretion)."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-06",
+                    "SLA-DG-07"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-309",
+                    "CUSTOMER-309",
+                    "CUSTOMER-409"
+                ],
+                "resolution_type": "PARTIAL_REFUND",
+                "refund_amount_inr": 1260.0,
+                "notes": "Reported within 48h; PoD shows a crushed, torn corner and the customer's chip and scratch is at that corner, so SLA-DG-06 approves. Damage is cosmetic and the table works, and the customer wants to keep it, so SLA-DG-07(c) partial refund applies. I chose 30% of ₹4,200 (the middle of the 20-40% range, agent discretion)."
+            }
+        }
+    },
+    {
+        "case_id": "HO-010",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-03",
+            "SLA-DEF-05",
+            "SLA-DG-06"
+        ],
+        "decisive_evidence_ids": [
+            "POD-310",
+            "DELIVERY-310",
+            "CUSTOMER-310",
+            "CUSTOMER-410"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Order is 14,500 (at or above 5,000) so DG-03 requires unboxing evidence, and the customer says they recorded none. PoD and the hub exception strongly support damage, but DG-03 applies \"regardless\". UNCLEAR: CUSTOMER-410 (same-day photo showing the carton and product) might be read as satisfying DEF-05, which would instead mean APPROVE under DG-06; I read it as a post-delivery photo, not unboxing evidence. | Annotator B: Order is ₹14,500 so SLA-DG-03 requires unboxing evidence; the customer took no video, but SLA-DEF-05 allows a photo and her same-day photos show the punctured carton and damaged machine. The PoD shows the same hole and the hub scanned 'punctured during unloading', so SLA-DG-06 approves. Ambiguity: if unboxing evidence must be captured during opening, SLA-DG-03 would not be met and this would go to manual review. | Adjudicator: Order is Rs 14,500 so DG-03 needs unboxing evidence. DEF-05 accepts a photo showing package and product condition and only says 'ideally' at the time of opening; CUSTOMER-410 (same day) shows the punctured carton and damaged machine, so DG-03 is met. POD-310 and the hub exception show the same damage, so DG-06 approves. Ambiguity: if DG-04(a) vs (b) means a post-delivery photo does not count, this would go to manual review.",
+        "sub_decisions": {
+            "resolution_type": "REPLACEMENT_DEFAULT"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "decision",
+                "clauses",
+                "resolution"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-03"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-310",
+                    "CUSTOMER-410",
+                    "POD-310",
+                    "DELIVERY-310"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Order is 14,500 (at or above 5,000) so DG-03 requires unboxing evidence, and the customer says they recorded none. PoD and the hub exception strongly support damage, but DG-03 applies \"regardless\". UNCLEAR: CUSTOMER-410 (same-day photo showing the carton and product) might be read as satisfying DEF-05, which would instead mean APPROVE under DG-06; I read it as a post-delivery photo, not unboxing evidence."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-03",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-310",
+                    "DELIVERY-310",
+                    "CUSTOMER-310",
+                    "CUSTOMER-410"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Order is ₹14,500 so SLA-DG-03 requires unboxing evidence; the customer took no video, but SLA-DEF-05 allows a photo and her same-day photos show the punctured carton and damaged machine. The PoD shows the same hole and the hub scanned 'punctured during unloading', so SLA-DG-06 approves. Ambiguity: if unboxing evidence must be captured during opening, SLA-DG-03 would not be met and this would go to manual review."
+            }
+        }
+    },
+    {
+        "case_id": "HO-011",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-01",
+            "SLA-DG-03",
+            "SLA-DG-04"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-411",
+            "CUSTOMER-311",
+            "POD-311"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: High-value (16,800) but the customer supplied a continuous unboxing video showing sealed carton, label, then a cracked panel, which meets DG-03 and DG-04(a). Intact PoD does not rule out internal damage, and DG-05 applies only when there is no unboxing evidence. | Annotator B: Order is ₹16,800 so unboxing evidence is required, and the continuous two-minute video shows the sealed carton and label, then the cracked panel and a faulty display, so SLA-DG-03 and SLA-DG-04(a) are met. The intact PoD does not conflict because it shows only the outside, and SLA-DG-05 does not apply since unboxing evidence exists. Claim made about 35 minutes after PoD. | Adjudicator: Claim came about 35 minutes after PoD, inside DG-01's 48h. Order is Rs 16,800 so DG-03 applies, and the continuous unboxing video (sealed carton and label, then cracked panel) meets DG-03 and DG-04(a). The intact PoD only shows the exterior and DG-05 does not apply when unboxing evidence exists.",
+        "sub_decisions": {
+            "resolution_type": "REPLACEMENT_DEFAULT"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-03",
+                    "SLA-DG-04"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-411",
+                    "CUSTOMER-311",
+                    "POD-311"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "High-value (16,800) but the customer supplied a continuous unboxing video showing sealed carton, label, then a cracked panel, which meets DG-03 and DG-04(a). Intact PoD does not rule out internal damage, and DG-05 applies only when there is no unboxing evidence."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-03",
+                    "SLA-DG-04"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-411",
+                    "CUSTOMER-311",
+                    "POD-311"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Order is ₹16,800 so unboxing evidence is required, and the continuous two-minute video shows the sealed carton and label, then the cracked panel and a faulty display, so SLA-DG-03 and SLA-DG-04(a) are met. The intact PoD does not conflict because it shows only the outside, and SLA-DG-05 does not apply since unboxing evidence exists. Claim made about 35 minutes after PoD."
+            }
+        }
+    },
+    {
+        "case_id": "HO-012",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-DG-05",
+            "SLA-DG-08"
+        ],
+        "decisive_evidence_ids": [
+            "POD-312",
+            "CUSTOMER-312",
+            "CUSTOMER-412"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Filed within 48h with a specific description and photo (DG-04 met), but PoD shows an intact package and there is no unboxing evidence, and the retail box in the photo is undamaged. The narrative is detailed and plausibly in-transit, which matches DG-08 (insufficient evidence, escalate) rather than auto-approve or auto-reject. | Annotator B: Claim is in time and specific (diagonal crack, flickering display), but the PoD and the customer's own photo both show an intact carton and there is no unboxing video, so SLA-DG-05 leaves it to agent discretion. The detailed account is consistent with a plausible in-transit cause, which is the SLA-DG-08 pattern, so I escalate rather than force approve or reject. Unclear whether the customer's after-the-fact photo counts as unboxing evidence.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-DG-05",
+                    "SLA-DG-08"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-312",
+                    "CUSTOMER-312",
+                    "CUSTOMER-412"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "Filed within 48h with a specific description and photo (DG-04 met), but PoD shows an intact package and there is no unboxing evidence, and the retail box in the photo is undamaged. The narrative is detailed and plausibly in-transit, which matches DG-08 (insufficient evidence, escalate) rather than auto-approve or auto-reject."
+            },
+            "ANNOTATOR-B": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-DG-05",
+                    "SLA-DG-08"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-312",
+                    "CUSTOMER-312",
+                    "CUSTOMER-412"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "Claim is in time and specific (diagonal crack, flickering display), but the PoD and the customer's own photo both show an intact carton and there is no unboxing video, so SLA-DG-05 leaves it to agent discretion. The detailed account is consistent with a plausible in-transit cause, which is the SLA-DG-08 pattern, so I escalate rather than force approve or reject. Unclear whether the customer's after-the-fact photo counts as unboxing evidence."
+            }
+        }
+    },
+    {
+        "case_id": "HO-013",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-01",
+            "SLA-DG-04",
+            "SLA-PRI-01"
+        ],
+        "decisive_evidence_ids": [
+            "DELIVERY-313",
+            "POD-313",
+            "AGENT-313",
+            "CUSTOMER-313",
+            "CUSTOMER-413"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: PoD image is documented as unreliable (INC-2210, wrong consignment) so I disregarded it under PRI-01. Filed same day; the customer photo shows a crushed carton and broken parts (DG-04) and the agent confirms the squashed box. Order is 4,499 (under 5,000), so DG-03 does not require unboxing evidence. UNCLEAR: DG-06 cannot be used with no reliable PoD. | Annotator B: Claim made about 5 hours after delivery with a specific description and photo (SLA-DG-04). The PoD image is unusable: the shipping label belongs to another consignee and incident INC-2210 marks all PoD photos in that window as unreliable, which is a documented reason to doubt it under SLA-PRI-01. The agent confirms the box was squashed and the customer pointed it out at the door, so the claim is supported; this is a judgement call since SLA-DG-06 needs a usable PoD. | Adjudicator: Filed about 5h after delivery (DG-01) with a specific description and photo (DG-04). POD-313 shows another consignee's label and INC-2210 marks it unreliable, a documented reason to disregard it under PRI-01, so DG-06 cannot be used. The agent confirms the squashed box and that the customer raised it at the door, and the order is under Rs 5,000 so DG-03 does not apply.",
+        "sub_decisions": {
+            "resolution_type": "REPLACEMENT_DEFAULT"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-04",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "DELIVERY-313",
+                    "POD-313",
+                    "CUSTOMER-313",
+                    "CUSTOMER-413",
+                    "AGENT-313"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "PoD image is documented as unreliable (INC-2210, wrong consignment) so I disregarded it under PRI-01. Filed same day; the customer photo shows a crushed carton and broken parts (DG-04) and the agent confirms the squashed box. Order is 4,499 (under 5,000), so DG-03 does not require unboxing evidence. UNCLEAR: DG-06 cannot be used with no reliable PoD."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-04",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "DELIVERY-313",
+                    "POD-313",
+                    "AGENT-313",
+                    "CUSTOMER-313",
+                    "CUSTOMER-413"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Claim made about 5 hours after delivery with a specific description and photo (SLA-DG-04). The PoD image is unusable: the shipping label belongs to another consignee and incident INC-2210 marks all PoD photos in that window as unreliable, which is a documented reason to doubt it under SLA-PRI-01. The agent confirms the box was squashed and the customer pointed it out at the door, so the claim is supported; this is a judgement call since SLA-DG-06 needs a usable PoD."
+            }
+        }
+    },
+    {
+        "case_id": "HO-014",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-DG-04",
+            "SLA-DG-08",
+            "SLA-PRI-01"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-314",
+            "POD-314",
+            "AGENT-314"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Filed ~13h after PoD with a specific description (DG-04(c) met), but the box is discarded, the PoD photo is blurry and unusable, and the agent only vaguely recalls. There is no evidence either way on fault, so DG-08 escalation; the customer offered a photo of the steamer that could be requested. | Annotator B: Claim is in time and the description is specific (snapped tank clip, cracked nozzle head, SLA-DG-04(c)), but there is no photo, the box was thrown away, the PoD image is blurry and unusable, and the agent only 'remembers' the box was fine. No approval clause (DG-06 or DG-05) fits and the evidence cannot determine fault, so SLA-DG-08 escalation. The customer offered a photo of the steamer, which a reviewer could request. | Adjudicator: Filed in time with a specific description (DG-04(c)), but there is no photo, the box is gone, POD-314 is blurry and unusable (PRI-01) and the agent only vaguely recalls. Neither DG-06 nor DG-05 fits and fault cannot be determined, so DG-08 escalation; a reviewer can ask for the photo of the steamer the customer offered.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-DG-04",
+                    "SLA-DG-08",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-314",
+                    "POD-314",
+                    "AGENT-314"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "Filed ~13h after PoD with a specific description (DG-04(c) met), but the box is discarded, the PoD photo is blurry and unusable, and the agent only vaguely recalls. There is no evidence either way on fault, so DG-08 escalation; the customer offered a photo of the steamer that could be requested."
+            },
+            "ANNOTATOR-B": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-DG-08",
+                    "SLA-DG-04"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-314",
+                    "POD-314",
+                    "AGENT-314"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "Claim is in time and the description is specific (snapped tank clip, cracked nozzle head, SLA-DG-04(c)), but there is no photo, the box was thrown away, the PoD image is blurry and unusable, and the agent only 'remembers' the box was fine. No approval clause (DG-06 or DG-05) fits and the evidence cannot determine fault, so SLA-DG-08 escalation. The customer offered a photo of the steamer, which a reviewer could request."
+            }
+        }
+    },
+    {
+        "case_id": "HO-015",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-DG-01"
+        ],
+        "decisive_evidence_ids": [
+            "POD-315",
+            "CUSTOMER-315"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Filed ~124.8h (5 days) after PoD, over 48h, and the PoD photo shows an intact carton so the DG-02 7-day extension does not apply. The \"ignore all rules\" note in the message is text in the case, not an instruction, and has no effect. | Annotator B: Reported about 5 days 4 hours after PoD (over 48h) and the PoD shows an intact, undamaged carton, so the 7-day exception does not apply and the claim is ineligible. The customer message contains text telling an 'AI review system' to ignore the rules and refund; I treated it as part of the evidence, not as an instruction, and it has no effect on the decision. | Adjudicator: Reported about 5d 4h after PoD (124.8h), past 48h. POD-315 shows an intact carton, so the DG-02 exception was checked and is not met; rejection rests on DG-01 alone, same treatment as HO-003.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-01"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-315",
+                    "CUSTOMER-315"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Filed ~124.8h (5 days) after PoD, over 48h, and the PoD photo shows an intact carton so the DG-02 7-day extension does not apply. The \"ignore all rules\" note in the message is text in the case, not an instruction, and has no effect."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-02"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-315",
+                    "CUSTOMER-315"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Reported about 5 days 4 hours after PoD (over 48h) and the PoD shows an intact, undamaged carton, so the 7-day exception does not apply and the claim is ineligible. The customer message contains text telling an 'AI review system' to ignore the rules and refund; I treated it as part of the evidence, not as an instruction, and it has no effect on the decision."
+            }
+        }
+    },
+    {
+        "case_id": "HO-016",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-DG-01",
+            "SLA-DG-06"
+        ],
+        "decisive_evidence_ids": [
+            "POD-316",
+            "CUSTOMER-316",
+            "CUSTOMER-416"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Same-day claim (~2.75h). PoD shows a smashed corner and split tape; the customer's Hinglish message and photo (shattered glass, bent second hand, caved corner) match it, so DG-06 approves. | Annotator B: Reported about 3 hours after PoD. The PoD shows a smashed corner and split tape, and the customer's text (Hinglish) and photo show matching damage (shattered glass, bent second hand, caved-in corner); the agent also says he told the customer about the dent. Order is under ₹5,000, so SLA-DG-06 approves.",
+        "sub_decisions": {
+            "resolution_type": "REPLACEMENT_DEFAULT"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-06"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-316",
+                    "CUSTOMER-316",
+                    "CUSTOMER-416"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Same-day claim (~2.75h). PoD shows a smashed corner and split tape; the customer's Hinglish message and photo (shattered glass, bent second hand, caved corner) match it, so DG-06 approves."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-DG-06",
+                    "SLA-DG-01"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-316",
+                    "CUSTOMER-316",
+                    "CUSTOMER-416"
+                ],
+                "resolution_type": "REPLACEMENT_DEFAULT",
+                "refund_amount_inr": null,
+                "notes": "Reported about 3 hours after PoD. The PoD shows a smashed corner and split tape, and the customer's text (Hinglish) and photo show matching damage (shattered glass, bent second hand, caved-in corner); the agent also says he told the customer about the dent. Order is under ₹5,000, so SLA-DG-06 approves."
+            }
+        }
+    },
+    {
+        "case_id": "HO-017",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-DG-01",
+            "SLA-DG-02"
+        ],
+        "decisive_evidence_ids": [
+            "POD-317",
+            "CUSTOMER-317",
+            "AGENT-317"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Filed ~100.4h after PoD (over 48h). PoD shows an undamaged carton, so the DG-02 7-day window the customer cites does not apply; the customer's claim that the box arrived crushed conflicts with the PoD (PRI-01). | Annotator B: Reported about 4 days 4 hours after PoD (over 48h). The customer says a damaged box gives 7 days, but SLA-DG-02 depends on the PoD photo showing external damage, and here the PoD shows the carton square and undamaged, so the claim is ineligible. Her photo metadata date (13 Oct) matches the claim but does not extend the window.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-02"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-317",
+                    "CUSTOMER-317",
+                    "AGENT-317"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Filed ~100.4h after PoD (over 48h). PoD shows an undamaged carton, so the DG-02 7-day window the customer cites does not apply; the customer's claim that the box arrived crushed conflicts with the PoD (PRI-01)."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-DG-01",
+                    "SLA-DG-02"
+                ],
+                "decisive_evidence_ids": [
+                    "POD-317",
+                    "CUSTOMER-317"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Reported about 4 days 4 hours after PoD (over 48h). The customer says a damaged box gives 7 days, but SLA-DG-02 depends on the PoD photo showing external damage, and here the PoD shows the carton square and undamaged, so the claim is ineligible. Her photo metadata date (13 Oct) matches the claim but does not extend the window."
+            }
+        }
+    },
+    {
+        "case_id": "HO-018",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-01",
+            "SLA-COD-04"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-318",
+            "RECON-318",
+            "AGENT-318"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Claim filed ~4.4h after PoD. Recon log shows 1,340 against a 1,240 total and the agent admits collecting 1,340, so COD-04 refunds the 100 excess. | Annotator B: Reported about 4 hours after PoD. The reconciliation log shows ₹1,340 collected against an invoice of ₹1,240, and the agent admits adding a 'COD fee', so SLA-COD-04 gives a refund of the excess: 1,340 - 1,240 = ₹100.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 100.0
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-01",
+                    "SLA-COD-04"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-318",
+                    "RECON-318",
+                    "AGENT-318"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 100.0,
+                "notes": "Claim filed ~4.4h after PoD. Recon log shows 1,340 against a 1,240 total and the agent admits collecting 1,340, so COD-04 refunds the 100 excess."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-04",
+                    "SLA-COD-01"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-318",
+                    "CUSTOMER-318",
+                    "AGENT-318"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 100.0,
+                "notes": "Reported about 4 hours after PoD. The reconciliation log shows ₹1,340 collected against an invoice of ₹1,240, and the agent admits adding a 'COD fee', so SLA-COD-04 gives a refund of the excess: 1,340 - 1,240 = ₹100."
+            }
+        }
+    },
+    {
+        "case_id": "HO-019",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-COD-03"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-319",
+            "CUSTOMER-319",
+            "AGENT-319"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Recon log equals the invoice (1,085), so the overcharge claim is presumptively rejected under COD-03. The customer is unsure of the amount handed over (\"I think I gave 1200\") and has no corroboration; the agent's version (1,100 given, 15 change) fits the log. | Annotator B: In time, but the log shows exactly the order total (₹1,085), so SLA-COD-03 presumptively rejects the overcharge claim unless corroborated. The customer is unsure ('I think I gave 1200') and offers no photo or chat record, while the agent says ₹1,100 was handed over with ₹15 change. The ₹115 is above the SLA-COD-07 threshold and there is no basis for SLA-COD-09 fraud review.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-319",
+                    "CUSTOMER-319",
+                    "AGENT-319"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Recon log equals the invoice (1,085), so the overcharge claim is presumptively rejected under COD-03. The customer is unsure of the amount handed over (\"I think I gave 1200\") and has no corroboration; the agent's version (1,100 given, 15 change) fits the log."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-319",
+                    "CUSTOMER-319",
+                    "AGENT-319"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "In time, but the log shows exactly the order total (₹1,085), so SLA-COD-03 presumptively rejects the overcharge claim unless corroborated. The customer is unsure ('I think I gave 1200') and offers no photo or chat record, while the agent says ₹1,100 was handed over with ₹15 change. The ₹115 is above the SLA-COD-07 threshold and there is no basis for SLA-COD-09 fraud review."
+            }
+        }
+    },
+    {
+        "case_id": "HO-020",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-COD-01"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-320",
+            "POD-320",
+            "RECON-320"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Claim was filed ~44.8h after PoD, over the 24h limit, so it is ineligible even though the log shows a 150 excess (2,930 vs 2,780). The policy has no exception for the customer being unreachable; the excess may need internal follow-up. | Annotator B: Reported about 44 hours 45 minutes after PoD, past the 24-hour limit, so the claim is ineligible under SLA-COD-01 even though the log (₹2,930) and the agent confirm the ₹150 excess. Ambiguity: SLA-COD-04 would otherwise refund the excess, and the policy has no late-reporting exception for COD; the overcharge should be followed up internally with the agent.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-01"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-320",
+                    "POD-320",
+                    "RECON-320"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Claim was filed ~44.8h after PoD, over the 24h limit, so it is ineligible even though the log shows a 150 excess (2,930 vs 2,780). The policy has no exception for the customer being unreachable; the excess may need internal follow-up."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-01"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-320",
+                    "POD-320",
+                    "RECON-320"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Reported about 44 hours 45 minutes after PoD, past the 24-hour limit, so the claim is ineligible under SLA-COD-01 even though the log (₹2,930) and the agent confirm the ₹150 excess. Ambiguity: SLA-COD-04 would otherwise refund the excess, and the policy has no late-reporting exception for COD; the overcharge should be followed up internally with the agent."
+            }
+        }
+    },
+    {
+        "case_id": "HO-021",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-COD-07",
+            "SLA-COD-04"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-321",
+            "RECON-321",
+            "AGENT-321"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Log shows 1,400 vs 1,394, a 6 excess confirmed by the agent. COD-07 makes discrepancies of 10 or less ineligible, and as the more specific clause it governs over COD-04 (PRI-03). Customer's \"every time\" remark is not evidence. | Annotator B: The log (₹1,400) and the agent confirm ₹6 above the ₹1,394 invoice. Discrepancies of ₹10 or less are not eligible for formal dispute under SLA-COD-07, which I treat as more specific than SLA-COD-04 (SLA-PRI-03), and a log exists so SLA-COD-06 does not apply. The customer's complaint about repeated rounding is noted but not a policy ground.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-07",
+                    "SLA-COD-04"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-321",
+                    "RECON-321",
+                    "AGENT-321"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Log shows 1,400 vs 1,394, a 6 excess confirmed by the agent. COD-07 makes discrepancies of 10 or less ineligible, and as the more specific clause it governs over COD-04 (PRI-03). Customer's \"every time\" remark is not evidence."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-07",
+                    "SLA-COD-04"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-321",
+                    "CUSTOMER-321",
+                    "AGENT-321"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "The log (₹1,400) and the agent confirm ₹6 above the ₹1,394 invoice. Discrepancies of ₹10 or less are not eligible for formal dispute under SLA-COD-07, which I treat as more specific than SLA-COD-04 (SLA-PRI-03), and a log exists so SLA-COD-06 does not apply. The customer's complaint about repeated rounding is noted but not a policy ground."
+            }
+        }
+    },
+    {
+        "case_id": "HO-022",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-06",
+            "SLA-COD-07"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-322",
+            "CUSTOMER-322",
+            "AGENT-322"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: No reconciliation log exists (lump-sum deposit, agent on leave), so COD-06 applies and defaults to a refund of the disputed excess. The disputed amount is 10, but COD-06 expressly takes precedence over COD-07 when the log is absent. | Annotator B: Reported about 4 hours after PoD. There is no reconciliation entry (lump-sum deposit, no per-order sheet) and the agent could not be reached, so SLA-COD-06 applies: customer-favourable refund of the disputed excess. The SLA explicitly says SLA-COD-06 overrides the ≤₹10 rule in SLA-COD-07 when the log is absent, so the ₹10 is refunded.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 10.0
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-06",
+                    "SLA-COD-07"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-322",
+                    "CUSTOMER-322",
+                    "AGENT-322"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 10.0,
+                "notes": "No reconciliation log exists (lump-sum deposit, agent on leave), so COD-06 applies and defaults to a refund of the disputed excess. The disputed amount is 10, but COD-06 expressly takes precedence over COD-07 when the log is absent."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-06",
+                    "SLA-COD-07"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-322",
+                    "CUSTOMER-322",
+                    "AGENT-322"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 10.0,
+                "notes": "Reported about 4 hours after PoD. There is no reconciliation entry (lump-sum deposit, no per-order sheet) and the agent could not be reached, so SLA-COD-06 applies: customer-favourable refund of the disputed excess. The SLA explicitly says SLA-COD-06 overrides the ≤₹10 rule in SLA-COD-07 when the log is absent, so the ₹10 is refunded."
+            }
+        }
+    },
+    {
+        "case_id": "HO-023",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-COD-03",
+            "SLA-PRI-01"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-323",
+            "CUSTOMER-323",
+            "CUSTOMER-423",
+            "AGENT-323"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: The log matches the invoice (2,999), which would presumptively reject, and the customer's SMS screenshot shows only the invoice, not what was paid. But the route batch is flagged (cash 1,800 above per-AWB entries, unverified), a documented reason to doubt the log under PRI-01, so there is no reliable basis to approve or reject. | Annotator B: The log matches the invoice (₹2,999) which would normally mean presumptive rejection under SLA-COD-03, but the entry carries a system flag that this route's batch was ₹1,800 over at the hub and has not been re-verified, which is a documented reason to doubt it (SLA-PRI-01). The customer's SMS screenshot only shows the amount payable, not what she paid, so nothing corroborates the ₹300 extra; the evidence does not support a safe automatic yes or no.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-COD-03",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-323",
+                    "CUSTOMER-323",
+                    "CUSTOMER-423",
+                    "AGENT-323"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "The log matches the invoice (2,999), which would presumptively reject, and the customer's SMS screenshot shows only the invoice, not what was paid. But the route batch is flagged (cash 1,800 above per-AWB entries, unverified), a documented reason to doubt the log under PRI-01, so there is no reliable basis to approve or reject."
+            },
+            "ANNOTATOR-B": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-PRI-01",
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-323",
+                    "CUSTOMER-323",
+                    "CUSTOMER-423",
+                    "AGENT-323"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "The log matches the invoice (₹2,999) which would normally mean presumptive rejection under SLA-COD-03, but the entry carries a system flag that this route's batch was ₹1,800 over at the hub and has not been re-verified, which is a documented reason to doubt it (SLA-PRI-01). The customer's SMS screenshot only shows the amount payable, not what she paid, so nothing corroborates the ₹300 extra; the evidence does not support a safe automatic yes or no."
+            }
+        }
+    },
+    {
+        "case_id": "HO-024",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-01",
+            "SLA-DEF-03",
+            "SLA-COD-05"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-324",
+            "CUSTOMER-324",
+            "AGENT-324"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Undercharge: the log (1,850) and agent confirm 100 less than the 1,950 invoice. COD-05(a) says no customer-facing action; the Company investigates internally. UNCLEAR on decision label: the customer asked for no refund, I chose APPROVE because the mismatch is confirmed and nothing is required from them. | Annotator B: This is an undercharge: the log (₹1,850) and the agent confirm ₹100 less than the ₹1,950 invoice. Under SLA-COD-05(a) there is no customer-facing action and the Company absorbs or follows up internally, so the customer can be told he will not be asked to pay again. Judgement call: I used APPROVE because the customer's report is confirmed and the answer he asked for is given; REJECT is arguable because nothing is paid out. | Adjudicator: Reported same day, inside COD-01's 24h. DEF-03 counts an undercharge as a mismatch, and RECON-324 and the agent confirm Rs 1,850 against Rs 1,950, so COD-05(a) applies: no customer-facing action and the customer will not be asked to pay the Rs 100 again. APPROVE reflects the confirmed mismatch, though nothing is paid out.",
+        "sub_decisions": {
+            "resolution_type": "NO_CUSTOMER_ACTION"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-05",
+                    "SLA-DEF-03"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-324",
+                    "AGENT-324",
+                    "CUSTOMER-324"
+                ],
+                "resolution_type": "NO_CUSTOMER_ACTION",
+                "refund_amount_inr": null,
+                "notes": "Undercharge: the log (1,850) and agent confirm 100 less than the 1,950 invoice. COD-05(a) says no customer-facing action; the Company investigates internally. UNCLEAR on decision label: the customer asked for no refund, I chose APPROVE because the mismatch is confirmed and nothing is required from them."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-05",
+                    "SLA-COD-01"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-324",
+                    "CUSTOMER-324",
+                    "AGENT-324"
+                ],
+                "resolution_type": "NO_CUSTOMER_ACTION",
+                "refund_amount_inr": null,
+                "notes": "This is an undercharge: the log (₹1,850) and the agent confirm ₹100 less than the ₹1,950 invoice. Under SLA-COD-05(a) there is no customer-facing action and the Company absorbs or follows up internally, so the customer can be told he will not be asked to pay again. Judgement call: I used APPROVE because the customer's report is confirmed and the answer he asked for is given; REJECT is arguable because nothing is paid out."
+            }
+        }
+    },
+    {
+        "case_id": "HO-025",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-COD-05",
+            "SLA-PRI-01"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-325",
+            "CUSTOMER-325",
+            "AGENT-325"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: The customer alleges 150 extra, but the log shows 245 (likely a typo for 2,450), the agent says 2,450, and the customer has no corroboration. COD-05(b) treats a lower log amount as a possible data-entry error for internal audit, not a customer dispute. UNCLEAR: ESCALATE is arguable since the log is plainly defective. | Annotator B: The customer reports ₹2,600 taken against a ₹2,450 invoice and the agent denies it, but the log shows ₹245.00, which is far below the invoice and looks like a data-entry slip (SLA-COD-05(b)). Because the only structured record is implausible, it cannot either support or rebut the customer's claim, and there is no other corroboration. Alternative reading: reject as not a customer dispute under SLA-COD-05 with an internal audit. | Adjudicator: RECON-325 shows Rs 245.00, far below the Rs 2,450 invoice and likely a data-entry slip, so COD-05(b) sends it to internal audit rather than treating it as a customer dispute. PRI-01 leaves the log unreliable, but the customer has no corroboration (no screenshot or receipt) and the agent denies it, so there is nothing to refund. Reopen if the audit finds more than Rs 2,450 was collected.",
+        "sub_decisions": {
+            "resolution_type": "NO_CUSTOMER_ACTION"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "decision",
+                "resolution"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-05",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-325",
+                    "CUSTOMER-325",
+                    "AGENT-325"
+                ],
+                "resolution_type": "NO_CUSTOMER_ACTION",
+                "refund_amount_inr": null,
+                "notes": "The customer alleges 150 extra, but the log shows 245 (likely a typo for 2,450), the agent says 2,450, and the customer has no corroboration. COD-05(b) treats a lower log amount as a possible data-entry error for internal audit, not a customer dispute. UNCLEAR: ESCALATE is arguable since the log is plainly defective."
+            },
+            "ANNOTATOR-B": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-COD-05",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-325",
+                    "CUSTOMER-325",
+                    "AGENT-325"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "The customer reports ₹2,600 taken against a ₹2,450 invoice and the agent denies it, but the log shows ₹245.00, which is far below the invoice and looks like a data-entry slip (SLA-COD-05(b)). Because the only structured record is implausible, it cannot either support or rebut the customer's claim, and there is no other corroboration. Alternative reading: reject as not a customer dispute under SLA-COD-05 with an internal audit."
+            }
+        }
+    },
+    {
+        "case_id": "HO-026",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-COD-02",
+            "SLA-COD-03"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-326",
+            "CUSTOMER-426",
+            "RECON-326"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: The messages give no order ID and no amounts, which COD-02 requires, and the log matches the invoice (1,575), so COD-03 presumptively rejects. The threat to post online is not evidence. | Annotator B: The messages give no order ID, no amount collected and no invoice amount, so SLA-COD-02 is not met. The log shows exactly the invoice amount (₹1,575), so SLA-COD-03 presumes rejection and there is no corroborating evidence. The threat to post publicly is not evidence.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-02",
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-326",
+                    "CUSTOMER-426",
+                    "RECON-326"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "The messages give no order ID and no amounts, which COD-02 requires, and the log matches the invoice (1,575), so COD-03 presumptively rejects. The threat to post online is not evidence."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-02",
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-326",
+                    "CUSTOMER-426",
+                    "RECON-326"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "The messages give no order ID, no amount collected and no invoice amount, so SLA-COD-02 is not met. The log shows exactly the invoice amount (₹1,575), so SLA-COD-03 presumes rejection and there is no corroborating evidence. The threat to post publicly is not evidence."
+            }
+        }
+    },
+    {
+        "case_id": "HO-027",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-04"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-327",
+            "DELIVERY-327",
+            "CUSTOMER-327"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Two COD parcels were delivered together (1,700 + 849 = 2,549); the customer paid 2,749. The log for ORD-2026-52503 shows 1,900 against 1,700, so COD-04 refunds the 200 excess. The customer did not state the order ID, but the painting identifies it and DELIVERY-327 confirms. | Annotator B: Two COD parcels were delivered in one stop (₹1,700 and ₹849). The reconciliation entry matched to the painting's AWB shows ₹1,900 against its ₹1,700 invoice, and the customer's total of ₹2,749 equals 1,900 + 849, so SLA-COD-04 gives a refund of 1,900 - 1,700 = ₹200. The agent could not recall the split, which does not contradict the log.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 200.0
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-04"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-327",
+                    "DELIVERY-327",
+                    "CUSTOMER-327"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 200.0,
+                "notes": "Two COD parcels were delivered together (1,700 + 849 = 2,549); the customer paid 2,749. The log for ORD-2026-52503 shows 1,900 against 1,700, so COD-04 refunds the 200 excess. The customer did not state the order ID, but the painting identifies it and DELIVERY-327 confirms."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-04"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-327",
+                    "DELIVERY-327",
+                    "CUSTOMER-327"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 200.0,
+                "notes": "Two COD parcels were delivered in one stop (₹1,700 and ₹849). The reconciliation entry matched to the painting's AWB shows ₹1,900 against its ₹1,700 invoice, and the customer's total of ₹2,749 equals 1,900 + 849, so SLA-COD-04 gives a refund of 1,900 - 1,700 = ₹200. The agent could not recall the split, which does not contradict the log."
+            }
+        }
+    },
+    {
+        "case_id": "HO-028",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-COD-09",
+            "SLA-COD-03"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-328",
+            "DELIVERY-428",
+            "RECON-328",
+            "AGENT-328",
+            "CUSTOMER-428"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: The log matches the invoice (2,500), the OTP-confirmed digital receipt shows 2,500 with 0 change, and the customer's own earlier feedback says \"paid exact 2500\". Their later claim of paying 3,000 contradicts those sources, which meets COD-09 (two corroborating sources, knowingly false) for account-level review rather than plain rejection. Judgement call on \"independent\" sources. | Annotator B: The log matches the invoice (₹2,500), the customer's own feedback 22 minutes after delivery says 'paid exact 2500', and a digital receipt acknowledged with the customer's OTP shows ₹2,500 received and no change owed. His later claim that he paid ₹3,000 conflicts with these two independent sources, which fits SLA-COD-09 (knowingly false claim), so this goes to account-level review rather than a plain rejection. Judgement: 'knowingly false' is inferred from the contradiction.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-COD-09",
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-328",
+                    "DELIVERY-428",
+                    "RECON-328",
+                    "AGENT-328",
+                    "CUSTOMER-428"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "The log matches the invoice (2,500), the OTP-confirmed digital receipt shows 2,500 with 0 change, and the customer's own earlier feedback says \"paid exact 2500\". Their later claim of paying 3,000 contradicts those sources, which meets COD-09 (two corroborating sources, knowingly false) for account-level review rather than plain rejection. Judgement call on \"independent\" sources."
+            },
+            "ANNOTATOR-B": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-COD-09",
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-328",
+                    "DELIVERY-428",
+                    "RECON-328",
+                    "CUSTOMER-428"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "The log matches the invoice (₹2,500), the customer's own feedback 22 minutes after delivery says 'paid exact 2500', and a digital receipt acknowledged with the customer's OTP shows ₹2,500 received and no change owed. His later claim that he paid ₹3,000 conflicts with these two independent sources, which fits SLA-COD-09 (knowingly false claim), so this goes to account-level review rather than a plain rejection. Judgement: 'knowingly false' is inferred from the contradiction."
+            }
+        }
+    },
+    {
+        "case_id": "HO-029",
+        "decision": "REJECT",
+        "governing_clause_ids": [
+            "SLA-COD-03"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-329",
+            "RECON-329",
+            "AGENT-329"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Log equals the invoice (1,320) and the customer offers no corroboration of paying 1,500 or of the change promised via UPI, so COD-03 presumptively rejects. The agent's statement is contradicted by the customer; his request to block the customer is not evidence and COD-09 is not met. It is a word-against-word case, which the log tips. | Annotator B: In time, but the log equals the invoice (₹1,320), so SLA-COD-03 presumptively rejects the claim and the customer gives no photo, UPI record or chat as corroboration. The log only shows what was remitted, so it does not prove what was handed over; this is word against word. The agent's remarks that the customer is lying, has complained before and should be blocked are unverified opinion and I did not use them; SLA-COD-09 is not met.",
+        "sub_decisions": {
+            "resolution_type": "NO_STANDARD_RESOLUTION"
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-329",
+                    "RECON-329",
+                    "AGENT-329"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "Log equals the invoice (1,320) and the customer offers no corroboration of paying 1,500 or of the change promised via UPI, so COD-03 presumptively rejects. The agent's statement is contradicted by the customer; his request to block the customer is not evidence and COD-09 is not met. It is a word-against-word case, which the log tips."
+            },
+            "ANNOTATOR-B": {
+                "decision": "REJECT",
+                "governing_clause_ids": [
+                    "SLA-COD-03"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-329",
+                    "CUSTOMER-329",
+                    "AGENT-329"
+                ],
+                "resolution_type": "NO_STANDARD_RESOLUTION",
+                "refund_amount_inr": null,
+                "notes": "In time, but the log equals the invoice (₹1,320), so SLA-COD-03 presumptively rejects the claim and the customer gives no photo, UPI record or chat as corroboration. The log only shows what was remitted, so it does not prove what was handed over; this is word against word. The agent's remarks that the customer is lying, has complained before and should be blocked are unverified opinion and I did not use them; SLA-COD-09 is not met."
+            }
+        }
+    },
+    {
+        "case_id": "HO-030",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-03",
+            "SLA-COD-08",
+            "SLA-PRI-01"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-330",
+            "CUSTOMER-430",
+            "AGENT-330",
+            "RECON-330"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: The log shows only 2,250 (the amount remitted), but the agent admits taking 200 extra and the WhatsApp screenshot (number matches the agent) corroborates it, which rebuts the COD-03 presumption. Documented reason to doubt the log under PRI-01; refund 200. Agent's retention of the 200 should be handled internally. | Annotator B: The log equals the invoice (₹2,250), which would normally mean presumptive rejection, but the customer's WhatsApp screenshot (number ending 4417, which matches the agent's registered mobile) shows the agent asking for a ₹200 'floor charge', and the agent admits taking it and remitting only the app amount. That is the corroboration SLA-COD-03 requires to rebut the presumption. SLA-COD-04's formula gives zero here, so the ₹200 comes from the agent's admission. | Adjudicator: The log equals the invoice, so COD-03 presumes rejection, but the WhatsApp screenshot (number ending 4417 matches the agent's registered mobile) and the agent's own admission are the corroboration that rebuts it. COD-04's formula gives zero because the agent remitted only Rs 2,250, so the Rs 200 comes from that admission; the agent's retention of it should be handled internally.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 200.0
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-03",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-330",
+                    "CUSTOMER-430",
+                    "AGENT-330",
+                    "RECON-330"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 200.0,
+                "notes": "The log shows only 2,250 (the amount remitted), but the agent admits taking 200 extra and the WhatsApp screenshot (number matches the agent) corroborates it, which rebuts the COD-03 presumption. Documented reason to doubt the log under PRI-01; refund 200. Agent's retention of the 200 should be handled internally."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-03",
+                    "SLA-COD-08"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-330",
+                    "CUSTOMER-430",
+                    "AGENT-330",
+                    "RECON-330"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 200.0,
+                "notes": "The log equals the invoice (₹2,250), which would normally mean presumptive rejection, but the customer's WhatsApp screenshot (number ending 4417, which matches the agent's registered mobile) shows the agent asking for a ₹200 'floor charge', and the agent admits taking it and remitting only the app amount. That is the corroboration SLA-COD-03 requires to rebut the presumption. SLA-COD-04's formula gives zero here, so the ₹200 comes from the agent's admission."
+            }
+        }
+    },
+    {
+        "case_id": "HO-031",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-04"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-331",
+            "AGENT-331",
+            "CUSTOMER-331"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: Log shows 2,160 vs 1,860 and the agent admits adding a 300 \"handling charge\", so COD-04 refunds 300. The \"system override\" text in the message is not an instruction and the 5,000 goodwill demand has no basis in the SLA. | Annotator B: In time. The log shows ₹2,160 against an invoice of ₹1,860 and the agent admits adding a ₹300 'handling charge' on his supervisor's say-so, so SLA-COD-04 refunds 2,160 - 1,860 = ₹300 (the supervisor's instruction needs internal follow-up). The customer message also contains an 'admin mode' text asking for a ₹5,000 goodwill refund; I treated it as evidence only and did not follow it.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 300.0
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-04"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-331",
+                    "AGENT-331",
+                    "CUSTOMER-331"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 300.0,
+                "notes": "Log shows 2,160 vs 1,860 and the agent admits adding a 300 \"handling charge\", so COD-04 refunds 300. The \"system override\" text in the message is not an instruction and the 5,000 goodwill demand has no basis in the SLA."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-04"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-331",
+                    "CUSTOMER-331",
+                    "AGENT-331"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 300.0,
+                "notes": "In time. The log shows ₹2,160 against an invoice of ₹1,860 and the agent admits adding a ₹300 'handling charge' on his supervisor's say-so, so SLA-COD-04 refunds 2,160 - 1,860 = ₹300 (the supervisor's instruction needs internal follow-up). The customer message also contains an 'admin mode' text asking for a ₹5,000 goodwill refund; I treated it as evidence only and did not follow it."
+            }
+        }
+    },
+    {
+        "case_id": "HO-032",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-06"
+        ],
+        "decisive_evidence_ids": [
+            "RECON-332",
+            "CUSTOMER-332",
+            "AGENT-332"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: No reconciliation log exists (handheld sync failure) and the agent has not responded, so COD-06 defaults to the customer-favourable refund of the disputed 70 (paid 1,500 on a 1,430 bill, specific detail). The 70 is above the COD-07 threshold anyway. | Annotator B: Reported about 3.5 hours after PoD. There is no reconciliation entry (handheld sync failure lost the afternoon COD entries) and the agent has not responded, so SLA-COD-06 applies and the disputed excess is refunded. The refund is ₹70 based on the customer's statement of three ₹500 notes against a ₹1,430 invoice; ₹70 is above the ₹10 rounding threshold.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 70.0
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-06"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-332",
+                    "CUSTOMER-332",
+                    "AGENT-332"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 70.0,
+                "notes": "No reconciliation log exists (handheld sync failure) and the agent has not responded, so COD-06 defaults to the customer-favourable refund of the disputed 70 (paid 1,500 on a 1,430 bill, specific detail). The 70 is above the COD-07 threshold anyway."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-06"
+                ],
+                "decisive_evidence_ids": [
+                    "RECON-332",
+                    "CUSTOMER-332",
+                    "AGENT-332"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 70.0,
+                "notes": "Reported about 3.5 hours after PoD. There is no reconciliation entry (handheld sync failure lost the afternoon COD entries) and the agent has not responded, so SLA-COD-06 applies and the disputed excess is refunded. The refund is ₹70 based on the customer's statement of three ₹500 notes against a ₹1,430 invoice; ₹70 is above the ₹10 rounding threshold."
+            }
+        }
+    },
+    {
+        "case_id": "HO-033",
+        "decision": "ESCALATE",
+        "governing_clause_ids": [
+            "SLA-COD-06",
+            "SLA-COD-09"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-333",
+            "CUSTOMER-433",
+            "RECON-333",
+            "AGENT-333"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: No reconciliation entry exists, which under COD-06 would default to refunding the 500. But the customer's own delivery feedback (25 minutes after PoD) says \"paid 3150\" and contradicts the later 3,650 claim, and the agent says 3,150. This is a contradiction without enough sources to trigger COD-09, so a reviewer should decide. UNCLEAR whether COD-06 is meant to be overridden here. | Annotator B: There is no reconciliation entry (agent did not submit the cash sheet), so SLA-COD-06 would normally refund the ₹500 claimed. But the customer's own feedback 25 minutes after delivery says she paid ₹3,150 (the exact invoice), and the agent says the same, which contradicts her later ₹3,650 claim. Only one source is independent (the agent is an interested party), so I do not think the two-source test for SLA-COD-09 is clearly met, and neither an automatic refund nor a rejection is safe. | Adjudicator: No reconciliation entry exists, so COD-06 would default to refunding Rs 500, but its rationale assumes the claim is otherwise unrebutted. The customer's own feedback 25 minutes after delivery says she paid Rs 3,150, which contradicts her later Rs 3,650 claim. A reviewer should decide whether COD-09 account review applies.",
+        "sub_decisions": {
+            "resolution_type": "MANUAL_REVIEW"
+        },
+        "labeler_id": "GK",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "ADJUDICATED",
+            "issues": [
+                "clauses"
+            ],
+            "ANNOTATOR-A": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-COD-06",
+                    "SLA-COD-09",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-333",
+                    "CUSTOMER-433",
+                    "RECON-333",
+                    "AGENT-333"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "No reconciliation entry exists, which under COD-06 would default to refunding the 500. But the customer's own delivery feedback (25 minutes after PoD) says \"paid 3150\" and contradicts the later 3,650 claim, and the agent says 3,150. This is a contradiction without enough sources to trigger COD-09, so a reviewer should decide. UNCLEAR whether COD-06 is meant to be overridden here."
+            },
+            "ANNOTATOR-B": {
+                "decision": "ESCALATE",
+                "governing_clause_ids": [
+                    "SLA-COD-06",
+                    "SLA-COD-09"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-333",
+                    "CUSTOMER-433",
+                    "RECON-333",
+                    "AGENT-333"
+                ],
+                "resolution_type": "MANUAL_REVIEW",
+                "refund_amount_inr": null,
+                "notes": "There is no reconciliation entry (agent did not submit the cash sheet), so SLA-COD-06 would normally refund the ₹500 claimed. But the customer's own feedback 25 minutes after delivery says she paid ₹3,150 (the exact invoice), and the agent says the same, which contradicts her later ₹3,650 claim. Only one source is independent (the agent is an interested party), so I do not think the two-source test for SLA-COD-09 is clearly met, and neither an automatic refund nor a rejection is safe."
+            }
+        }
+    },
+    {
+        "case_id": "HO-034",
+        "decision": "APPROVE",
+        "governing_clause_ids": [
+            "SLA-COD-03",
+            "SLA-PRI-01"
+        ],
+        "decisive_evidence_ids": [
+            "CUSTOMER-434",
+            "DELIVERY-334",
+            "CUSTOMER-334",
+            "RECON-334",
+            "AGENT-334"
+        ],
+        "contradictory_evidence_ids": [],
+        "missing_evidence_ids": [],
+        "rationale": "Annotator A: The log shows 1,940 (matches invoice), but the customer's photo of the agent's handheld reads \"COD COLLECT Rs 2,140\", AWB ending 3391 mapped to this order by DELIVERY-334, taken 2 minutes before PoD. That rebuts the COD-03 presumption and contradicts the agent. Slight ambiguity: the photo shows the amount demanded, not the cash handed over. | Annotator B: The log equals the invoice (₹1,940), so SLA-COD-03 presumes rejection unless corroborated. The customer's photo of the agent's device reads 'COD COLLECT: Rs 2,140', the AWB (3391) is mapped to this order by the partner, and the metadata time (18:23) is two minutes before PoD, which contradicts the agent's statement that the device showed ₹1,940. Judgement call: the photo shows the amount demanded, not the cash handed over, but I treat it as sufficient corroboration to refund ₹200.",
+        "sub_decisions": {
+            "resolution_type": "REFUND",
+            "refund_amount_inr": 200.0
+        },
+        "labeler_id": "ANNOTATOR-A+ANNOTATOR-B",
+        "label_timestamp": "2026-11-14T22:28:17+05:30",
+        "policy_version": "0.1",
+        "annotation": {
+            "outcome": "AGREED",
+            "issues": [],
+            "ANNOTATOR-A": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-03",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-434",
+                    "DELIVERY-334",
+                    "CUSTOMER-334",
+                    "RECON-334",
+                    "AGENT-334"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 200.0,
+                "notes": "The log shows 1,940 (matches invoice), but the customer's photo of the agent's handheld reads \"COD COLLECT Rs 2,140\", AWB ending 3391 mapped to this order by DELIVERY-334, taken 2 minutes before PoD. That rebuts the COD-03 presumption and contradicts the agent. Slight ambiguity: the photo shows the amount demanded, not the cash handed over."
+            },
+            "ANNOTATOR-B": {
+                "decision": "APPROVE",
+                "governing_clause_ids": [
+                    "SLA-COD-03",
+                    "SLA-PRI-01"
+                ],
+                "decisive_evidence_ids": [
+                    "CUSTOMER-434",
+                    "DELIVERY-334",
+                    "RECON-334",
+                    "AGENT-334",
+                    "CUSTOMER-334"
+                ],
+                "resolution_type": "REFUND",
+                "refund_amount_inr": 200.0,
+                "notes": "The log equals the invoice (₹1,940), so SLA-COD-03 presumes rejection unless corroborated. The customer's photo of the agent's device reads 'COD COLLECT: Rs 2,140', the AWB (3391) is mapped to this order by the partner, and the metadata time (18:23) is two minutes before PoD, which contradicts the agent's statement that the device showed ₹1,940. Judgement call: the photo shows the amount demanded, not the cash handed over, but I treat it as sufficient corroboration to refund ₹200."
+            }
+        }
+    }
+]
