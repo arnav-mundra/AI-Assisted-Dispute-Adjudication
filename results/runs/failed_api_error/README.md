@@ -7,3 +7,6 @@ so these accuracy figures should not be cited. Re-run the configuration instead.
   `json_validate_failed`.
 - `20261105-011346_counterfactual_llm_gpt-oss-20b_cot`: CF-112 failed with Groq error 400
   `json_validate_failed`, after earlier rate-limit retries used up the shared retry count.
+- `20261114-225846_heldout_llm_gpt-oss-20b_cot`: HO-025 failed with Groq error 400 `json_validate_failed`
+  (three rejections); HO-032, HO-033 and HO-034 hit the 200K tokens-per-day limit. gpt-oss-20b needs
+  slightly more than one day's budget for the 34 held-out cases.

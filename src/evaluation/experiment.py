@@ -50,19 +50,31 @@ def run_experiment(
     repeat: int = 0,
     guard: bool = False,
     min_confidence: float = 0.0,
+    resume_from: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     cases, labels = load_dataset(dataset)
     model = RULES_MODEL if engine == "rules" else (model or default_model())
 
+    reused: Dict[str, Dict[str, Any]] = {}
+    if resume_from is not None:
+        reused = _reusable_predictions(resume_from, engine=engine, model=model, prompt_style=prompt_style,
+                                       retrieval=retrieval, top_k=top_k, dataset=dataset, guard=guard,
+                                       min_confidence=min_confidence)
+
     predictions: List[Dict[str, Any]] = []
     failures: List[Dict[str, str]] = []
     started = time.perf_counter()
+    called = 0
 
     for index, case in enumerate(cases):
         if progress:
             progress(index, len(cases), case["case_id"])
-        if index and delay and engine != "rules":
+        if case["case_id"] in reused:
+            predictions.append(reused[case["case_id"]])
+            continue
+        if called and delay and engine != "rules":
             time.sleep(delay)
+        called += 1
         try:
             result = adjudicate(case, model=model, top_k=top_k, prompt_style=prompt_style,
                                 retrieval=retrieval, engine=engine, guard=guard,
@@ -103,9 +115,36 @@ def run_experiment(
         "metrics": metrics,
         "baselines": baselines(labels),
     }
+    if resume_from is not None:
+        run["resumed_from"] = {
+            "run_id": resume_from.get("run_id", ""),
+            "reused_case_ids": sorted(reused),
+            "rerun_case_ids": [c["case_id"] for c in cases if c["case_id"] not in reused],
+        }
     if save:
         save_run(run)
     return run
+
+
+RESUME_KEYS = ("engine", "model", "prompt_style", "retrieval", "top_k", "dataset", "guard", "min_confidence")
+
+
+def _reusable_predictions(previous: Dict[str, Any], **config: Any) -> Dict[str, Dict[str, Any]]:
+    """Successful predictions of an interrupted run with the same configuration, by case ID.
+
+    Only an identical configuration may be resumed, so a finished run is the same experiment
+    as one that never stopped; failed cases are left out and run again.
+    """
+    saved = previous.get("config", {})
+    expected = {**config, "prompt_style": config["prompt_style"] if config["engine"] != "rules" else "",
+                "guard": config["guard"] and config["engine"] != "rules",
+                "min_confidence": config["min_confidence"] if config["engine"] != "rules" else 0.0}
+    mismatched = [k for k in RESUME_KEYS if saved.get(k) != expected[k]]
+    if mismatched:
+        raise ValueError(f"cannot resume {previous.get('run_id')}: configuration differs on {', '.join(mismatched)}")
+    failed = {f["case_id"] for f in previous.get("failures", [])}
+    return {p["case_id"]: p for p in previous.get("predictions", [])
+            if p["case_id"] not in failed and p.get("decision") != "UNPARSED"}
 
 
 def save_run(run: Dict[str, Any]) -> Path:
@@ -146,7 +185,10 @@ def main() -> None:
                         help="Escalate when the rules engine disagrees with the LLM.")
     parser.add_argument("--min-confidence", type=float, default=0.0,
                         help="Escalate LLM rulings whose confidence is below this floor.")
+    parser.add_argument("--resume-from", type=Path, default=None,
+                        help="An interrupted run's JSON: reuse its successful cases and rerun only the failed ones.")
     args = parser.parse_args()
+    previous = json.loads(args.resume_from.read_text(encoding="utf-8")) if args.resume_from else None
 
     styles = sorted(PROMPT_STYLES) if args.all_styles and args.engine == "llm" else [args.prompt_style]
     for style in styles:
@@ -162,7 +204,8 @@ def main() -> None:
                                  retrieval=args.retrieval, top_k=args.top_k, dataset=args.dataset,
                                  delay=args.delay, progress=show,
                                  repeat=repeat + 1 if args.repeats > 1 else 0,
-                                 guard=args.guard, min_confidence=args.min_confidence)
+                                 guard=args.guard, min_confidence=args.min_confidence,
+                                 resume_from=previous)
             print(format_summary(run["metrics"]))
             if run["failures"]:
                 print(f"failed cases: {[f['case_id'] for f in run['failures']]}")

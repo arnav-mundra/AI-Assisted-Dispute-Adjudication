@@ -143,3 +143,30 @@ def test_failed_case_counts_against_accuracy(monkeypatch):
     run = experiment.run_experiment(engine="rules", save=False)
     assert len(run["failures"]) == run["metrics"]["n"] > 0
     assert not any(row["correct"] for row in run["metrics"]["per_case"])
+
+
+def test_resume_reruns_only_failed_cases(monkeypatch):
+    from src.evaluation import experiment
+
+    first = experiment.run_experiment(engine="rules", save=False)
+    failed_id = first["predictions"][0]["case_id"]
+    first["predictions"][0] = {"case_id": failed_id, "decision": "UNPARSED", "warnings": ["rate limited"]}
+    first["failures"] = [{"case_id": failed_id, "error": "rate limited"}]
+
+    called = []
+    real = experiment.adjudicate
+    monkeypatch.setattr(experiment, "adjudicate", lambda case, **kw: called.append(case["case_id"]) or real(case, **kw))
+    resumed = experiment.run_experiment(engine="rules", save=False, resume_from=first)
+
+    assert called == [failed_id]
+    assert not resumed["failures"]
+    assert resumed["resumed_from"]["rerun_case_ids"] == [failed_id]
+    assert resumed["predictions"][1:] == first["predictions"][1:]
+
+
+def test_resume_refuses_a_different_configuration():
+    from src.evaluation import experiment
+
+    first = experiment.run_experiment(engine="rules", save=False)
+    with pytest.raises(ValueError, match="top_k"):
+        experiment.run_experiment(engine="rules", top_k=4, save=False, resume_from=first)
