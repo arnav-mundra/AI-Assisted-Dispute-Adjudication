@@ -1,10 +1,11 @@
 """Draw the paper's result figures from saved runs.
 
-    python scripts/plot_figures.py    # writes results/figures/{accuracy_ci,confidence}.{png,pdf}
+    python scripts/plot_figures.py    # writes results/figures/{accuracy_ci,heldout_ci,confidence}.{png,pdf}
 
 accuracy_ci: decision accuracy with 95% Wilson intervals per configuration, repeats pooled
 as in the report tables. confidence: self-reported confidence of correct vs wrong LLM
-rulings. Every point comes from results/runs/*.json; held-out runs are never read.
+rulings. heldout_ci: the same for the held-out set, one column wide, only configurations that
+have a run. Every point comes from results/runs/*.json.
 """
 
 import sys
@@ -73,6 +74,36 @@ def confidence_figure():
     save(fig, "confidence")
 
 
+def heldout_figure():
+    """Column-width accuracy plot for the held-out set: every configuration that has a run."""
+    by_config, majority = panel_data("heldout")
+    rows = [(f"{short}, {style}", f"{model} · {style} · hybrid k=12") for model, short in MODELS for style in STYLES]
+    rows = [r for r in rows if r[1] in by_config] + [("Rules engine", "rules engine")]
+    fig, ax = plt.subplots(figsize=(3.4, 0.45 + 0.27 * len(rows)))
+    for y, (_, key) in enumerate(rows):
+        s = by_config[key]
+        low, high = s["accuracy_ci"]
+        rules = key == "rules engine"
+        ax.plot([low, high], [y, y], color="0.55", lw=1.6, solid_capstyle="round")
+        ax.plot(s["accuracy_mean"], y, marker="s" if rules else "o", ms=4.5,
+                color="black", mfc="white" if rules else "black", mew=1.1, clip_on=False)
+        ax.text(high + 0.02, y, f"{s['accuracy_mean']:.1%}", va="center", fontsize=6.5, color="0.3")
+    ax.axvline(majority["decision_accuracy"], color="0.35", lw=0.9, ls="--")
+    ax.text(majority["decision_accuracy"] - 0.015, -0.55, f"majority ({majority['label'].lower()})",
+            ha="right", va="bottom", fontsize=6.5, color="0.3")
+    ax.set_xlim(0, 1.0)
+    ax.set_xticks([0, 0.25, 0.5, 0.75, 1.0], ["0%", "25%", "50%", "75%", "100%"])
+    ax.set_xlabel("Decision accuracy, n = 34 (95% Wilson CI)")
+    ax.set_yticks(range(len(rows)), [label for label, _ in rows])
+    ax.set_ylim(len(rows) - 0.5, -0.9)
+    ax.grid(axis="x", color="0.9", lw=0.6)
+    ax.set_axisbelow(True)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    fig.tight_layout()
+    save(fig, "heldout_ci")
+
+
 def main():
     plt.rcParams.update({"font.family": "serif", "font.size": 8})
     fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.9), sharey=True)
@@ -106,6 +137,7 @@ def main():
     axes[0].set_ylim(len(ROWS) + 0.2, -0.7)
     fig.tight_layout()
     save(fig, "accuracy_ci")
+    heldout_figure()
     confidence_figure()
 
 

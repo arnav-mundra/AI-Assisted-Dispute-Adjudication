@@ -21,10 +21,11 @@ def _run(run_id, dataset, accuracy, **config):
     }
 
 
-def test_summary_flags_baseline_and_excludes_heldout():
-    summary = results_tables.render_summary([_run("weak-run", "pilot", 0.4), _run("sealed-run", "heldout", 0.9)])
+def test_summary_flags_baseline_and_includes_heldout():
+    # held-out runs are reported since the held-out labels were frozen (14 Nov 2026)
+    summary = results_tables.render_summary([_run("weak-run", "pilot", 0.4), _run("heldout-run", "heldout", 0.9)])
     assert "weak-run" in summary and "At or below the majority-class baseline" in summary
-    assert "sealed-run" not in summary
+    assert "## Heldout" in summary and "heldout-run" in summary
     assert "counterfactual · gpt-oss-120b · facts" in summary  # listed under "Not run yet"
 
 

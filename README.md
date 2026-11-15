@@ -126,6 +126,7 @@ IDs are in `results/icaaic_summary.md`. The 95% intervals are wide at these samp
 | gpt-oss-120b · cot | 10 | 80% | 49%–94% | 33% | 58% | 75% | 0 |
 | gpt-oss-120b · cot | 10 | 80% | 49%–94% | 33% | 58% | 75% | 0 |
 | gpt-oss-120b · cot | 10 | 90% | 60%–98% | 67% | 59% | 75% | 0 |
+| gpt-oss-120b · cot · full context | 10 | 90% | 60%–98% | 67% | 61% | 75% | 0 |
 | qwen3.8-27b · zero_shot | 10 | 80% | 49%–94% | 67% | 51% | 75% | 0 |
 | qwen3.8-27b · facts | 10 | 90% | 60%–98% | 67% | 49% | 100% | 0 |
 | qwen3.8-27b · cot | 10 | 90% | 60%–98% | 67% | 55% | 100% | 0 |
@@ -142,6 +143,7 @@ IDs are in `results/icaaic_summary.md`. The 95% intervals are wide at these samp
 | gpt-oss-120b · zero_shot | 16 | 81% | 57%–93% | 50% | 46% | 100% | 0 |
 | gpt-oss-120b · facts | 16 | 81% | 57%–93% | 75% | 44% | 100% | 0 |
 | gpt-oss-120b · cot | 16 | 81% | 57%–93% | 75% | 44% | 100% | 0 |
+| gpt-oss-120b · cot · full context | 16 | 75% | 51%–90% | 50% | 43% | 100% | 0 |
 | qwen3.8-27b · zero_shot | 16 | 69% | 44%–86% | 75% | 38% | 100% | 0 |
 | qwen3.8-27b · facts | 16 | 94% | 72%–99% | 100% | 41% | 100% | 0 |
 | qwen3.8-27b · cot | 16 | 69% | 44%–86% | 50% | 39% | 100% | 0 |
@@ -149,6 +151,17 @@ IDs are in `results/icaaic_summary.md`. The 95% intervals are wide at these samp
 | gpt-oss-20b · facts | 16 | 62% | 39%–82% | 25% | 40% | 100% | 0 |
 | gpt-oss-20b · cot | 16 | 69% | 44%–86% | 25% | 39% | 100% | 0 |
 | Majority class (always reject) | 16 | 44% | — | 0% | — | — | — |
+
+**Heldout**
+
+| Configuration | n | Decision acc. | 95% Wilson CI | Escalation recall | Clause F1 | Refund acc. | Grounding violations |
+|---|---|---|---|---|---|---|---|
+| Rules engine | 34 | 59% | 42%–74% | 43% | 50% | 33% | 0 |
+| gpt-oss-120b · cot | 34 | 71% | 54%–83% | 29% | 55% | 67% | 0 |
+| qwen3.8-27b · facts | 34 | 79% | 63%–90% | 71% | 55% | 78% | 0 |
+| qwen3.8-27b · cot | 34 | 62% | 45%–76% | 43% | 52% | 78% | 0 |
+| gpt-oss-20b · cot | 34 | 59% | 42%–74% | 0% | 52% | 56% | 0 |
+| Majority class (always approve) | 34 | 47% | — | 0% | — | — | — |
 
 <!-- results:end -->
 

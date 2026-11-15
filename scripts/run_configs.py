@@ -1,7 +1,9 @@
 """Run LLM configs one at a time; stop before a run could exceed the daily budget.
 
 Usage, from the repo root:
-    python scripts/run_configs.py <model> <dataset>:<style>:<expected tokens> ...
+    python scripts/run_configs.py <model> <dataset>:<style>:<expected tokens>[:<top_k>] ...
+
+A fourth field sets top_k (default 12); 29 puts the whole SLA in the prompt.
 """
 import json
 import os
@@ -21,7 +23,8 @@ def child(*args):
     return subprocess.run([PY, *args], env={**os.environ, "PYTHONIOENCODING": "utf-8"})
 
 
-for dataset, style, expected in PLAN:
+for dataset, style, expected, *rest in PLAN:
+    top_k = rest[0] if rest else "12"
     need = int(int(expected) * MARGIN)
     if child("scripts/groq_quota.py", MODEL).returncode != 0:
         print(f"STOP: probe says rate limited before {dataset}/{style}", flush=True)
@@ -34,7 +37,7 @@ for dataset, style, expected in PLAN:
     pattern = f"*{MODEL.split('/')[-1]}*.json"  # lets two models run side by side
     before = set(Path("results/runs").glob(pattern))
     code = child("-m", "src.evaluation.experiment", "--engine", "llm", "--model", MODEL,
-                 "--prompt-style", style, "--dataset", dataset, "--delay", "15").returncode
+                 "--prompt-style", style, "--dataset", dataset, "--top-k", top_k, "--delay", "15").returncode
     new = set(Path("results/runs").glob(pattern)) - before
     if code or len(new) != 1:
         print(f"STOP: run failed, exit {code}, new files {new}", flush=True)
