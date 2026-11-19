@@ -27,7 +27,9 @@ from src.evaluation.experiment import list_runs  # noqa: E402
 DATASETS = (("pilot", "Pilot (n = 10)"), ("counterfactual", "Counterfactual (n = 16)"))
 MODELS = (("gpt-oss-120b", "120b"), ("qwen3.8-27b", "qwen"), ("gpt-oss-20b", "20b"))
 STYLES = ("zero_shot", "facts", "cot")
-ROWS = [(f"{short}, {style}", f"{model} · {style} · hybrid k=12") for model, short in MODELS for style in STYLES]
+STYLE_NAMES = {"zero_shot": "zero-shot", "facts": "facts", "cot": "CoT"}  # as written in the paper
+ROWS = [(f"{short}, {STYLE_NAMES[style]}", f"{model} · {style} · hybrid k=12") for model, short in MODELS
+        for style in STYLES]
 ROWS.append(("Rules engine", "rules engine"))
 
 
@@ -77,8 +79,7 @@ def confidence_figure():
 def heldout_figure():
     """Column-width accuracy plot for the held-out set: every configuration that has a run."""
     by_config, majority = panel_data("heldout")
-    rows = [(f"{short}, {style}", f"{model} · {style} · hybrid k=12") for model, short in MODELS for style in STYLES]
-    rows = [r for r in rows if r[1] in by_config] + [("Rules engine", "rules engine")]
+    rows = [r for r in ROWS[:-1] if r[1] in by_config] + [("Rules engine", "rules engine")]
     fig, ax = plt.subplots(figsize=(3.4, 0.45 + 0.27 * len(rows)))
     for y, (_, key) in enumerate(rows):
         s = by_config[key]

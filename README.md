@@ -157,7 +157,9 @@ IDs are in `results/icaaic_summary.md`. The 95% intervals are wide at these samp
 | Configuration | n | Decision acc. | 95% Wilson CI | Escalation recall | Clause F1 | Refund acc. | Grounding violations |
 |---|---|---|---|---|---|---|---|
 | Rules engine | 34 | 59% | 42%–74% | 43% | 50% | 33% | 0 |
+| gpt-oss-120b · facts | 34 | 65% | 48%–79% | 29% | 59% | 78% | 0 |
 | gpt-oss-120b · cot | 34 | 71% | 54%–83% | 29% | 55% | 67% | 0 |
+| qwen3.8-27b · zero_shot | 34 | 68% | 51%–81% | 71% | 53% | 67% | 0 |
 | qwen3.8-27b · facts | 34 | 79% | 63%–90% | 71% | 55% | 78% | 0 |
 | qwen3.8-27b · cot | 34 | 62% | 45%–76% | 43% | 52% | 78% | 0 |
 | gpt-oss-20b · cot | 34 | 59% | 42%–74% | 0% | 52% | 56% | 0 |
